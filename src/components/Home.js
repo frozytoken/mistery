@@ -13,40 +13,43 @@ const Home = () => {
   const [isAtRest, setIsAtRest] = useState(true);
   const [bubbles, setBubbles] = useState([]);
   const [userCountry, setUserCountry] = useState("UNKNOWN");
+  const [bubbleCooldown, setBubbleCooldown] = useState(false);
 
   // Frases específicas de Frozy
   const phrases = [
-    "¡PUM! Otro clic más.",
-    "¡Boom! Vamos a la cima.",
-    "No pares ahora.",
-    "Más alto, más fuerte.",
-    "¡A por el récord!",
-    "¿Es este el final?",
-    "¡Tú puedes!",
-    "Esto es adictivo, ¿eh?",
-    "¡Otro y seguimos!",
-    "¿Quién te detiene?",
-    "¡Llevamos la delantera!",
-    "Nada puede pararnos.",
-    "¡Sigamos rompiendo límites!",
-    "¿Es esto lo más alto?",
-    "¡Más rápido!",
-    "Vamos a romper el marcador.",
-    "¡Un paso más cerca!",
-    "Nadie nos iguala.",
-    "¡La cima es nuestra!",
-    "¿Eso es todo?",
-    "¡Clic clic clic!",
-    "¡No pares ahora!",
-    "¡Estamos imparables!",
-    "¡Así se hace!",
-    "¡Wow, qué ritmo!",
-    "¿Otro? Claro que sí.",
-    "¡El cielo no es el límite!",
-    "¡Rompiendo récords!",
-    "¿Puedes más rápido?",
-    "¡Esto es épico!",
-  ];
+    "Keep clicking, you broke loser! This is your shot!",
+    "Boom! Millionaire vibes incoming!",
+    "Don’t stop now, we’re printing money!",
+    "Higher! Faster! Get rich or die clicking!",
+    "Let’s break records and wallets, baby!",
+    "Is that all you’ve got? Click like you mean it!",
+    "You wanna be poor forever? Keep clicking!",
+    "Damn, this is addictive! Don’t slow down!",
+    "Another click, another dollar in the bag!",
+    "Who’s gonna stop us? Not these paper hands!",
+    "We’re in the lead, baby! Stay on top!",
+    "Nothing can stop this degenerate train!",
+    "Push the limits! Break the damn system!",
+    "Is this the top? Hell no, keep going!",
+    "Click harder, you weakling! Faster!",
+    "We’re smashing the leaderboard, let’s go!",
+    "One step closer to the moon!",
+    "Nobody can touch us, let’s show them!",
+    "We own the damn sky, keep clicking!",
+    "That’s it? Pathetic. Click more!",
+    "Click, click, click! Don’t be a coward!",
+    "We’re unstoppable! Show them who’s boss!",
+    "Hell yeah, that’s how you do it!",
+    "Wow, this pace is insane! Keep it up!",
+    "Another click? Damn right, don’t stop!",
+    "The sky’s not the limit, we break through!",
+    "Breaking records left and right, baby!",
+    "Faster! Are you even trying?",
+    "This is f***ing epic, keep smashing!",
+    "Click like you’re printing cash!",
+    "Wanna be broke? Stop clicking. Wanna be rich? Keep going!"
+];
+
 
   // Obtener país del usuario mediante ipwhois.app
   useEffect(() => {
@@ -84,9 +87,17 @@ const Home = () => {
     setIsAtRest(false);
     setCandleHeight((prev) => Math.min(prev + 50, window.innerHeight * 3));
 
-    // Elegir frase aleatoria y mostrarla como burbuja
-    const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-    setBubbles((prev) => [...prev, { id: Date.now(), text: phrase }]);
+    if (!bubbleCooldown) {
+      // Elegir frase aleatoria y mostrarla como burbuja
+      const phrase = phrases[Math.floor(Math.random() * phrases.length)];
+      setBubbles((prev) => [...prev, { id: Date.now(), text: phrase }]);
+      setBubbleCooldown(true);
+
+      // Cooldown de 3 segundos
+      setTimeout(() => {
+        setBubbleCooldown(false);
+      }, 4000);
+    }
 
     incrementClicks();
   };
@@ -145,7 +156,7 @@ const Home = () => {
           }`}
           style={{
             height: `${candleHeight}px`,
-            zIndex: 1, // Asegúrate de que esté por debajo del leaderboard
+            zIndex: 1,
           }}
         >
           <div className="wick"></div>

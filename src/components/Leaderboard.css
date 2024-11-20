@@ -14,8 +14,8 @@
 /* Contenedor principal del leaderboard */
 .leaderboard {
     width: 100%;
-    max-width: 600px;
-    background-color: #1b1f2a;
+    max-width: 700px;
+    background: linear-gradient(145deg, #1f2430, #232833);
     color: #e0f7ff;
     overflow: hidden;
     position: absolute;
@@ -23,26 +23,26 @@
     left: 50%;
     transform: translateX(-50%);
     z-index: 10;
-    transition: max-height 0.3s ease;
+    transition: max-height 0.3s ease, box-shadow 0.3s ease;
     font-family: 'ModernSans', sans-serif;
-    padding: 8px;
-    border: 3px solid #3b6ea5;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    border-radius: 8px;
+    border: 2px solid #4a90e2;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
 }
 
 .leaderboard.collapsed {
-    max-height: 50px;
+    max-height: 60px;
     display: flex;
     align-items: center;
-    padding: 15px 10px;
+    padding: 12px 0px;
     cursor: pointer;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
 .leaderboard.expanded {
-    max-height: 400px;
+    max-height: 500px;
     flex-direction: column;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.7);
 }
 
 /* Header del leaderboard */
@@ -51,21 +51,25 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    background-color: #161a24;
-    padding: 10px 15px;
-    border-bottom: 2px solid #3b6ea5;
+    background-color: #1a1d26;
+    padding: 15px 20px;
+    border-bottom: 2px solid #4a90e2;
     cursor: pointer;
-  }
-  .leaderboard-left {
+    border-radius: 8px 8px 0 0;
+}
+.leaderboard-left {
     display: flex;
     align-items: center;
-  }
-  .leaderboard-right {
+    gap: 10px;
+}
+.leaderboard-right {
     display: flex;
     align-items: center;
-  }
+    gap: 10px;
+}
+
 .leaderboard-title {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: bold;
     text-align: center;
     width: 100%;
@@ -78,25 +82,25 @@
 }
 
 .trophy, .globe-icon {
-    margin-right: 5px;
-    color: #3b6ea5;
+    margin-right: 10px;
+    color: #4a90e2;
+    font-size: 1.5rem;
 }
 
 .separator, .center-separator {
-    color: #3b6ea5;
+    color: #4a90e2;
     font-size: 1.2rem;
 }
 
 /* Contenido del leaderboard */
 .leaderboard-content {
-    padding: 15px;
-    max-height: 350px;
+    padding: 20px;
+    max-height: 400px;
     overflow-y: auto;
-    background-color: #1b1f2a;
-    border-top: 2px solid #3b6ea5;
+    background-color: #1f2430;
     transition: opacity 0.3s ease-in-out;
     opacity: 1;
-    border-radius: 0 0 8px 8px;
+    border-radius: 0 0 10px 10px;
 }
 
 /* Estilo para la vista mundial */
@@ -105,18 +109,22 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
-  }
+    border-bottom: 1px solid #4a90e2;
+}
 
 .country-rank {
-    margin-right: 5px;
-    font-size: 1rem;
-    color: #9ecaff;
+    font-size: 1.2rem;
+    color: #72b7f7;
+    font-weight: bold;
+    margin-right: 8px;
 }
 
 .country-flag {
-    margin-right: 5px;
-    width: 24px;
-    height: 16px;
+    margin-right: 8px;
+    width: 30px;
+    height: 20px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .country-name {
@@ -124,12 +132,17 @@
     text-align: left;
     margin-left: 5px;
     color: #e0f7ff;
+    font-size: 1rem;
+    font-weight: 500;
 }
 
 .country-clicks {
     text-align: right;
     margin-left: auto;
-  }
+    font-size: 1.1rem;
+    color: #ffffff;
+    font-weight: bold;
+}
 
 /* Lista del leaderboard */
 .leaderboard-content ul {
@@ -142,130 +155,62 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 8px 15px;
-    border-bottom: 1px solid #3b6ea5;
+    padding: 12px 20px;
+    border-bottom: 1px solid #4a90e2;
 }
 
 .leaderboard-item:nth-child(odd) {
-    background-color: #232836;
+    background-color: #282e3c;
 }
 
 .leaderboard-item:nth-child(even) {
-    background-color: #1f2431;
+    background-color: #232833;
+}
+
+.leaderboard-item:hover {
+    background-color: #4a90e2;
+    color: #ffffff;
+    transform: scale(1.02);
+    transition: all 0.2s ease-in-out;
+}
+
+.expand-arrow {
+    font-size: 1.2rem;
+    color: #e0f7ff;
+    margin-left: 10px;
 }
 
 /* Scrollbar personalizado */
 .leaderboard-content::-webkit-scrollbar {
-    width: 8px;
+    width: 10px;
 }
 
 .leaderboard-content::-webkit-scrollbar-thumb {
-    background-color: #3b6ea5;
-    border-radius: 4px;
+    background-color: #4a90e2;
+    border-radius: 5px;
 }
 
 .leaderboard-content::-webkit-scrollbar-track {
-    background-color: #1b1f2a;
+    background-color: #1f2430;
 }
 
-.leaderboard-item:hover {
-    background-color: #3b6ea5;
-    color: #ffffff;
-}
-
-.expand-arrow {
-    font-size: 1rem;
-    color: #e0f7ff;
-}
-
-/* Estilo del contador */
-.cps-count {
-    color: #3ef76f;
-    font-weight: bold;
-    margin-right: 16px;
-    font-size: 0.8rem;
-    display: inline-block;
-}
-
-.country-clicks {
-    display: inline-block;
-    font-size: 0.95rem;
-    color: #ffffff;
-    text-align: right;
-}
-.user-country {
-  margin-top: 10px;
-  text-align: center;
-  color: #e0f7ff;
-  font-size: 1rem;
-  font-weight: bold;
-}
-/* Banderas */
-.flag-icon {
-    margin-right: 8px;
-    width: 24px;
-    height: 16px;
-    background-size: cover;
-  }  
 /* Ajustes responsive */
-
-/* Extra small devices (phones, less than 576px) */
 @media (max-width: 575.98px) {
     .leaderboard {
         max-width: 100%;
         font-size: 0.9rem;
-        padding: 2px;
     }
     .leaderboard-header {
-        padding: 5px;
-    }
-    .leaderboard-title {
-        font-size: 1rem;
-        margin: 5px 0;
-    }
-    .leaderboard-content {
-        padding: 5px;
-    }
-    .country-rank,
-    .country-clicks {
-        font-size: 0.85rem;
-    }
-}
-
-/* Small devices (tablets, 576px and up) */
-@media (min-width: 576px) and (max-width: 767.98px) {
-    .leaderboard {
-        max-width: 100%;
-        padding: 5px;
-    }
-    .leaderboard-title {
-        font-size: 1.05rem;
-    }
-}
-
-/* Medium devices (small laptops, 768px and up) */
-@media (min-width: 768px and max-width: 991.98px) {
-    .leaderboard {
-        max-width: 90%;
+        padding: 10px;
     }
     .leaderboard-title {
         font-size: 1.1rem;
     }
-    .country-name {
-        font-size: 1rem;
+    .leaderboard-content {
+        padding: 10px;
     }
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media (min-width: 992px and max-width: 1199.98px) {
-    .leaderboard {
-        max-width: 80%;
-    }
-}
-
-/* Extra large devices (large desktops, 1200px and up) */
-@media (min-width: 1200px) {
-    .leaderboard {
-        max-width: 40%;
+    .country-rank,
+    .country-clicks {
+        font-size: 0.9rem;
     }
 }

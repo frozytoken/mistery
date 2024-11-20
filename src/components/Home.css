@@ -67,7 +67,7 @@
   cursor: pointer;
   pointer-events: all;
   user-select: none;
-  z-index: 10;
+  z-index: 8;
 }
 
 /* Imagen del meme */
@@ -89,7 +89,7 @@
   box-shadow: 0px 0px 20px rgba(40, 167, 69, 0.8), 0px 0px 10px rgba(0, 167, 69, 0.5) inset;
   border-radius: 3px 3px 0 0;
   transition: height 0.1s ease-in-out, box-shadow 0.3s ease-in-out;
-  z-index: 1500; /* Por encima del navbar */
+  z-index: 2; /* Por encima del navbar */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -125,6 +125,47 @@
     transform: translateY(-10%); /* Subir un 2% */
   }
 }
+.bubble {
+  position: absolute;
+  bottom: 38%; /* Ajustado más arriba */
+  left: 42%; /* Ajustado más a la izquierda */
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ffc107, #ffa500); /* Degradado suave */
+  color: #333;
+  font-family: "Comic Sans MS", sans-serif;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: 2px solid #e09000; /* Borde más oscuro */
+  border-radius: 12px;
+  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4); /* Sombra más sutil */
+  animation: bubbleFade 4s ease-in-out forwards;
+  z-index: 9;
+}
+.bubble::after {
+  content: "";
+  position: absolute;
+  bottom: -20px; /* Ajuste para el rabillo */
+  left: 80%; /* Ajustar el rabillo a la posición */
+  width: 0;
+  height: 0;
+  border-style: solid;
+  border-width: 20px 15px 0 15px; /* Rabillo triangular invertido */
+  border-color: #ff8c00 transparent transparent transparent; /* Fondo y transparencia */
+  z-index: 8; /* Debajo del bubble */
+  transform: rotate(-10deg); /* Ligeramente inclinado */
+}
+@keyframes bubbleFade {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-50px);
+  }
+}
+
 /* Consultas de medios para adaptabilidad */
 @media (max-width: 768px) {
   .title {
