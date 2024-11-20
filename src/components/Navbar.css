@@ -1,0 +1,109 @@
+/* Importa la fuente Halau */
+@font-face {
+    font-family: 'Halau';
+    src: url('../assets/fonts/Halau.otf') format('opentype');
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #0a0a1a; /* Fondo oscuro */
+    color: #fff;
+    z-index: 1000; /* Dejarlo en 1000 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Distribuir elementos a los extremos */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.5s ease-in-out;
+    padding: 0.8rem 5rem; /* Aumenta el padding para desplazar elementos */
+    overflow: visible; /* Permitir que los elementos sobresalgan */
+  }
+  
+  .navbar-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar-logo {
+    display: flex;
+    align-items: center;
+    margin-top: -0.5rem; /* Margen negativo para subir el logo */
+  }
+  
+  .navbar-logo h1 {
+    font-family: 'Halau', sans-serif; /* Aplica la fuente Halau al logo */
+    font-size: 2.5rem; /* Amplía la fuente del logo */
+    color: #fff;
+  }
+  
+  .navbar-links {
+    display: flex;
+    gap: 2rem;
+    justify-content: flex-start; /* Alinea los enlaces al borde izquierdo */
+    flex: 1;
+    margin-left: 1.5rem; /* Separa un poco los enlaces del logo */
+    align-items: center; /* Centra verticalmente los enlaces en el navbar */
+  }
+  
+  .navbar-links a {
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem; /* Aumenta ligeramente el tamaño del texto */
+    font-weight: 600; /* Hace la fuente más bold */
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .navbar-links a:hover {
+    color: #00d4ff;
+  }
+  
+  .navbar-icons {
+    display: flex;
+    gap: 1.2rem; /* Reduce la separación entre los íconos */
+    justify-content: flex-end; /* Alinear íconos al borde derecho */
+    align-items: center; /* Centra los íconos verticalmente */
+  }
+  
+  .navbar-icon {
+    font-size: 2rem; /* Aumenta el tamaño de los íconos */
+    color: #fff;
+    transition: color 0.3s;
+  }
+  
+  .navbar-icon:hover {
+    color: #00d4ff;
+  }
+  
+  .navbar-icon-image {
+    width: 35px; /* Aumenta el tamaño de las imágenes de los íconos */
+    height: 35px;
+    object-fit: contain; /* Asegura que la imagen no se distorsione */
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .navbar-icon-image:hover {
+    transform: scale(1.1); /* Efecto hover */
+  }
+  
+  .navbar-buy {
+    padding: 0.5rem 1.5rem;
+    background-color: transparent;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  
+  .navbar-buy:hover {
+    background-color: #fff;
+    color: #0a0a1a;
+  }
+  

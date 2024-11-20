@@ -1,0 +1,187 @@
+/* Contenedor general */
+.home-container {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background: url("../assets/fondobanner.png") no-repeat center center;
+  background-size: cover;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  user-select: none;
+  z-index: 1;
+}
+
+/* Título */
+.title {
+  position: absolute;
+  top: 15%; /* Proporcionalmente mejor para cualquier pantalla */
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10rem; /* Destacado pero no exagerado */
+  font-weight: 700; /* Bold, pero no extra bold */
+  color: white;
+  font-family: "Halau", sans-serif;
+  letter-spacing: 5px; /* Espaciado amplio para un toque premium */
+  text-transform: uppercase;
+  text-align: center;
+  background: linear-gradient(90deg, #ffffff, #00c6ff, #ffffff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent; /* Gradiente limpio */
+  animation: textGlow 2s infinite ease-in-out; /* Efecto suave */
+  z-index: 20000;
+}
+
+/* Animación de brillo suave */
+@keyframes textGlow {
+  0%, 100% {
+    text-shadow: 
+      0 0 5px rgba(255, 255, 255, 0.5), 
+      0 0 10px rgba(0, 198, 255, 0.4), 
+      0 0 20px rgba(0, 198, 255, 0.3);
+  }
+  50% {
+    text-shadow: 
+      0 0 10px rgba(255, 255, 255, 0.7), 
+      0 0 15px rgba(0, 198, 255, 0.6), 
+      0 0 30px rgba(0, 198, 255, 0.5);
+  }
+}
+
+
+
+/* Contenedor del meme */
+.meme-container {
+  position: absolute;
+  bottom: 17%;
+  left: 52%;
+  transform: translateX(-50%);
+  width: 25vw; /* Tamaño relativo a la ventana */
+  max-width: 150px;
+  aspect-ratio: 477 / 826;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  pointer-events: all;
+  user-select: none;
+  z-index: 10;
+}
+
+/* Imagen del meme */
+.meme {
+  width: 100%;
+  height: auto;
+  pointer-events: none;
+}
+
+/* Vela japonesa */
+.candle {
+  position: absolute;
+  bottom: 26.8%;
+  left: calc(50% + 5.3vw); /* Ajustar según el tamaño de la pantalla */
+  width: 4vw; /* Tamaño relativo */
+  max-width: 15px;
+  height: 5vh; /* Altura inicial visible del 5% del viewport */
+  background: linear-gradient(to top, #28a745, #71f88c);
+  box-shadow: 0px 0px 20px rgba(40, 167, 69, 0.8), 0px 0px 10px rgba(0, 167, 69, 0.5) inset;
+  border-radius: 3px 3px 0 0;
+  transition: height 0.1s ease-in-out, box-shadow 0.3s ease-in-out;
+  z-index: 1500; /* Por encima del navbar */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: visible;
+}
+
+/* Animación flotante solo cuando está en reposo */
+.candle.resting {
+  animation: float 3s ease-in-out infinite; /* Animación de subir y bajar */
+}
+
+/* Desactivar animación cuando está clickeando */
+.candle.pumping {
+  animation: none; /* Desactiva la animación */
+}
+
+/* Mecha de la vela */
+.wick {
+  position: absolute;
+  top: -5px;
+  width: 50%;
+  height: 10px;
+  background-color: black;
+  border-radius: 50%;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+}
+/* Animación flotante */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0); /* Posición inicial */
+  }
+  50% {
+    transform: translateY(-10%); /* Subir un 2% */
+  }
+}
+/* Consultas de medios para adaptabilidad */
+@media (max-width: 768px) {
+  .title {
+    font-size: 8vw;
+  }
+  
+  .meme-container {
+    width: 40vw;
+  }
+  
+  .candle {
+    width: 6vw;
+    left: calc(50% + 10vw);
+  }
+}
+
+@media (max-width: 480px) {
+  .title {
+    font-size: 10vw;
+  }
+  
+  .meme-container {
+    width: 50vw;
+    bottom: 21%;
+  }
+  
+  .candle {
+    width: 8vw;
+    left: calc(50% + 17vw);
+    bottom: 31%;
+  }
+}
+/* Consultas de medios para pantallas ultra anchas (2560x1080 y similares) */
+@media (min-aspect-ratio: 21/9) {
+  .home-container {
+    background-size: cover; /* Asegura que el fondo llene la pantalla horizontalmente */
+  }
+
+  .title {
+    top: 20%; /* Baja ligeramente para adaptarse al espacio extra horizontal */
+    font-size: 4vw; /* Reduce el tamaño para que no sea demasiado dominante */
+    letter-spacing: 4px; /* Aumenta el espaciado para mejorar la estética en pantallas amplias */
+  }
+
+  .meme-container {
+    width: 20vw; /* Reduce el ancho relativo para que no ocupe demasiado espacio */
+    bottom: 7%; /* Ajusta la posición vertical para adaptarse al diseño */
+  }
+
+  .candle {
+    width: 3vw; /* Reduce el tamaño de la vela en proporción a la pantalla */
+    left: calc(50% + 4.4vw); /* Ajusta su posición horizontal */
+    bottom: 17%; /* Reposiciona ligeramente hacia arriba */
+  }
+
+  .wick {
+    width: 40%; /* Reduce el tamaño de la mecha proporcionalmente */
+    height: 8px;
+  }
+}
