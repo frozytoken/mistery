@@ -1,0 +1,102 @@
+.about-section-desktop {
+  background: linear-gradient(180deg, #0d0d0d, #1a1a2e);
+  color: #d4f1f9;
+  text-align: center;
+  position: relative;
+  height: 100vh; /* Mantiene la altura completa del viewport */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Ajusta el contenido hacia la parte superior */
+  align-items: center;
+  padding: 20px 40px; /* Margen interno más amplio */
+  overflow: hidden;
+}
+
+/* Línea decorativa superior */
+.about-divider-desktop {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.line-left-desktop,
+.line-right-desktop {
+  border: none;
+  border-top: 3px solid #87ceeb; /* Línea sólida */
+  width: 30%; /* Ocupa un tercio del ancho total */
+  position: relative;
+  background: none;
+}
+
+.line-left-desktop::before,
+.line-right-desktop::before {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 10px;
+  height: 10px;
+  border-radius: 50%; /* Puntos decorativos circulares */
+  background: linear-gradient(45deg, #00c6ff, #ffffff);
+  box-shadow: 0 0 8px rgba(0, 198, 255, 0.5);
+}
+
+/* Título del About */
+.about-title-desktop {
+  font-family: "Halau", sans-serif;
+  font-size: 4rem; /* Ajusta el tamaño del título */
+  font-weight: bold;
+  color: #87ceeb;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin: 0 0 20px 0; /* Espaciado con respecto a otros elementos */
+  background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGlow 2s infinite ease-in-out;
+}
+
+/* Animación del título */
+@keyframes textGlow {
+  0%,
+  100% {
+    text-shadow: 0 0 6px rgba(0, 198, 255, 0.4), 0 0 12px rgba(255, 255, 255, 0.3);
+  }
+  50% {
+    text-shadow: 0 0 10px rgba(0, 198, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.5);
+  }
+}
+
+/* Contenido del About */
+.about-content-desktop {
+  max-width: 800px; /* Tamaño máximo del contenido */
+  margin: 20px auto;
+  z-index: 2;
+}
+
+.about-description-desktop {
+  font-size: 1.5rem; /* Tamaño de fuente legible */
+  line-height: 2;
+  color: #e0f7fa;
+  text-align: justify;
+  margin: 10px 0;
+}
+
+/* Forma inferior */
+.about-shape-bottom-desktop {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 20%;
+  z-index: 1;
+}
+
+.about-shape-bottom-desktop svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}

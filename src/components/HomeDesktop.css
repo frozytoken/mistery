@@ -32,21 +32,22 @@
   z-index: 20000;
 }
 
-/* Animación de brillo pronunciado */
+/* Animación de brillo moderado */
 @keyframes textGlow {
   0%, 100% {
     text-shadow: 
-      0 0 10px rgba(255, 255, 255, 0.7), 
-      0 0 20px rgba(0, 198, 255, 0.6), 
-      0 0 40px rgba(0, 198, 255, 0.5);
+      0 0 6px rgba(255, 255, 255, 0.5), 
+      0 0 12px rgba(0, 198, 255, 0.4), 
+      0 0 24px rgba(0, 198, 255, 0.3);
   }
   50% {
     text-shadow: 
-      0 0 20px rgba(255, 255, 255, 1), 
-      0 0 30px rgba(0, 198, 255, 0.8), 
-      0 0 60px rgba(0, 198, 255, 0.7);
+      0 0 12px rgba(255, 255, 255, 0.7), 
+      0 0 18px rgba(0, 198, 255, 0.6), 
+      0 0 36px rgba(0, 198, 255, 0.5);
   }
 }
+
 
 /* Contenedor del meme */
 .meme-container {
@@ -165,7 +166,7 @@
 }
 .contract-wrapper {
   position: absolute;
-  top: 45%; /* Centrado vertical */
+  top: 43%; /* Centrado vertical */
   left: 50%;
   transform: translate(-50%, -50%);
   width: auto; /* Ajusta automáticamente según el contenido */
@@ -250,7 +251,7 @@
 /* Cuadro para el contador de PUMPS TOTALES */
 .total-pumps-counter {
   position: absolute;
-  bottom: 11.2%; /* Ubicado justo debajo del meme */
+  bottom: 9%; /* Ubicado justo debajo del meme */
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.85); /* Fondo oscuro */

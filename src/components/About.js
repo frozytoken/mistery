@@ -1,31 +1,72 @@
-import React from "react";
-import "./About.css";
+import React, { useEffect, useState } from "react";
+import "./AboutDesktop.css";
+import "./AboutMobile.css";
 
 const About = () => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Define móvil como ≤ 768px
+    };
+
+    handleResize(); // Ejecuta en la carga inicial
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="about-section">
+    <div className={isMobile ? "about-section-mobile" : "about-section-desktop"}>
       {/* Líneas decorativas superiores */}
-      <div className="about-divider">
-        <hr className="line-left" />
-        <hr className="line-right" />
+      <div
+        className={
+          isMobile ? "about-divider-mobile" : "about-divider-desktop"
+        }
+      >
+        <hr
+          className={isMobile ? "line-left-mobile" : "line-left-desktop"}
+        />
+        <h2
+          className={isMobile ? "about-title-mobile" : "about-title-desktop"}
+        >
+          DVIL THE PUMPERMAN
+        </h2>
+        <hr
+          className={isMobile ? "line-right-mobile" : "line-right-desktop"}
+        />
       </div>
 
       {/* Contenido principal */}
-      <div className="about-content">
-        <h2 className="about-title">DVIL THE PUMPERMAN</h2>
-        <p className="about-description">
-          Deep within the icy abyss of chaos, Fiumbi emerged as the frosty imp
-          of fortunes. Mischievous, unpredictable, and utterly captivating,
-          Fiumbi is not your ordinary demon. Fueled by the icy winds and clicks
-          of daring mortals, this little imp toys with fate and tempts destiny
-          with every pump. Legend says that those who aid Fiumbi might just
-          unlock unimaginable wealth—or freeze in despair. Will you take the
-          gamble and rise to glory?
+      <div
+        className={
+          isMobile ? "about-content-mobile" : "about-content-desktop"
+        }
+      >
+        <p
+          className={
+            isMobile
+              ? "about-description-mobile"
+              : "about-description-desktop"
+          }
+        >
+          Deep within the chaotic heart of the market, DVIL the Pumperman has
+          descended to unleash a storm of unpredictable gains and electrifying
+          excitement. Born from the whispers of traders, DVIL doesn’t play
+          nice—he pumps the market to oblivion. With devilish charm and a hunger
+          for chaos, DVIL thrives on your ambition and audacity. Will you rise
+          to glory or be left in the dust? DVIL never waits.
         </p>
       </div>
 
       {/* Forma inferior suave */}
-      <div className="about-shape-bottom">
+      <div
+        className={
+          isMobile
+            ? "about-shape-bottom-mobile"
+            : "about-shape-bottom-desktop"
+        }
+      >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 1440 320"
