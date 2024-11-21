@@ -1,0 +1,89 @@
+
+/* Desktop Styles */
+.buy-section-desktop {
+    background: linear-gradient(180deg, #1a1a2e, #0d0d0d);
+    color: #d4f1f9;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    padding: 40px 20px;
+  }
+  
+  /* Transición Suave */
+  .buy-shape-top-desktop {
+    position: absolute;
+    top: -15%;
+    left: 0;
+    width: 100%;
+    height: 20%;
+    background: linear-gradient(180deg, #0d0d0d, rgba(26, 26, 46, 0));
+    z-index: 1;
+  }
+  
+  /* Contenedor Principal */
+  .buy-section-content-desktop {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 1200px;
+    z-index: 2;
+  }
+  
+  /* Texto */
+  .buy-text-desktop {
+    flex: 1;
+    text-align: left;
+  }
+  
+  .buy-title-desktop {
+    font-size: 3rem;
+    font-weight: bold;
+    color: #00c6ff;
+    text-transform: uppercase;
+    margin-bottom: 15px;
+    background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  
+  .buy-description-desktop {
+    font-size: 1.2rem;
+    color: #e0f7fa;
+  }
+  
+  /* Widget */
+  .widget-container-desktop {
+    flex: 1;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .jupiter-terminal-desktop {
+    width: 70%;
+    height: 400px;
+    border: 3px solid #BFEEF3;
+    border-radius: 10px;
+    background-color: #121212;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    z-index: 2;
+  }
+  
+  /* Imagen del Personaje */
+  .character-image-desktop {
+    position: absolute;
+    top: -190px;
+    left: 22px;
+    width: 200px;
+    z-index: 3;
+    pointer-events: none;
+  }
+  

@@ -3,12 +3,12 @@
   color: #d4f1f9;
   text-align: center;
   position: relative;
-  height: 100vh; /* Mantiene la altura completa del viewport */
+  height: 100vh; /* Altura completa del viewport */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* Ajusta el contenido hacia la parte superior */
+  justify-content: flex-start;
   align-items: center;
-  padding: 20px 40px; /* Margen interno más amplio */
+  padding: 20px 40px;
   overflow: hidden;
 }
 
@@ -18,7 +18,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 20px 0;
+  margin: 30px 0; /* Mayor espaciado */
 }
 
 .line-left-desktop,
@@ -37,26 +37,27 @@
   top: -5px;
   left: 50%;
   transform: translateX(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%; /* Puntos decorativos circulares */
+  width: 12px; /* Tamaño ligeramente mayor */
+  height: 12px;
+  border-radius: 50%;
   background: linear-gradient(45deg, #00c6ff, #ffffff);
-  box-shadow: 0 0 8px rgba(0, 198, 255, 0.5);
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.6); /* Brillo más suave */
 }
 
 /* Título del About */
 .about-title-desktop {
   font-family: "Halau", sans-serif;
-  font-size: 4rem; /* Ajusta el tamaño del título */
+  font-size: 4.5rem; /* Título más grande */
   font-weight: bold;
   color: #87ceeb;
   text-transform: uppercase;
   letter-spacing: 3px;
-  margin: 0 0 20px 0; /* Espaciado con respecto a otros elementos */
+  margin: 20px 0; /* Espaciado adicional */
   background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textGlow 2s infinite ease-in-out;
+  text-shadow: 0 0 20px rgba(0, 198, 255, 0.4); /* Brillo adicional */
 }
 
 /* Animación del título */
@@ -66,23 +67,24 @@
     text-shadow: 0 0 6px rgba(0, 198, 255, 0.4), 0 0 12px rgba(255, 255, 255, 0.3);
   }
   50% {
-    text-shadow: 0 0 10px rgba(0, 198, 255, 0.6), 0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 14px rgba(0, 198, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.5);
   }
 }
 
 /* Contenido del About */
 .about-content-desktop {
-  max-width: 800px; /* Tamaño máximo del contenido */
-  margin: 20px auto;
+  max-width: 700px; /* Reduce el ancho para dispositivos más pequeños */
+  margin: 40px auto; /* Espaciado superior más grande */
   z-index: 2;
 }
 
 .about-description-desktop {
-  font-size: 1.5rem; /* Tamaño de fuente legible */
-  line-height: 2;
+  font-size: 1.4rem; /* Texto más compacto */
+  line-height: 1.8;
   color: #e0f7fa;
   text-align: justify;
   margin: 10px 0;
+  padding: 0 20px; /* Espaciado lateral */
 }
 
 /* Forma inferior */
@@ -91,7 +93,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 20%;
+  height: 15%; /* Altura ajustada */
   z-index: 1;
 }
 

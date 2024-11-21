@@ -190,8 +190,11 @@ const Home = () => {
 
   return (
     <div className={`home-container ${isMobile ? "home-container-mobile" : "home-container-desktop"}`}>
+      {/* Filtro de ruido */}
+      <div className="noise-filter"></div>
+  
       <h1 className="title">dvil</h1>
-
+  
       {/* Contenedor del contrato */}
       <div className="contract-wrapper">
         <div
@@ -208,7 +211,7 @@ const Home = () => {
           <div className="copy-feedback">Contract address copied!</div>
         )}
       </div>
-
+  
       {/* Contenedor del meme */}
       <div
         className="meme-container"
@@ -218,17 +221,17 @@ const Home = () => {
         onTouchEnd={handleRelease}
       >
         <img
-          src={globalIsPumping ? memePump : memeIdle} // Estado global
+          src={globalIsPumping ? memePump : memeIdle}
           alt="Meme"
           className="meme"
         />
       </div>
-
+  
       {/* Cuadro de PUMPS TOTALES */}
       <div className="total-pumps-counter">
         <span>{formatNumber(totalGlobalClicks)} PUMPS</span>
       </div>
-
+  
       <div className="content-wrapper">
         <div
           className={`candle ${isPumping ? "pumping" : ""} ${
@@ -243,7 +246,7 @@ const Home = () => {
         </div>
         <Leaderboard />
       </div>
-
+  
       {bubbles.map((bubble) => (
         <div key={bubble.id} className="bubble">
           {bubble.text}
@@ -251,6 +254,7 @@ const Home = () => {
       ))}
     </div>
   );
+  
 };
 
 export default Home;
