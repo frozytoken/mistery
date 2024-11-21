@@ -97,7 +97,7 @@
     top: 89%; /* Ajustar para centrado visual */
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 95%;
+    width: 75%;
     max-width: 100%; /* Ocupa más espacio en móviles */
     padding: 8px; /* Reduce el espaciado interno */
     background: rgba(0, 0, 0, 0.85);
@@ -112,7 +112,7 @@
   
   /* Dirección del contrato */
   .home-container-mobile .contract-address {
-    font-size: 0.95rem; /* Mantén el tamaño reducido */
+    font-size: 0.7rem; /* Mantén el tamaño reducido */
     font-family: monospace;
     color: #00ffcc;
     text-align: center; /* Centrar el texto */
