@@ -135,7 +135,7 @@
 .bubble::after {
   content: "";
   position: absolute;
-  bottom: -12px; /* Ajuste para que el rabillo se incruste */
+  bottom: -20px; /* Ajuste para que el rabillo se incruste */
   right: 10px; /* Pegado hacia el borde derecho */
   width: 0;
   height: 0;
@@ -148,7 +148,7 @@
 .bubble::before {
   content: "";
   position: absolute;
-  bottom: -14px; /* Más abajo para el borde negro */
+  bottom: -20px; /* Más abajo para el borde negro */
   right: 10px; /* Mismo posicionamiento que el rabillo */
   width: 0;
   height: 0;

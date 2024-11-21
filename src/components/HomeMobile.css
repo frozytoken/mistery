@@ -151,7 +151,7 @@
     padding: 6px 10px; /* Más compacto */
     background: rgba(0, 255, 170, 0.9); /* Fondo similar al desktop */
     color: #000;
-    font-size: 0.9rem; /* Fuente más pequeña para móviles */
+    font-size: 0.7rem; /* Fuente más pequeña para móviles */
     font-weight: bold;
     border-radius: 6px; /* Bordes redondeados */
     box-shadow: 0px 3px 8px rgba(0, 255, 170, 0.5);
