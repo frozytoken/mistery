@@ -97,7 +97,8 @@
     top: 89%; /* Ajustar para centrado visual */
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 90%; /* Ocupa más espacio en móviles */
+    width: 95%;
+    max-width: 100%; /* Ocupa más espacio en móviles */
     padding: 8px; /* Reduce el espaciado interno */
     background: rgba(0, 0, 0, 0.85);
     border: 2px solid #00c6ff;
@@ -111,11 +112,14 @@
   
   /* Dirección del contrato */
   .home-container-mobile .contract-address {
-    font-size: 0.95rem; /* Más pequeño en móviles */
+    font-size: 0.95rem; /* Mantén el tamaño reducido */
     font-family: monospace;
     color: #00ffcc;
     text-align: center; /* Centrar el texto */
-    white-space: nowrap;
+    white-space: normal; /* Permitir que se ajuste a múltiples líneas */
+    overflow-wrap: break-word; /* Romper palabras largas si es necesario */
+    word-break: break-word; /* Asegurar la ruptura de texto en palabras largas */
+    width: 100%; /* Asegúrate de que no se desborde del contenedor */
   }
 
   /* Botón de compra */
