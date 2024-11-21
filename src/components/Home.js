@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "./Home.css";
+import "./HomeDesktop.css";
+import "./HomeMobile.css";
 import Leaderboard from "./Leaderboard";
 import memeIdle from "../assets/meme_idle.png";
 import memePump from "../assets/meme_pump.png";
@@ -17,6 +18,7 @@ const Home = () => {
   const [totalGlobalClicks, setTotalGlobalClicks] = useState(0);
   const [globalIsPumping, setGlobalIsPumping] = useState(false);
   const [isAtRest, setIsAtRest] = useState(true);
+  const [isMobile, setIsMobile] = useState(false);
 
   const contractAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 
@@ -174,8 +176,20 @@ const Home = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // Detecta Version movil o desktop
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Define móvil como ≤ 768px
+    };
+  
+    handleResize(); // Ejecuta en la carga inicial
+    window.addEventListener("resize", handleResize);
+  
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
-    <div className="home-container">
+    <div className={`home-container ${isMobile ? "home-container-mobile" : "home-container-desktop"}`}>
       <h1 className="title">dvil</h1>
 
       {/* Contenedor del contrato */}

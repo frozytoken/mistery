@@ -1,0 +1,157 @@
+/* Versión móvil */
+.home-container-mobile {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    background: url("../assets/fondobanner.png") no-repeat center center;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+  }
+  
+  /* Título */
+  .home-container-mobile .title {
+    position: absolute;
+    top: 10%; /* Baja un poco para pantallas móviles */
+    font-size: 30vw; /* Escala con el ancho de la pantalla */
+    font-weight: 700;
+    color: white;
+    font-family: "Halau", sans-serif;
+    letter-spacing: 3px; /* Ajusta el espaciado */
+    text-transform: uppercase;
+    text-align: center;
+    z-index: 20000;
+    background: linear-gradient(90deg, #ffffff, #00c6ff, #ffffff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    z-index: 1;
+  }
+  
+  /* Contenedor del meme */
+  .home-container-mobile .meme-container {
+    position: absolute;
+    bottom: 20%; /* Ajustar para que no tape otros elementos */
+    width: 40vw; /* Más grande para móviles */
+    max-width: 200px; /* Límite superior */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    z-index: 8;
+  }
+  
+  /* Imagen del meme */
+  .home-container-mobile .meme {
+    width: 100%;
+    height: auto;
+  }
+  
+  /* Vela japonesa */
+  .home-container-mobile .candle {
+    position: absolute;
+    bottom: 32%; /* Ajustar posición relativa */
+    left: 67%;
+    width: 4vw; /* Más ancho para móviles */
+    max-width: 25px;
+    height: 6vh; /* Altura inicial un poco más visible */
+    background: linear-gradient(to top, #28a745, #71f88c);
+    box-shadow: 0px 0px 15px rgba(40, 167, 69, 0.7), 0px 0px 10px rgba(0, 167, 69, 0.5) inset;
+    border-radius: 3px 3px 0 0;
+    z-index: 2;
+  }
+  
+  /* Mecha de la vela */
+  .home-container-mobile .wick {
+    width: 50%;
+    height: 10px;
+    background-color: black;
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
+  }
+  
+  /* Burbujas */
+  .home-container-mobile .bubble {
+    position: absolute;
+    bottom: 50%; /* Más arriba en móviles */
+    left: 35%;
+    transform: translateX(-50%);
+    background: #fff;
+    color: #000;
+    font-family: "Comic Sans MS", sans-serif;
+    font-size: 1rem; /* Tamaño reducido */
+    font-weight: bold;
+    padding: 10px 15px;
+    border: 2px solid #000;
+    border-radius: 20px;
+    width: 250px; /* Ancho fijo más pequeño */
+    line-height: 1.4;
+    text-align: center;
+    overflow-wrap: break-word;
+  }
+  
+  /* Contenedor del contrato */
+  .home-container-mobile .contract-wrapper {
+    position: absolute;
+    top: 89%; /* Ajustar para centrado visual */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /* Ocupa más espacio en móviles */
+    padding: 8px; /* Reduce el espaciado interno */
+    background: rgba(0, 0, 0, 0.85);
+    border: 2px solid #00c6ff;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column; /* Apila elementos en móviles */
+    align-items: center;
+    gap: 8px;
+    z-index: 1;
+  }
+  
+  /* Dirección del contrato */
+  .home-container-mobile .contract-address {
+    font-size: 0.95rem; /* Más pequeño en móviles */
+    font-family: monospace;
+    color: #00ffcc;
+    text-align: center; /* Centrar el texto */
+    white-space: nowrap;
+  }
+
+  /* Botón de compra */
+  .home-container-mobile .buy-button {
+    font-size: 1rem;
+    padding: 8px 12px;
+    border-radius: 6px;
+  }
+  
+  /* Cuadro del contador de pumps */
+  .home-container-mobile .total-pumps-counter {
+    position: absolute;
+    bottom: 15%; /* Más alto para dejar espacio */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.2rem; /* Texto más pequeño */
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.85);
+    color: #00ffcc;
+    border-radius: 10px;
+    text-align: center;
+  }
+  /* Mensaje visual para indicar que se copió (versión móvil) */
+.home-container-mobile .copy-feedback {
+    position: absolute;
+    top: 10%; /* Ubicado cerca de la parte inferior */
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 6px 10px; /* Más compacto */
+    background: rgba(0, 255, 170, 0.9); /* Fondo similar al desktop */
+    color: #000;
+    font-size: 0.9rem; /* Fuente más pequeña para móviles */
+    font-weight: bold;
+    border-radius: 6px; /* Bordes redondeados */
+    box-shadow: 0px 3px 8px rgba(0, 255, 170, 0.5);
+    animation: fadeInOut 2s ease; /* Usa la misma animación */
+    z-index: 10;
+  }
+  

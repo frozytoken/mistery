@@ -75,8 +75,8 @@
 /* Vela japonesa */
 .candle {
   position: absolute;
-  bottom: 27.5%;
-  left: calc(50% + 3.3vw); /* Ajustar según el tamaño de la pantalla */
+  bottom: 28.5%;
+  left: calc(50% + 3.5vw); /* Ajustar según el tamaño de la pantalla */
   width: 4vw; /* Tamaño relativo */
   max-width: 15px;
   height: 5vh; /* Altura inicial visible del 5% del viewport */
@@ -111,15 +111,7 @@
   border-radius: 50%;
   box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
 }
-/* Animación flotante */
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0); /* Posición inicial */
-  }
-  50% {
-    transform: translateY(-10%); /* Subir un 2% */
-  }
-}
+
 .bubble {
   position: absolute;
   bottom: 38%; /* Ajustado para colocarlo más arriba */
@@ -279,115 +271,4 @@
 .total-pumps-counter:hover {
   transform: translateX(-50%) scale(1.05); /* Efecto de agrandamiento */
   background: rgba(0, 0, 0, 0.95); /* Fondo ligeramente más oscuro */
-}
-
-/* Adaptabilidad para pantallas más pequeñas */
-@media (max-width: 768px) {
-  .total-pumps-counter {
-    font-size: 1.2rem;
-    padding: 8px 16px;
-  }
-}
-
-@media (max-width: 480px) {
-  .total-pumps-counter {
-    font-size: 1rem;
-    padding: 6px 12px;
-  }
-}
-
-/* Adaptabilidad para Pantallas Más Pequeñas */
-@media (max-width: 768px) {
-  .contract-wrapper {
-    width: 90%; /* Reduce el ancho */
-    padding: 10px; /* Ajusta el espaciado interno */
-  }
-
-  .contract-address {
-    font-size: 14px; /* Reduce el tamaño de la dirección */
-  }
-
-  .buy-button {
-    font-size: 14px; /* Ajusta el tamaño del texto */
-    padding: 8px 16px; /* Reduce el tamaño del botón */
-  }
-}
-
-/* Adaptabilidad para Pantallas Muy Pequeñas */
-@media (max-width: 480px) {
-  .contract-wrapper {
-    width: 95%; /* Ocupa casi todo el ancho */
-    padding: 8px; /* Menos espacio interno */
-  }
-
-  .contract-address {
-    font-size: 12px; /* Fuente más pequeña */
-  }
-
-  .buy-button {
-    font-size: 12px; /* Ajusta el tamaño del texto */
-    padding: 6px 12px; /* Botón más compacto */
-  }
-}
-
-
-/* Consultas de medios para adaptabilidad */
-@media (max-width: 768px) {
-  .title {
-    font-size: 8vw;
-  }
-  
-  .meme-container {
-    width: 40vw;
-  }
-  
-  .candle {
-    width: 6vw;
-    left: calc(50% + 10vw);
-  }
-}
-
-@media (max-width: 480px) {
-  .title {
-    font-size: 10vw;
-  }
-  
-  .meme-container {
-    width: 50vw;
-    bottom: 21%;
-  }
-  
-  .candle {
-    width: 8vw;
-    left: calc(50% + 17vw);
-    bottom: 31%;
-  }
-}
-/* Consultas de medios para pantallas ultra anchas (2560x1080 y similares) */
-@media (min-aspect-ratio: 21/9) {
-  .home-container {
-    background-size: cover; /* Asegura que el fondo llene la pantalla horizontalmente */
-  }
-
-  .title {
-    top: 20%; /* Baja ligeramente para adaptarse al espacio extra horizontal */
-    font-size: 4vw; /* Reduce el tamaño para que no sea demasiado dominante */
-    letter-spacing: 4px; /* Aumenta el espaciado para mejorar la estética en pantallas amplias */
-  }
-
-  .meme-container {
-    width: 20vw; /* Reduce el ancho relativo para que no ocupe demasiado espacio */
-    bottom: 7%; /* Ajusta la posición vertical para adaptarse al diseño */
-  }
-
-  .candle {
-    width: 3vw; /* Reduce el tamaño de la vela en proporción a la pantalla */
-    left: calc(50% + 4.4vw); /* Ajusta su posición horizontal */
-    bottom: 17%; /* Reposiciona ligeramente hacia arriba */
-  }
-
-  .wick {
-    width: 40%; /* Reduce el tamaño de la mecha proporcionalmente */
-    height: 8px;
-  }
 }
