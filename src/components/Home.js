@@ -4,7 +4,7 @@ import Leaderboard from "./Leaderboard";
 import memeIdle from "../assets/meme_idle.png";
 import memePump from "../assets/meme_pump.png";
 import database from "../firebase/firebaseConfig";
-import { ref, runTransaction, onValue } from "firebase/database";
+import { ref, runTransaction, onValue, set } from "firebase/database";
 
 const Home = () => {
   const [isPumping, setIsPumping] = useState(false);
@@ -14,6 +14,7 @@ const Home = () => {
   const [bubbleCooldown, setBubbleCooldown] = useState(false);
   const [copyMessageVisible, setCopyMessageVisible] = useState(false);
   const [totalGlobalClicks, setTotalGlobalClicks] = useState(0);
+  const [globalIsPumping, setGlobalIsPumping] = useState(false);
   const [isAtRest, setIsAtRest] = useState(true);
 
   const contractAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
@@ -49,14 +50,20 @@ const Home = () => {
     fetchCountry();
   }, []);
 
-  // Sincronizar totalGlobalClicks y la altura de la vela con Firebase
+  // Sincronizar estados globales con Firebase
   useEffect(() => {
     const globalClickCountRef = ref(database, "clickCount");
+    const globalIsPumpingRef = ref(database, "isPumping");
+    const candleHeightRef = ref(database, "candleHeight");
+
     onValue(globalClickCountRef, (snapshot) => {
       setTotalGlobalClicks(snapshot.val() || 0);
     });
 
-    const candleHeightRef = ref(database, "candleHeight");
+    onValue(globalIsPumpingRef, (snapshot) => {
+      setGlobalIsPumping(snapshot.val() || false);
+    });
+
     onValue(candleHeightRef, (snapshot) => {
       setCandleHeight(snapshot.val() || window.innerHeight * 0.05);
     });
@@ -76,7 +83,7 @@ const Home = () => {
     // Incremento de la vela con dificultad creciente
     runTransaction(candleHeightRef, (currentHeight) => {
       const baseHeight = currentHeight || window.innerHeight * 0.05;
-      const increment = Math.max(2 / Math.pow(baseHeight / (window.innerHeight * 0.1), 1.5), 0.5);
+      const increment = Math.max(1 / Math.pow(baseHeight / (window.innerHeight * 0.1), 1.5), 0.4);
       return Math.min(baseHeight + increment, window.innerHeight * 3);
     });
   };
@@ -84,6 +91,7 @@ const Home = () => {
   const handlePress = () => {
     setIsPumping(true);
     setIsAtRest(false);
+    set(ref(database, "isPumping"), true);
 
     incrementClicks();
 
@@ -133,6 +141,7 @@ const Home = () => {
 
   const handleRelease = () => {
     setIsPumping(false);
+    set(ref(database, "isPumping"), false);
   };
 
   useEffect(() => {
@@ -194,7 +203,7 @@ const Home = () => {
         onTouchEnd={handleRelease}
       >
         <img
-          src={isPumping ? memePump : memeIdle}
+          src={globalIsPumping ? memePump : memeIdle} // Estado global
           alt="Meme"
           className="meme"
         />
