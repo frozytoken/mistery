@@ -6,6 +6,7 @@ import memePump from "../assets/meme_pump.png";
 import database from "../firebase/firebaseConfig";
 import { ref, runTransaction, onValue, set } from "firebase/database";
 
+
 const Home = () => {
   const [isPumping, setIsPumping] = useState(false);
   const [candleHeight, setCandleHeight] = useState(window.innerHeight * 0.05);
@@ -175,7 +176,7 @@ const Home = () => {
 
   return (
     <div className="home-container">
-      <h1 className="title">FIUmbi</h1>
+      <h1 className="title">dvil</h1>
 
       {/* Contenedor del contrato */}
       <div className="contract-wrapper">

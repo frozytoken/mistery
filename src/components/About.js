@@ -12,7 +12,7 @@ const About = () => {
 
       {/* Contenido principal */}
       <div className="about-content">
-        <h2 className="about-title">FIUMBI THE IMP</h2>
+        <h2 className="about-title">DVIL THE PUMPERMAN</h2>
         <p className="about-description">
           Deep within the icy abyss of chaos, Fiumbi emerged as the frosty imp
           of fortunes. Mischievous, unpredictable, and utterly captivating,

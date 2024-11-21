@@ -1,0 +1,213 @@
+/* Navbar móvil */
+.mobile-navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: transparent; /* Sin fondo visible */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    z-index: 1000;
+    box-shadow: none; /* Sin sombra */
+  }
+  
+  .mobile-navbar.hidden {
+    display: none;
+  }
+  
+  /* Hamburguesa */
+  .hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 25px;
+    cursor: pointer;
+  }
+  
+  .hamburger-line {
+    width: 100%;
+    height: 3px;
+    background-color: #fff;
+    border-radius: 5px;
+  }
+  
+  .hamburger:hover .hamburger-line {
+    background-color: #00d4ff;
+  }
+  
+  /* Redes sociales flotantes (cajita) */
+  .mobile-social-box {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    background-color: rgba(10, 10, 26, 0.8); /* Fondo oscuro translúcido */
+    border-radius: 15px;
+    padding: 0.5rem 1rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* Sombra */
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* Animaciones */
+    z-index: 1000;
+  }
+  
+  .mobile-social-box.visible {
+    transform: translateY(0); /* Visible */
+    opacity: 1;
+  }
+  
+  .mobile-social-box.hidden {
+    transform: translateY(-150%); /* Oculto hacia arriba */
+    opacity: 0;
+  }
+  
+  .mobile-social-icons {
+    display: flex;
+    flex-direction: row; /* Alinea los íconos en horizontal */
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  /* Iconos dentro de la cajita */
+  .mobile-social-box .mobile-social-icons img,
+  .mobile-social-box .mobile-social-icons .navbar-icon {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+  }
+  
+  .mobile-social-box .mobile-social-icons img:hover,
+  .mobile-social-box .mobile-social-icons .navbar-icon:hover {
+    transform: scale(1.2);
+  }
+  
+  .mobile-social-box img,
+  .mobile-social-box .navbar-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .mobile-social-box img:hover,
+  .mobile-social-box .navbar-icon:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Menú desplegable */
+  .navbar-menu {
+    position: fixed;
+    top: 0;
+    left: -100%;
+    width: 250px;
+    height: 100vh;
+    background-color: #0a0a1a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 2rem 1rem; /* Ajustar padding horizontal */
+    transition: left 0.3s ease-in-out;
+    z-index: 999;
+  }
+  
+  .navbar-menu.open {
+    left: 0;
+  }
+  
+  .navbar-menu-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem; /* Espaciado uniforme entre enlaces */
+    margin-top: 1rem; /* Espaciado debajo del logo */
+  }
+  
+  .navbar-menu-links a {
+    font-family: 'Halau', sans-serif; /* Misma fuente que el logo */
+    font-size: 1.6rem;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  
+  .navbar-menu-links a:hover {
+    color: #00d4ff;
+  }
+  
+  /* Redes sociales dentro del menú */
+  .navbar-menu-socials {
+    display: flex;
+    justify-content: space-between; /* Alinear en línea */
+    gap: 1.5rem;
+    margin-top: 1.5rem; /* Espaciado debajo del divisor */
+  }
+  
+  .navbar-menu-socials img {
+    width: 30px;
+    height: 30px;
+    transition: transform 0.3s;
+  }
+  
+  .navbar-menu-socials img:hover {
+    transform: scale(1.2);
+  }
+  
+  /* Fondo translúcido cuando se abre el menú */
+  .overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.4); /* Reduce opacidad */
+    z-index: 998;
+  }
+  
+  /* Logo dentro del menú */
+  .navbar-menu-logo h1 {
+    font-family: 'Halau', sans-serif;
+    font-size: 2.8rem;
+    color: #fff;
+    margin-bottom: 2rem; /* Espaciado inferior */
+    text-align: center;
+  }
+  
+  /* Líneas divisorias */
+  .navbar-menu-divider {
+    height: 2px;
+    width: 80%;
+    background-color: #444;
+    margin: 1.5rem 0;
+  }
+  
+  .navbar-buy-mobile {
+    padding: 0.5rem 0.8rem;
+    background-color: transparent;
+    border: 2px solid #fff;
+    border-radius: 5px;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: all 0.3s;
+  }
+  .navbar-menu-logo {
+    display: flex; /* Alineación en fila */
+    align-items: center; /* Alinea texto e imagen verticalmente */
+    gap: 0.5rem; /* Espaciado entre el texto y la imagen */
+    margin-top: 0; /* Asegúrate de que no haya margen superior */
+    margin-bottom: 0; /* Asegúrate de que no haya margen inferior */
+    line-height: 1; /* Asegúrate de que el texto y la imagen tengan la misma altura de línea */
+  }
+  .navbar-menu-logo h1 {
+    font-family: 'Halau', sans-serif;
+    font-size: 2.5rem; /* Ajusta el tamaño del texto para mobile */
+    color: #fff;
+    margin: 0; /* Elimina cualquier margen que pueda causar desplazamiento */
+  }
+  

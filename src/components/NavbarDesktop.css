@@ -1,0 +1,118 @@
+/* Importa la fuente Halau */
+@font-face {
+  font-family: 'Halau';
+  src: url('../assets/fonts/Halau.otf') format('opentype');
+}
+
+.desktop-navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #0a0a1a; /* Fondo oscuro */
+  color: #fff;
+  z-index: 1000; /* Para mantenerlo encima */
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Distribuir elementos a los extremos */
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3); /* Sombra elegante */
+  padding: 0.8rem 5rem; /* Espaciado adecuado */
+  height: 70px; /* Altura fija */
+}
+
+.desktop-navbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.desktop-navbar-logo {
+  display: flex;
+  align-items: center;
+  margin-top: -0.5rem; /* Margen negativo para subir el logo */
+}
+
+.desktop-navbar-logo h1 {
+  font-family: 'Halau', sans-serif; /* Fuente personalizada */
+  font-size: 2.5rem;
+  color: #fff;
+}
+
+.desktop-navbar-links {
+  display: flex;
+  gap: 2rem; /* Espaciado entre enlaces */
+  margin-left: 10rem; /* Separación del logo */
+  align-items: center;
+}
+
+.desktop-navbar-links a {
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem; /* Tamaño ligeramente grande */
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.desktop-navbar-links a:hover {
+  color: #00d4ff; /* Color de hover */
+}
+
+.desktop-navbar-icons {
+  display: flex;
+  gap: 1.5rem; /* Espaciado entre íconos */
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.desktop-navbar-icons img {
+  width: 35px; /* Tamaño de los íconos */
+  height: 35px;
+  object-fit: contain; /* Ajustar sin distorsión */
+  transition: transform 0.3s ease-in-out;
+}
+
+.desktop-navbar-icons img:hover {
+  transform: scale(1.1); /* Efecto hover */
+}
+
+.desktop-navbar-buy {
+  padding: 0.5rem 1.5rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  transition: all 0.3s ease-in-out;
+}
+
+.desktop-navbar-buy:hover {
+  background-color: #fff;
+  color: #0a0a1a;
+}
+.logo-image {
+  width: 40px; /* Ajusta el tamaño según lo necesites */
+  height: auto; /* Mantiene la proporción de la imagen */
+  margin-left: 0.5rem; /* Espaciado entre el texto y la imagen */
+}
+.navbar-text {
+  font-family: 'Halau', sans-serif; /* Aplica la fuente personalizada */
+  font-size: 2.5rem; /* Ajusta según tu diseño */
+  color: #fff; /* Mantén el color blanco */
+  margin: 0; /* Quita márgenes extra */
+}
+.navbar-logo, .navbar-menu-logo {
+  display: flex; /* Alineación en fila */
+  align-items: center; /* Centra los elementos verticalmente */
+  gap: 0.5rem; /* Espaciado entre el texto y la imagen */
+}
+
+/* Corregimos el overflow global para evitar interferencias */
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Evitar desplazamiento horizontal no deseado */
+}
