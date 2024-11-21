@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import "./Leaderboard.css";
 import database from "../firebase/firebaseConfig";
 import { ref, onValue } from "firebase/database";
@@ -8,9 +8,17 @@ const Leaderboard = () => {
   const [expanded, setExpanded] = useState(false); // Estado para expandir o colapsar
   const [userCountry, setUserCountry] = useState(""); // Código del país del usuario
   const [totalGlobalClicks, setTotalGlobalClicks] = useState(0); // Total de clics globales
+  const [ppsData, setPpsData] = useState({}); // PPS por país
+
+  const lastClicksRef = useRef({});
+  const lastClickTimeRef = useRef({});
+  const ppsTimeoutsRef = useRef({});
 
   // Función para formatear números con comas
-  const formatNumber = (number) => (number ? number.toLocaleString() : "0");
+  const formatNumber = (number) => {
+    if (isNaN(number) || number === null || number === undefined) return "0";
+    return Number(number).toLocaleString("en-US");
+  };
 
   // Función para obtener la URL de la bandera
   const getFlagUrl = (countryCode) => {
@@ -27,10 +35,9 @@ const Leaderboard = () => {
         const response = await fetch("https://ipwhois.app/json/");
         if (!response.ok) throw new Error("Error en la solicitud de país");
         const data = await response.json();
-        setUserCountry(data.country_code || ""); // Eliminamos UNKNOWN
+        setUserCountry(data.country_code || "");
       } catch (error) {
         console.error("Error al obtener el país del usuario:", error.message);
-        setUserCountry(""); // Fallback si hay error
       }
     };
 
@@ -51,9 +58,38 @@ const Leaderboard = () => {
             id: countryCode,
             totalClicks: data[countryCode]?.totalClicks || 0,
           }))
-          .sort((a, b) => b.totalClicks - a.totalClicks); // Ordenar por clics descendentes
+          .sort((a, b) => b.totalClicks - a.totalClicks);
 
         setClickData(sortedData);
+
+        // Calcular PPS para cada país
+        sortedData.forEach((country) => {
+          const previousClicks = lastClicksRef.current[country.id] || 0;
+          const currentTime = Date.now();
+          const previousTime = lastClickTimeRef.current[country.id] || currentTime;
+          const timeDifference = (currentTime - previousTime) / 1000;
+          const clickDifference = country.totalClicks - previousClicks;
+          const pps = timeDifference > 0 ? Math.round(clickDifference / timeDifference) : 0;
+
+          lastClicksRef.current[country.id] = country.totalClicks;
+          lastClickTimeRef.current[country.id] = currentTime;
+
+          if (clickDifference > 0) {
+            setPpsData((prev) => ({
+              ...prev,
+              [country.id]: pps,
+            }));
+
+            // Reiniciar temporizador para ocultar el PPS
+            clearTimeout(ppsTimeoutsRef.current[country.id]);
+            ppsTimeoutsRef.current[country.id] = setTimeout(() => {
+              setPpsData((prev) => ({
+                ...prev,
+                [country.id]: 0,
+              }));
+            }, 5000);
+          }
+        });
       }
     });
 
@@ -61,7 +97,7 @@ const Leaderboard = () => {
     onValue(globalClickCountRef, (snapshot) => {
       setTotalGlobalClicks(snapshot.val() || 0);
     });
-  }, []);
+  }, [userCountry]);
 
   // Alternar entre expandir y colapsar
   const toggleExpand = () => setExpanded(!expanded);
@@ -76,7 +112,6 @@ const Leaderboard = () => {
 
   return (
     <div className={`leaderboard ${expanded ? "expanded" : "collapsed"}`}>
-      {/* Cabecera del leaderboard */}
       <div className="leaderboard-header" onClick={toggleExpand}>
         {expanded ? (
           <h3 className="leaderboard-title">
@@ -85,7 +120,6 @@ const Leaderboard = () => {
         ) : (
           <>
             <div className="leaderboard-left">
-              {/* Mostrar el primer país (mayor clics) */}
               {clickData[0] && (
                 <>
                   <span className="trophy">🏆</span>
@@ -102,9 +136,13 @@ const Leaderboard = () => {
               )}
             </div>
             <div className="leaderboard-right">
-              {/* Mostrar datos del país del usuario */}
               {userCountry && (
                 <>
+                  {ppsData[userCountry] > 0 && (
+                    <span className="country-pps">
+                      ({ppsData[userCountry]} PPS)
+                    </span>
+                  )}
                   <img
                     src={getFlagUrl(userCountry)}
                     alt={`${userCountry} flag`}
@@ -123,8 +161,6 @@ const Leaderboard = () => {
           </>
         )}
       </div>
-
-      {/* Contenido expandido */}
       {expanded && (
         <div className="leaderboard-content">
           <div className="leaderboard-item leaderboard-worldwide">
@@ -135,7 +171,6 @@ const Leaderboard = () => {
             </span>
           </div>
           <ul>
-            {/* Listar todos los países */}
             {clickData.map((country, index) => (
               <li key={country.id} className="leaderboard-item">
                 <span className="country-rank">{getRankDisplay(index)}</span>
@@ -145,6 +180,11 @@ const Leaderboard = () => {
                   className="country-flag"
                 />
                 <span className="country-name">{country.id}</span>
+                {ppsData[country.id] > 0 && (
+                  <span className="country-pps">
+                    ({ppsData[country.id]} PPS)
+                  </span>
+                )}
                 <span className="country-clicks">
                   {formatNumber(country.totalClicks)}
                 </span>

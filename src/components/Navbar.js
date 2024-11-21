@@ -31,7 +31,7 @@ const Navbar = () => {
       <div className="navbar-container">
         {/* Logo a la izquierda */}
         <div className="navbar-logo">
-          <h1>ICEE</h1>
+          <h1>FIUuuuuuuumba</h1>
         </div>
 
         {/* Secciones en el centro, ahora alineadas a la izquierda */}

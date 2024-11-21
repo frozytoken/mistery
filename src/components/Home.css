@@ -18,8 +18,6 @@
 .title {
   position: absolute;
   top: 15%; /* Proporcionalmente mejor para cualquier pantalla */
-  left: 50%;
-  transform: translateX(-50%);
   font-size: 10rem; /* Destacado pero no exagerado */
   font-weight: 700; /* Bold, pero no extra bold */
   color: white;
@@ -56,11 +54,8 @@
 .meme-container {
   position: absolute;
   bottom: 17%;
-  left: 52%;
-  transform: translateX(-50%);
   width: 25vw; /* Tamaño relativo a la ventana */
   max-width: 150px;
-  aspect-ratio: 477 / 826;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,8 +75,8 @@
 /* Vela japonesa */
 .candle {
   position: absolute;
-  bottom: 26.8%;
-  left: calc(50% + 5.3vw); /* Ajustar según el tamaño de la pantalla */
+  bottom: 27.5%;
+  left: calc(50% + 3.3vw); /* Ajustar según el tamaño de la pantalla */
   width: 4vw; /* Tamaño relativo */
   max-width: 15px;
   height: 5vh; /* Altura inicial visible del 5% del viewport */
@@ -127,44 +122,214 @@
 }
 .bubble {
   position: absolute;
-  bottom: 38%; /* Ajustado más arriba */
-  left: 42%; /* Ajustado más a la izquierda */
+  bottom: 38%; /* Ajustado para colocarlo más arriba */
+  left: 39%; /* Centrado horizontalmente */
   transform: translateX(-50%);
-  background: linear-gradient(135deg, #ffc107, #ffa500); /* Degradado suave */
-  color: #333;
+  background: #fff; /* Fondo blanco estilo cómic */
+  color: #000; /* Texto en negro */
   font-family: "Comic Sans MS", sans-serif;
-  font-size: 1.2rem;
-  font-weight: bold;
-  padding: 10px 20px;
-  border: 2px solid #e09000; /* Borde más oscuro */
-  border-radius: 12px;
-  box-shadow: 0px 6px 10px rgba(0, 0, 0, 0.4); /* Sombra más sutil */
-  animation: bubbleFade 4s ease-in-out forwards;
+  font-size: 1.2rem; /* Tamaño de fuente */
+  font-weight: bold; /* Resaltar el texto */
+  padding: 15px 20px; /* Espaciado interno */
+  border: 2px solid #000; /* Borde negro sólido */
+  border-radius: 25px; /* Forma redondeada */
+  box-shadow: 5px 5px 0px #333; /* Sombra estilo cómic */
   z-index: 9;
+  width: 300px; /* Ancho fijo para los bocadillos */
+  height: auto; /* Altura automática para ajustarse al texto */
+  text-align: center; /* Centrar el texto */
+  overflow-wrap: break-word; /* Romper palabras largas */
+  line-height: 1.5; /* Espaciado entre líneas */
 }
+
 .bubble::after {
   content: "";
   position: absolute;
-  bottom: -20px; /* Ajuste para el rabillo */
-  left: 80%; /* Ajustar el rabillo a la posición */
+  bottom: -12px; /* Ajuste para que el rabillo se incruste */
+  right: 10px; /* Pegado hacia el borde derecho */
   width: 0;
   height: 0;
-  border-style: solid;
-  border-width: 20px 15px 0 15px; /* Rabillo triangular invertido */
-  border-color: #ff8c00 transparent transparent transparent; /* Fondo y transparencia */
-  z-index: 8; /* Debajo del bubble */
-  transform: rotate(-10deg); /* Ligeramente inclinado */
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-top: 20px solid #fff; /* Fondo del rabillo */
+  z-index: 9;
 }
-@keyframes bubbleFade {
+
+.bubble::before {
+  content: "";
+  position: absolute;
+  bottom: -14px; /* Más abajo para el borde negro */
+  right: 10px; /* Mismo posicionamiento que el rabillo */
+  width: 0;
+  height: 0;
+  border-left: 16px solid transparent;
+  border-right: 16px solid transparent;
+  border-top: 22px solid #000; /* Borde negro del rabillo */
+  z-index: 8;
+}
+/* Contenedor del Contrato */
+.contract-container {
+  display: flex; /* Para alinear en línea */
+  align-items: center; /* Centrado vertical */
+  gap: 20px; /* Espaciado entre el contrato y el botón */
+}
+.contract-wrapper {
+  position: absolute;
+  top: 45%; /* Centrado vertical */
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: auto; /* Ajusta automáticamente según el contenido */
+  padding: 5px 20px; /* Espaciado interno */
+  background: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
+  border: 2px solid #00c6ff; /* Borde azul brillante */
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0px 4px 15px rgba(0, 198, 255, 0.4); /* Sombra azul */
+  display: flex; /* Alinea los elementos en línea */
+  align-items: center; /* Centra verticalmente los elementos */
+  gap: 10px; /* Espaciado entre los elementos */
+  z-index: 100;
+}
+
+/* Dirección del Contrato */
+.contract-address {
+  font-size: 1.5rem;
+  font-family: monospace; /* Fuente estilo código */
+  color: #00ffcc; /* Color del texto */
+  cursor: pointer;
+  white-space: nowrap; /* Evita que el texto se corte en varias líneas */
+  flex: 1; /* Para ocupar el espacio disponible */
+}
+
+.contract-address:hover {
+  text-shadow: 0px 0px 8px rgba(0, 255, 238, 0.8);
+}
+
+/* Botón de Compra */
+.buy-button {
+  background: linear-gradient(90deg, #00c6ff, #007bff);
+  color: white;
+  font-size: 14px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.buy-button:hover {
+  background: linear-gradient(90deg, #0056b3, #00ffaa);
+  transform: scale(1.05);
+  box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.6);
+}
+
+/* Enlace del Botón */
+.buy-link {
+  text-decoration: none; /* Elimina subrayado */
+}
+/* Mensaje visual para indicar que se copió */
+.copy-feedback {
+  position: absolute;
+  top: -40px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 8px 16px;
+  background: rgba(0, 255, 170, 0.9);
+  color: #000;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 8px;
+  box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.5);
+  animation: fadeInOut 2s ease;
+  z-index: 10;
+}
+
+@keyframes fadeInOut {
   0% {
+    opacity: 0;
+  }
+  10% {
     opacity: 1;
-    transform: translateX(-50%) translateY(0);
+  }
+  90% {
+    opacity: 1;
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-50px);
   }
 }
+/* Cuadro para el contador de PUMPS TOTALES */
+.total-pumps-counter {
+  position: absolute;
+  bottom: 11.2%; /* Ubicado justo debajo del meme */
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85); /* Fondo oscuro */
+  color: #00ffcc; /* Texto con un tono brillante */
+  font-size: 1.5rem; /* Tamaño del texto */
+  font-weight: bold;
+  padding: 10px 20px; /* Espaciado interno */
+  border-radius: 12px; /* Bordes redondeados */
+  box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.5); /* Sombra suave */
+  text-align: center;
+  z-index: 5; /* Por encima del meme */
+  transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+}
+
+/* Hover para un pequeño efecto visual */
+.total-pumps-counter:hover {
+  transform: translateX(-50%) scale(1.05); /* Efecto de agrandamiento */
+  background: rgba(0, 0, 0, 0.95); /* Fondo ligeramente más oscuro */
+}
+
+/* Adaptabilidad para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .total-pumps-counter {
+    font-size: 1.2rem;
+    padding: 8px 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .total-pumps-counter {
+    font-size: 1rem;
+    padding: 6px 12px;
+  }
+}
+
+/* Adaptabilidad para Pantallas Más Pequeñas */
+@media (max-width: 768px) {
+  .contract-wrapper {
+    width: 90%; /* Reduce el ancho */
+    padding: 10px; /* Ajusta el espaciado interno */
+  }
+
+  .contract-address {
+    font-size: 14px; /* Reduce el tamaño de la dirección */
+  }
+
+  .buy-button {
+    font-size: 14px; /* Ajusta el tamaño del texto */
+    padding: 8px 16px; /* Reduce el tamaño del botón */
+  }
+}
+
+/* Adaptabilidad para Pantallas Muy Pequeñas */
+@media (max-width: 480px) {
+  .contract-wrapper {
+    width: 95%; /* Ocupa casi todo el ancho */
+    padding: 8px; /* Menos espacio interno */
+  }
+
+  .contract-address {
+    font-size: 12px; /* Fuente más pequeña */
+  }
+
+  .buy-button {
+    font-size: 12px; /* Ajusta el tamaño del texto */
+    padding: 6px 12px; /* Botón más compacto */
+  }
+}
+
 
 /* Consultas de medios para adaptabilidad */
 @media (max-width: 768px) {
