@@ -86,8 +86,8 @@
 /* Vela japonesa */
 .candle {
   position: absolute;
-  bottom: 28.5%;
-  left: calc(50% + 3.5vw); /* Ajustar según el tamaño de la pantalla */
+  bottom: 27.5%;
+  left: calc(50% + 3.3vw); /* Ajustar según el tamaño de la pantalla */
   width: 4vw; /* Tamaño relativo */
   max-width: 15px;
   height: 5vh; /* Altura inicial visible del 5% del viewport */
@@ -309,8 +309,8 @@
 
   /* Vela japonesa */
   .candle {
-    left: calc(50% + 2.55vw); /* Ajusta su posición horizontal hacia la derecha */
-    bottom: 20.8%; /* Sube ligeramente para mantener proporción */
+    left: calc(50% + 2.35vw); /* Ajusta su posición horizontal hacia la derecha */
+    bottom: 19.8%; /* Sube ligeramente para mantener proporción */
     width: 3.5vw; /* Tamaño más pequeño */
     max-width: 12px;
     height: 4vh; /* Altura inicial menor */

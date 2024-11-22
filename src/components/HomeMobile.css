@@ -158,4 +158,66 @@
     animation: fadeInOut 2s ease; /* Usa la misma animación */
     z-index: 10;
   }
-  
+  /* Media Query para iPhone SE (máximo 375px de ancho) */
+@media screen and (max-width: 375px) {
+  /* Contenedor principal */
+  .home-container-mobile {
+    min-height: 100vh; /* Ajusta la altura para más contenido */
+    background-size: cover; /* Asegura que el fondo cubra todo */
+  }
+
+  /* Título */
+  .home-container-mobile .title {
+    font-size: 25vw; /* Reduce el tamaño del título */
+    top: 8%; /* Baja un poco más el título */
+    letter-spacing: 2px; /* Ajusta el espaciado */
+  }
+
+  /* Contenedor del meme */
+  .home-container-mobile .meme-container {
+    bottom: 22%; /* Baja el meme */
+    width: 50vw; /* Más pequeño para móviles */
+    max-width: 150px; /* Ajusta el límite máximo */
+  }
+
+  /* Vela japonesa */
+  .home-container-mobile .candle {
+    bottom: 36.6%; /* Ajusta la posición inferior */
+    left: 66%; /* Centra mejor la vela */
+    width: 5vw; /* Incrementa un poco el ancho */
+    max-width: 20px; /* Límite máximo */
+    height: 5vh; /* Reduce la altura inicial */
+  }
+
+  /* Burbujas */
+  .home-container-mobile .bubble {
+    bottom: 55%; /* Mueve hacia arriba la burbuja */
+    left: 30%; /* Ajusta la posición horizontal */
+    font-size: 0.9rem; /* Reduce el tamaño del texto */
+    width: 200px; /* Reduce el ancho */
+    padding: 8px 12px; /* Ajusta el padding */
+  }
+
+  /* Contenedor del contrato */
+  .home-container-mobile .contract-wrapper {
+    top: 87.5%; /* Baja un poco el contenedor */
+    width: 95%; /* Ocupa casi toda la pantalla */
+    gap: 5px; /* Reduce el espacio entre elementos */
+    padding: 6px; /* Reduce el padding interno */
+  }
+
+
+  /* Cuadro del contador de pumps */
+  .home-container-mobile .total-pumps-counter {
+    bottom: 15.5%; /* Ajusta la posición inferior */
+    font-size: 1rem; /* Reduce el tamaño del texto */
+    padding: 6px 10px; /* Reduce el espacio interno */
+  }
+
+  /* Feedback de copiado */
+  .home-container-mobile .copy-feedback {
+    top: 15%; /* Baja la posición */
+    font-size: 0.6rem; /* Reduce el tamaño del texto */
+    padding: 4px 8px; /* Reduce el padding */
+  }
+}
