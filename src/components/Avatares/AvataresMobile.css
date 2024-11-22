@@ -1,0 +1,165 @@
+/* Contenedor principal */
+.avatares-container-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(180deg, #121212, #19192d);
+    color: #d4f1f9;
+    text-align: center;
+    overflow-x: hidden; /* Evita overflow lateral */
+    padding: 10px; /* Asegura que los elementos estén dentro de la vista */
+}
+
+/* Título principal */
+.avatares-title-mobile {
+    font-size: 3rem;
+    font-family: 'Halau', sans-serif;
+    text-transform: uppercase;
+    margin-bottom: 50px;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
+                 0 0 10px rgba(255, 255, 255, 0.4),
+                 0 0 10px rgba(255, 255, 255, 0.5);
+    text-align: center;
+}
+
+/* Opciones principales */
+.avatares-options-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px; /* Espaciado entre opciones */
+    width: 100%;
+}
+
+/* Contenedor de las opciones */
+.avatares-option-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90%; /* Aumenta el tamaño del contenedor */
+    max-width: 350px;
+    height: 250px; /* Incrementa la altura del contenedor */
+    cursor: pointer;
+    border: 4px solid white;
+    border-radius: 15px;
+    background: rgba(0, 0, 0, 0.3);
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.avatares-option-mobile:hover {
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    transform: scale(1.05);
+}
+
+/* Imagen en las opciones */
+.avatares-image-mobile {
+    width: 83%;
+    height: auto;
+    object-fit: contain;
+}
+
+/* Texto descriptivo debajo de cada imagen */
+.avatares-text-mobile {
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-align: center;
+    color: #ffffff;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Separador "OR" con líneas verticales */
+.or-divider-mobile {
+    font-size: 1.5rem;
+    font-family: 'Halau', sans-serif;
+    color: white;
+    text-transform: uppercase;
+    text-align: center;
+    position: relative;
+    margin: 30px 0;
+}
+
+/* Líneas decorativas para el OR (verticales) */
+.or-divider-mobile::before,
+.or-divider-mobile::after {
+    content: "";
+    position: absolute;
+    width: 2px; /* Ancho de las líneas */
+    height: 50px; /* Longitud de las líneas */
+    background: linear-gradient(180deg, transparent, #00c6ff, transparent);
+}
+
+.or-divider-mobile::before {
+    top: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.or-divider-mobile::after {
+    bottom: -70px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+@media screen and (max-width: 375px) {
+    /* Contenedor principal */
+    .avatares-container-mobile {
+        padding: 10px; /* Añade un pequeño padding */
+        height: 100vh; /* Mantiene la altura completa */
+    }
+
+    /* Título principal */
+    .avatares-title-mobile {
+        font-size: 2.5rem; /* Reduce el tamaño del título */
+        margin-bottom: 30px; /* Reduce el espacio inferior */
+    }
+
+    /* Opciones principales */
+    .avatares-options-mobile {
+        gap: 20px; /* Reduce el espacio entre opciones */
+    }
+
+    /* Contenedor de las opciones */
+    .avatares-option-mobile {
+        width: 95%; /* Aumenta el ancho al 95% del viewport */
+        max-width: 300px; /* Ajusta el tamaño máximo */
+        height: 200px; /* Reduce ligeramente la altura */
+    }
+
+    /* Imagen en las opciones */
+    .avatares-image-mobile {
+        width: 78%; /* Ajusta el ancho de las imágenes */
+        height: auto; /* Mantiene la proporción */
+    }
+
+    /* Texto descriptivo debajo de cada imagen */
+    .avatares-text-mobile {
+        font-size: 1.1rem; /* Reduce el tamaño del texto */
+        margin-top: 10px; /* Ajusta el espaciado superior */
+    }
+
+    /* Separador "OR" */
+    .or-divider-mobile {
+        font-size: 1.2rem; /* Reduce el tamaño del texto */
+        margin: 20px 0; /* Ajusta el espacio superior e inferior */
+    }
+
+    /* Líneas decorativas para el OR (verticales) */
+    .or-divider-mobile::before,
+    .or-divider-mobile::after {
+        width: 2px; /* Mantiene el ancho de las líneas */
+        height: 30px; /* Reduce la longitud */
+    }
+
+    .or-divider-mobile::before {
+        top: -30px; /* Ajusta la posición superior */
+    }
+
+    .or-divider-mobile::after {
+        bottom: -30px; /* Ajusta la posición inferior */
+    }
+}
