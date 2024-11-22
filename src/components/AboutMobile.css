@@ -4,7 +4,7 @@
     color: #d4f1f9;
     text-align: center;
     position: relative;
-    height: 100vh; /* Ocupa toda la altura del viewport */
+    height: 70vh; /* Ocupa toda la altura del viewport */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -62,11 +62,12 @@
   /* Descripción */
   .about-description-mobile {
     font-size: 1rem; /* Ajusta la fuente para móviles */
-    line-height: 1.5;
+    line-height: 2;
     color: #e0f7fa;
     text-align: justify;
-    padding: 0 10px;
-    margin: 10px 0;
+    padding: 0 30px;
+    margin: 50px 0;
+    font-family: 'Halau', sans-serif;
   }
   
   /* Forma inferior */
@@ -83,5 +84,48 @@
     width: 100%;
     height: 100%;
     display: block;
+  }
+  @media screen and (max-width: 375px) {
+    /* Contenedor principal */
+    .about-section-mobile {
+      height: 70vh; /* Más alto para aprovechar el espacio */
+      padding: 15px; /* Reduce el padding */
+    }
+  
+    /* Líneas decorativas */
+    .about-divider-mobile {
+      margin: 5px 0; /* Reduce el espacio */
+    }
+  
+    .line-left-mobile,
+    .line-right-mobile {
+      width: 10%; /* Reduce el ancho de las líneas */
+    }
+  
+    .line-left-mobile::before,
+    .line-right-mobile::before {
+      width: 4px; /* Círculos más pequeños */
+      height: 4px;
+    }
+  
+    /* Título */
+    .about-title-mobile {
+      font-size: 2rem; /* Tamaño de fuente más pequeño */
+      letter-spacing: 1px; /* Reduce el espaciado */
+      margin: 5px 0;
+    }
+  
+    /* Descripción */
+    .about-description-mobile {
+      font-size: 0.9rem; /* Reduce el tamaño de la fuente */
+      line-height: 1.8; /* Ajusta el interlineado */
+      padding: 0 15px; /* Menor padding lateral */
+      margin: 30px 0; /* Reduce el espacio superior e inferior */
+    }
+  
+    /* Forma inferior */
+    .about-shape-bottom-mobile {
+      height: 15%; /* Reduce la altura */
+    }
   }
   

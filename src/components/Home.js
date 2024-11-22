@@ -246,11 +246,12 @@ const Home = () => {
         </div>
         <Leaderboard />
       </div>
-  
+          
       {bubbles.map((bubble) => (
         <div key={bubble.id} className="bubble">
           {bubble.text}
         </div>
+        
       ))}
     </div>
   );

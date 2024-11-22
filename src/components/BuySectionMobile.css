@@ -1,77 +1,116 @@
 /* Mobile Styles */
 .buy-section-mobile {
-    background: linear-gradient(180deg, #1a1a2e, #0d0d0d);
-    color: #d4f1f9;
-    height: auto;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-family: "YourFontName", sans-serif;
-    position: relative;
-    overflow: hidden;
+  background: linear-gradient(180deg, #19192D, #0d0d0d);
+  color: #d4f1f9;
+  min-height: 100vh; /* Asegura que ocupe toda la altura */
+  padding: 30px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Halau', sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+
+.buy-section-content-mobile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+  gap: 15px; /* Espaciado entre elementos */
+  width: 100%;
+}
+
+/* Texto */
+.buy-text-mobile {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.buy-title-mobile {
+  font-family: 'Halau', sans-serif;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #00c6ff;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.buy-description-mobile {
+  font-size: 1.1rem;
+  color: #e0f7fa;
+  line-height: 1.5;
+}
+
+/* Widget */
+.widget-container-mobile {
+  top: 100px;
+  width: 100%;
+  max-width: 90%;
+  position: relative;
+}
+
+.jupiter-terminal-mobile {
+  width: 100%;
+  height: 550px;
+  border: 3px solid #00c6ff;
+  border-radius: 10px;
+  background-color: #121212;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  padding: 10px;
+  z-index: 2;
+}
+
+.character-image-mobile {
+  position: absolute;
+  top: -142px;
+  right: 250px;
+  width: 150px;
+  z-index: 3;
+  pointer-events: none;
+}
+@media screen and (max-width: 375px) {
+  /* Contenedor principal */
+  .buy-section-mobile {
+    min-height: 100vh; /* Mantiene la altura completa */
+    padding: 20px 10px; /* Reduce el padding */
   }
-  
-  .buy-shape-top-mobile {
-    position: absolute;
-    top: -15%;
-    left: 0;
-    width: 100%;
-    height: 30%;
-    background: linear-gradient(180deg, #0d0d0d, rgba(26, 26, 46, 0));
-    z-index: 1;
-  }
-  
+
   .buy-section-content-mobile {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    z-index: 2;
+    gap: 10px; /* Reduce el espacio entre elementos */
   }
-  
+
   /* Texto */
-  .buy-text-mobile {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
   .buy-title-mobile {
-    font-size: 2rem;
-    font-weight: bold;
-    color: #00c6ff;
-    text-transform: uppercase;
-    margin-bottom: 10px;
+    font-size: 2rem; /* Disminuye el tamaño del título */
+    margin-bottom: 5px; /* Reduce el margen inferior */
   }
-  
+
   .buy-description-mobile {
-    font-size: 1rem;
-    color: #e0f7fa;
+    font-size: 1rem; /* Ajusta la fuente para mayor legibilidad */
+    line-height: 1.4; /* Reduce el interlineado */
   }
-  
+
   /* Widget */
   .widget-container-mobile {
-    width: 100%;
-    max-width: 90%;
-    position: relative;
+    top: 70px; /* Baja ligeramente la posición */
+    max-width: 85%; /* Amplía el ancho máximo */
   }
-  
+
   .jupiter-terminal-mobile {
-    width: 100%;
-    height: 300px;
-    border: 3px solid #00c6ff;
-    border-radius: 10px;
-    background-color: #121212;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
-    padding: 10px;
-    z-index: 2;
+    height: 400px; /* Reduce la altura para pantallas más pequeñas */
+    padding: 8px; /* Reduce el padding */
+    border-width: 2px; /* Adelgaza el borde */
   }
-  
+
+  /* Imagen del personaje */
   .character-image-mobile {
-    position: absolute;
-    top: -142px;
-    right: 200px;
-    width: 150px;
-    z-index: 3;
-    pointer-events: none;
+    top: -115px; /* Baja la posición */
+    right: 220px; /* Ajusta la posición hacia el centro */
+    width: 120px; /* Reduce el tamaño de la imagen */
   }
-  
+}

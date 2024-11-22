@@ -67,22 +67,6 @@ const About = () => {
             : "about-shape-bottom-desktop"
         }
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 1440 320"
-          preserveAspectRatio="none"
-        >
-          <path
-            fill="url(#gradient)"
-            d="M0,256L80,234.7C160,213,320,171,480,144C640,117,800,107,960,128C1120,149,1280,203,1360,229.3L1440,256L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z"
-          ></path>
-          <defs>
-            <linearGradient id="gradient" gradientTransform="rotate(90)">
-              <stop offset="0%" stopColor="#1a1a2e" />
-              <stop offset="100%" stopColor="#0d0d0d" />
-            </linearGradient>
-          </defs>
-        </svg>
       </div>
     </div>
   );

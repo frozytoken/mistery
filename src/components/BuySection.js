@@ -6,73 +6,68 @@ import frameImage from "../assets/dvilframe.png";
 const BuySection = () => {
   const [isMobile, setIsMobile] = useState(false);
 
+  // Detectar si es móvil
   useEffect(() => {
-    // Manejar cambio de tamaño de pantalla
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768);
     };
 
-    handleResize();
+    handleResize(); // Detectar en la carga inicial
     window.addEventListener("resize", handleResize);
 
-    // Función para inicializar el widget
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // Inicializar el widget de Jupiter
+  useEffect(() => {
     const initializeWidget = () => {
       try {
         if (window.Jupiter) {
           const container = document.getElementById("jupiter-terminal");
           if (container && !container.hasChildNodes()) {
-            // Inicializar solo si el contenedor está vacío
+            console.log("Inicializando widget de Jupiter...");
             window.Jupiter.init({
-                displayMode: "integrated",
-                integratedTargetId: "jupiter-terminal",
-                endpoint: "https://attentive-icy-snowflake.solana-mainnet.quiknode.pro/43b199e39bdd7f1648b4b94658d3b471caac7ee4/",
-                defaultInputMint: "C4jMVM797K2FqzbwxJn4TdPyuVhso7kCUu7UXRfjpump", // PUMP
-                defaultOutputMint: "So11111111111111111111111111111111111111112", // SOL
-                theme: "dark",
-                formProps: {
-                  initialAmount: 1,
-                  fixedAmount: false,
-                  fixedInputMint: false, // Permitir cambiar la moneda de entrada
-                  fixedOutputMint: false, // Permitir cambiar la moneda de salida
-                  exactIn: true,
-                },
-              });
+              displayMode: "integrated",
+              integratedTargetId: "jupiter-terminal",
+              endpoint: "https://mainnet.helius-rpc.com/?api-key=9392e341-62a0-4643-ba6c-db26427e53b0", // Endpoint confiable
+              formProps: {
+                initialInputMint: "So11111111111111111111111111111111111111112", // SOL
+                initialOutputMint: "C4jMVM797K2FqzbwxJn4TdPyuVhso7kCUu7UXRfjpump", // PUMP
+                fixedInputMint: false, // Permitir cambiar la moneda de entrada
+                fixedOutputMint: false, // Permitir cambiar la moneda de salida
+                initialAmount: 1000000000, // Cantidad inicial
+                exactIn: true,
+              },
+              strictTokenList: true, // Usar la lista estándar de tokens
+              theme: "dark",
+            });
           }
+        } else {
+          console.error("Jupiter no está disponible en el contexto global.");
         }
       } catch (error) {
-        console.error("Error inicializando el widget de Jupiter:", error.message);
+        console.error("Error inicializando el widget de Jupiter:", error);
       }
     };
 
-    // Agregar el script solo una vez
-    const existingScript = document.querySelector("script[src='https://terminal.jup.ag/main-v3.js']");
-    if (!existingScript) {
-      const script = document.createElement("script");
-      script.src = "https://terminal.jup.ag/main-v3.js";
-      script.async = true;
-
-      script.onload = () => {
-        initializeWidget();
-      };
-
-      script.onerror = () => {
-        console.error("Error al cargar el script de Jupiter.");
-      };
-
-      document.body.appendChild(script);
+    // Inicializar directamente si el script ya está cargado
+    if (window.Jupiter) {
+      initializeWidget();
     } else {
-      initializeWidget(); // Si el script ya existe, solo inicializa el widget
+      console.error("El script de Jupiter no está disponible.");
     }
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      const container = document.getElementById("jupiter-terminal");
+      if (container) container.innerHTML = ""; // Limpia el contenedor
     };
-  }, []); // Sincronizar con el tamaño de pantalla
+  }, []);
 
   return (
     <div className={isMobile ? "buy-section-mobile" : "buy-section-desktop"}>
-      {/* Transición Suave */}
-      <div className={isMobile ? "buy-shape-top-mobile" : "buy-shape-top-desktop"}></div>
+      
 
       {/* Contenido Principal */}
       <div
@@ -84,13 +79,19 @@ const BuySection = () => {
       >
         {/* Texto */}
         <div className={isMobile ? "buy-text-mobile" : "buy-text-desktop"}>
-          <h2 className={isMobile ? "buy-title-mobile" : "buy-title-desktop"}>
+          <h2
+            className={isMobile ? "buy-title-mobile" : "buy-title-desktop"}
+          >
             Get Your $DVIL
           </h2>
           <p
-            className={isMobile ? "buy-description-mobile" : "buy-description-desktop"}
+            className={
+              isMobile
+                ? "buy-description-mobile"
+                : "buy-description-desktop"
+            }
           >
-            Swap tokens like PUMP and SOL effortlessly using Jupiter Terminal.
+            Unleash the power of the underworld and trade tokens like a true devil, fast and flawlessly with Jupiter Terminal.
           </p>
         </div>
 
@@ -104,13 +105,17 @@ const BuySection = () => {
             src={frameImage}
             alt="Frame"
             className={
-              isMobile ? "character-image-mobile" : "character-image-desktop"
+              isMobile
+                ? "character-image-mobile"
+                : "character-image-desktop"
             }
           />
           <div
             id="jupiter-terminal"
             className={
-              isMobile ? "jupiter-terminal-mobile" : "jupiter-terminal-desktop"
+              isMobile
+                ? "jupiter-terminal-mobile"
+                : "jupiter-terminal-desktop"
             }
           ></div>
         </div>
