@@ -204,3 +204,68 @@
     transform: translateX(50%); /* Asegura el centrado correcto */
   }
 }
+/* Media Query para Xiaomi Redmi Note 10 Lite (ancho máximo 1080px) */
+@media screen and (max-width: 1080px) {
+  /* Contenedor principal */
+  .buy-section-mobile {
+    min-height: 150vh; /* Ajusta la altura */
+    padding: 20px 15px; /* Ajusta el padding interno */
+  }
+
+  .buy-section-content-mobile {
+    gap: 80px; /* Ajusta el espaciado entre elementos */
+  }
+
+  /* Texto */
+  .buy-title-mobile {
+    font-size: 2.3rem; /* Escala ligeramente el título */
+    margin-bottom: 15px;
+    background-size: 300%; /* Ajusta el tamaño del gradiente */
+    animation: text-glow-smooth-mobile 6s infinite linear; /* Mantiene el efecto suave */
+  }
+
+  .buy-description-mobile {
+    font-size: 1.05rem; /* Ajusta el tamaño del texto */
+    line-height: 1.5; /* Mejora la legibilidad */
+  }
+
+  /* Widget */
+  .widget-container-mobile {
+    height: auto; /* Ajusta dinámicamente el tamaño del contenido */
+    margin-bottom: 20px; /* Agrega espacio inferior */
+  }
+
+  .jupiter-terminal-mobile {
+    height: 550px; /* Mantén la altura */
+    border-width: 2px; /* Ajusta el grosor del borde */
+    padding: 10px; /* Ajusta el padding interno */
+  }
+
+  /* Plataformas */
+  .platforms-container-mobile {
+    padding: 15px; /* Ajusta el padding interno */
+    margin-top: 0px; /* Espaciado superior */
+  }
+
+  .platforms-title-mobile {
+    font-size: 1.2rem; /* Ajusta el tamaño del título */
+    margin-bottom: 12px;
+  }
+
+  .platforms-buttons-mobile {
+    gap: 10px; /* Espaciado entre botones */
+  }
+
+  .platform-button-mobile {
+    font-size: 0.9rem; /* Ajusta el tamaño de los botones */
+    padding: 8px 12px; /* Ajusta el padding interno */
+  }
+
+  /* Imagen del personaje */
+  .character-image-mobile {
+    top: -105px; /* Ajusta la posición vertical */
+    width: 110px; /* Tamaño adecuado para este dispositivo */
+    right: 295px; /* Centra la imagen horizontalmente */
+    transform: translateX(50%);
+  }
+}

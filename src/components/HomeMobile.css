@@ -221,3 +221,76 @@
     padding: 4px 8px; /* Reduce el padding */
   }
 }
+/* Media Query para Xiaomi Redmi Note 10 Lite (ancho máximo 1080px) */
+@media screen and (max-width: 1080px) {
+  /* Contenedor principal */
+  .home-container-mobile {
+    min-height: 100vh; /* Mantén la altura */
+    background-size: cover; /* Asegura que el fondo cubra todo */
+    padding: 10px; /* Ajusta el padding si es necesario */
+  }
+
+  /* Título */
+  .home-container-mobile .title {
+    font-size: 30vw; /* Ajusta el tamaño del título */
+    top: 12%; /* Baja un poco más el título */
+    letter-spacing: 3px; /* Espaciado óptimo */
+  }
+
+  /* Contenedor del meme */
+  .home-container-mobile .meme-container {
+    bottom: 22%; /* Baja el meme */
+    width: 35vw; /* Ajusta el tamaño para pantallas más grandes */
+    max-width: 180px; /* Límite superior */
+  }
+
+  /* Vela japonesa */
+  .home-container-mobile .candle {
+    bottom: 33.1%; /* Ajusta la posición relativa */
+    left: 64.5%; /* Centra la vela */
+    width: 4vw; /* Ajusta el ancho */
+    max-width: 25px; /* Límite superior */
+    height: 5vh; /* Ajusta la altura inicial */
+  }
+
+  /* Burbujas */
+  .home-container-mobile .bubble {
+    bottom: 47%; /* Ajusta la posición vertical */
+    left: 30%; /* Ajusta la posición horizontal */
+    font-size: 1rem; /* Mantén el tamaño del texto */
+    width: 210px; /* Ajusta el ancho */
+    padding: 10px 15px; /* Ajusta el padding interno */
+  }
+
+  /* Contenedor del contrato */
+  .home-container-mobile .contract-wrapper {
+    top: 89%; /* Ajusta la posición superior */
+    width: 98%; /* Ajusta el ancho */
+    padding: 5px; /* Ajusta el padding interno */
+  }
+
+  /* Dirección del contrato */
+  .home-container-mobile .contract-address {
+    font-size: 0.8rem; /* Ajusta el tamaño del texto */
+  }
+
+  /* Botón de compra */
+  .home-container-mobile .buy-button {
+    font-size: 0.9rem; /* Ajusta el tamaño del texto */
+    padding: 8px 12px; /* Ajusta el padding interno */
+  }
+
+  /* Cuadro del contador de pumps */
+  .home-container-mobile .total-pumps-counter {
+    bottom: 14%; /* Ajusta la posición inferior */
+    font-size: 1rem; /* Ajusta el tamaño del texto */
+    padding: 8px 12px; /* Ajusta el padding interno */
+  }
+
+  /* Feedback de copiado */
+  .home-container-mobile .copy-feedback {
+    top: 12%; /* Ajusta la posición superior */
+    font-size: 0.7rem; /* Ajusta el tamaño del texto */
+    padding: 5px 10px; /* Ajusta el padding interno */
+  }
+}
