@@ -143,7 +143,7 @@ const Navbar = () => {
                   HOW TO BUY
                 </a>
                 <a href="#store" onClick={toggleMenu}>
-                  STORE
+                  FRIENDS BOOK
                 </a>
               </div>
               <div className="navbar-menu-divider navbar-menu-divider-bottom"></div>
@@ -192,7 +192,7 @@ const Navbar = () => {
                 MEMEDEPOT
               </a>
               <a href="#about">HOW TO BUY</a>
-              <a href="#store">STORE</a>
+              <a href="#store">FRIENDS BOOK</a>
             </div>
             <div className="desktop-navbar-icons">
               <a

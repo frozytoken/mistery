@@ -3,7 +3,7 @@
   color: #d4f1f9;
   text-align: center;
   position: relative;
-  height: 100vh; /* Altura completa del viewport */
+  height: 80vh; /* Altura completa del viewport */
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -79,6 +79,7 @@
 }
 
 .about-description-desktop {
+  font-family: "Halau", sans-serif;
   font-size: 1.4rem; /* Texto más compacto */
   line-height: 1.8;
   color: #e0f7fa;

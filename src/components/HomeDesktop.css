@@ -283,7 +283,6 @@
   transform: translateX(-50%) scale(1.05); /* Efecto de agrandamiento */
   background: rgba(0, 0, 0, 0.95); /* Fondo ligeramente más oscuro */
 }
-  /* Pie con Degradado Negro */
 
 /* /* Ajustes para pantallas ultrawide (relación de aspecto 21:9 o más) */
 @media (min-aspect-ratio: 21/9) {

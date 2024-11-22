@@ -1,99 +1,148 @@
-
 /* Desktop Styles */
 .buy-section-desktop {
-    background: linear-gradient(180deg, #1a1a2e, #0d0d0d);
-    color: #d4f1f9;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    padding: 40px 20px;
-    font-family: 'Halau', sans-serif;
+  background: linear-gradient(180deg, #1a1a2e, #0d0d0d);
+  color: #d4f1f9;
+  height: 100vh; /* Ocupa toda la pantalla */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  font-family: 'Halau', sans-serif;
+}
+
+/* Contenedor Principal */
+.buy-section-content-desktop {
+  margin-bottom: 100px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px; /* Espacio entre las columnas */
+  width: 100%;
+  max-width: 1200px;
+  align-items: center; /* Centra verticalmente */
+  justify-content: center; /* Centra horizontalmente */
+}
+
+/* Texto */
+.buy-text-desktop {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Espacio entre el título y la descripción */
+}
+
+.buy-title-desktop {
+  font-family: 'Halau', sans-serif;
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: #00c6ff;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff, #00c6ff);
+  background-size: 300%; /* Aumenta el tamaño para un efecto más fluido */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  position: relative;
+  animation: text-glow-smooth 6s infinite linear; /* Animación continua */
+}
+
+/* Animación continua y suave */
+@keyframes text-glow-smooth {
+  0% {
+    background-position: 0% 50%;
   }
-  
-  /* Transición Suave */
-  .buy-shape-top-desktop {
-    position: absolute;
-    top: -15%;
-    left: 0;
-    width: 100%;
-    height: 20%;
-    background: linear-gradient(180deg, #0d0d0d, rgba(26, 26, 46, 0));
-    z-index: 1;
+  50% {
+    background-position: 100% 50%;
   }
-  
-  /* Contenedor Principal */
-  .buy-section-content-desktop {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    max-width: 1200px;
-    z-index: 2;
+  100% {
+    background-position: 0% 50%;
   }
-  
-  /* Texto */
-  .buy-text-desktop {
-    flex: 1;
-    text-align: left;
-  }
-  
-  .buy-title-desktop {
-    font-family: 'Halau', sans-serif;
-    font-size: 5rem;
-    font-weight: bold;
-    color: #00c6ff;
-    text-transform: uppercase;
-    margin-bottom: 15px;
-    background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-  
-  .buy-description-desktop {
-    font-size: 1.1rem;
-    color: #e0f7fa;
-    line-height: 1.5;
-  }
-  
-  /* Widget */
-  .widget-container-desktop {
-    top: 100px;
-    flex: 1;
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .jupiter-terminal-desktop {
-    width: 100%;
-    height: 550px;
-    border: 3px solid #BFEEF3;
-    border-radius: 10px;
-    background-color: #121212;
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
-    padding: 10px;
-    z-index: 2;
-  }
-  .jupiter-terminal-container {
-    position: relative;
-    overflow: hidden; /* Asegura que todo el contenido esté contenido dentro del widget */
-    z-index: 1; /* Prioriza el widget sobre otros elementos */
-  }
-  .jupiter-terminal-container input {
-    z-index: 2; /* Prioriza los campos de entrada */
-  }
-  /* Imagen del Personaje */
-  .character-image-desktop {
-    position: absolute;
-    top: -190px;
-    left: -60px;
-    width: 200px;
-    z-index: 3;
-    pointer-events: none;
-  }
+}
+
+
+.buy-description-desktop {
+  font-size: 1.1rem;
+  color: #e0f7fa;
+  line-height: 1.6;
+  margin-bottom: 0;
+}
+
+/* Widget */
+.widget-container-desktop {
+  margin-top: 300px;
+  flex-direction: column;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.jupiter-terminal-desktop {
+  width: 100%;
+  height: 550px;
+  border: 3px solid #BFEEF3;
+  border-radius: 10px;
+  background-color: #121212;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.6);
+  padding: 10px;
+  z-index: 2;
+}
+
+/* Imagen del Personaje */
+.character-image-desktop {
+  position: absolute;
+  top: -190px; /* Ajusta para que quede visible */
+  left: -60px;
+  width: 200px;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Plataformas */
+.platforms-container {
+  margin-top: -305px; /* Reduce la separación respecto al texto */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: rgba(25, 25, 45, 0.8);
+  border: 2px solid #00c6ff;
+  border-radius: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.platforms-title {
+  font-size: 1.2rem;
+  color: #d4f1f9;
+  font-family: 'Halau', sans-serif;
+  margin-bottom: 15px;
+}
+
+.platforms-buttons {
+  display: flex;
+  flex-wrap: wrap; /* Ajusta los botones en varias filas */
+  gap: 10px; /* Espaciado entre los botones */
+  justify-content: center;
+}
+
+.platform-button {
+  background: #19192D;
+  color: #00c6ff;
+  font-size: 0.9rem;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: 'Halau', sans-serif;
+  border: 1px solid #00c6ff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.platform-button:hover {
+  background: #00c6ff;
+  color: #19192D;
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 198, 255, 0.6);
+}

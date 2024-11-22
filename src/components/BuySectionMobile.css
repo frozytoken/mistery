@@ -2,23 +2,23 @@
 .buy-section-mobile {
   background: linear-gradient(180deg, #19192D, #0d0d0d);
   color: #d4f1f9;
-  min-height: 100vh; /* Asegura que ocupe toda la altura */
+  min-height: 120vh; /* Amplía la altura para permitir más espacio */
   padding: 30px 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
   font-family: 'Halau', sans-serif;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto; /* Permite hacer scroll */
 }
 
-
+/* Contenido Principal */
 .buy-section-content-mobile {
   display: flex;
   flex-direction: column;
   align-items: center;
   z-index: 2;
-  gap: 15px; /* Espaciado entre elementos */
+  gap: 60px; /* Espaciado entre elementos */
   width: 100%;
 }
 
@@ -34,24 +34,40 @@
   font-weight: bold;
   color: #00c6ff;
   text-transform: uppercase;
-  margin-bottom: 10px;
-  background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
+  margin-bottom: 15px;
+  background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff, #00c6ff);
+  background-size: 300%; /* Aumenta el tamaño del gradiente */
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: text-glow-smooth-mobile 6s infinite linear; /* Animación continua */
 }
+
+/* Animación continua y suave */
+@keyframes text-glow-smooth-mobile {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 
 .buy-description-mobile {
   font-size: 1.1rem;
   color: #e0f7fa;
-  line-height: 1.5;
+  line-height: 1.6; /* Mejora la legibilidad */
 }
 
 /* Widget */
 .widget-container-mobile {
-  top: 100px;
   width: 100%;
-  max-width: 90%;
+  max-width: 95%;
   position: relative;
+  margin-bottom: 30px; /* Espaciado adicional para separarlo del texto */
 }
 
 .jupiter-terminal-mobile {
@@ -65,52 +81,126 @@
   z-index: 2;
 }
 
+/* Plataformas */
+.platforms-container-mobile {
+  width: 100%;
+  max-width: 95%;
+  background: rgba(25, 25, 45, 0.8); /* Fondo translúcido */
+  border: 2px solid #00c6ff;
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+  margin-top: 0px;
+}
+
+.platforms-title-mobile {
+  font-size: 1.3rem;
+  color: #d4f1f9;
+  font-family: 'Halau', sans-serif;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.platforms-buttons-mobile {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
+
+.platform-button-mobile {
+  background: #19192D;
+  color: #00c6ff;
+  font-size: 0.9rem;
+  padding: 8px 15px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-family: 'Halau', sans-serif;
+  border: 1px solid #00c6ff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transition: all 0.3s ease;
+}
+
+.platform-button-mobile:hover {
+  background: #00c6ff;
+  color: #19192D;
+  transform: scale(1.05);
+  box-shadow: 0 6px 15px rgba(0, 198, 255, 0.6);
+}
+
+/* Imagen del personaje */
 .character-image-mobile {
   position: absolute;
-  top: -142px;
-  right: 250px;
-  width: 150px;
+  top: -115px;
+  right: 355px;
+  transform: translateX(50%);
+  width: 120px;
   z-index: 3;
   pointer-events: none;
 }
+
+/* Media Query para iPhone SE (máximo 375px de ancho) */
 @media screen and (max-width: 375px) {
   /* Contenedor principal */
   .buy-section-mobile {
-    min-height: 100vh; /* Mantiene la altura completa */
-    padding: 20px 10px; /* Reduce el padding */
+    min-height: 180vh; /* Amplía la altura */
+    padding: 20px 10px; /* Ajusta los márgenes */
   }
 
   .buy-section-content-mobile {
-    gap: 10px; /* Reduce el espacio entre elementos */
+    gap: 100px; /* Reduce ligeramente el espaciado */
   }
 
   /* Texto */
   .buy-title-mobile {
-    font-size: 2rem; /* Disminuye el tamaño del título */
-    margin-bottom: 5px; /* Reduce el margen inferior */
+    font-size: 2rem; /* Reduce el tamaño del título */
+    margin-bottom: 10px;
+    background-size: 250%; /* Ajusta el tamaño del gradiente para la resolución */
+    animation: text-glow-smooth-mobile 6s infinite linear; /* Mantiene el efecto suave */
   }
 
   .buy-description-mobile {
-    font-size: 1rem; /* Ajusta la fuente para mayor legibilidad */
-    line-height: 1.4; /* Reduce el interlineado */
+    font-size: 1rem; /* Reduce ligeramente el tamaño del texto */
+    line-height: 1.4; /* Ajusta la altura de línea */
   }
 
   /* Widget */
   .widget-container-mobile {
-    top: 70px; /* Baja ligeramente la posición */
-    max-width: 85%; /* Amplía el ancho máximo */
+    height: auto; /* Permite que el contenido ajuste su tamaño */
+    margin-bottom: -50px;
   }
 
   .jupiter-terminal-mobile {
-    height: 400px; /* Reduce la altura para pantallas más pequeñas */
-    padding: 8px; /* Reduce el padding */
-    border-width: 2px; /* Adelgaza el borde */
+    height: 550px; /* Reduce la altura del widget */
+    border-width: 2px; /* Ajusta el grosor del borde */
+    padding: 0px;
+  }
+
+  /* Plataformas */
+  .platforms-container-mobile {
+    padding: 15px; /* Ajusta el padding interno */
+    margin-top: 0px; /* Agrega un poco más de espacio superior */
+  }
+
+  .platforms-title-mobile {
+    font-size: 1.1rem; /* Ajusta el tamaño del título */
+    margin-bottom: 10px;
+  }
+
+  .platforms-buttons-mobile {
+    gap: 8px; /* Reduce el espaciado entre botones */
+  }
+
+  .platform-button-mobile {
+    font-size: 0.85rem; /* Reduce el tamaño de los botones */
+    padding: 6px 10px; /* Ajusta el padding */
   }
 
   /* Imagen del personaje */
   .character-image-mobile {
-    top: -115px; /* Baja la posición */
-    right: 220px; /* Ajusta la posición hacia el centro */
-    width: 120px; /* Reduce el tamaño de la imagen */
+    top: -95px; /* Ajusta la posición superior */
+    width: 100px; /* Reduce el tamaño */
+    right: 320px; /* Centra la imagen para este dispositivo */
+    transform: translateX(50%); /* Asegura el centrado correcto */
   }
 }
