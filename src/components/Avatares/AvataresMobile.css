@@ -9,6 +9,7 @@
     color: #d4f1f9;
     text-align: center;
     overflow-x: hidden; /* Evita overflow lateral */
+    overflow: hidden;
     padding: 10px; /* Asegura que los elementos estén dentro de la vista */
 }
 

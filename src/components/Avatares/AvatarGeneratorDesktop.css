@@ -1,0 +1,260 @@
+.avatar-generator {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.avatar-generator::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: var(--background-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Desenfoque aplicado solo al fondo */
+  filter: blur(2px); /* Ajusta la intensidad del desenfoque */
+  z-index: -1; /* Envía el pseudo-elemento detrás del contenido */
+}
+
+
+/* Header */
+.generator-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.generator-title {
+  font-size: 6rem;
+  font-weight: bold;
+  color: #38bdf8; /* Azul acorde al tema */
+  text-transform: uppercase;
+  font-family: "Halau", sans-serif;
+  letter-spacing: 2px;
+  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+
+  /* Ajuste para mover hacia arriba */
+  position: relative;
+  top: -50px; /* Mueve el título hacia arriba */
+}
+
+
+/* Main Layout */
+.generator-main {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 40px;
+  max-width: 1200px;
+  width: 100%;
+}
+
+/* Avatar Preview Section */
+.avatar-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background: #D0D0D0;
+  padding: 20px;
+
+  /* Ajustamos el ancho y altura */
+  width: 580px;
+  height: 660px;
+
+  position: relative;
+  top: -20px;
+
+  border: 8px solid #000000;
+
+  /* Sombra cartoon */
+  box-shadow: 
+    -10px 10px 0px #01070c63;
+}
+
+.avatar-display {
+  position: relative;
+  width: 500px; /* Ajustamos el ancho proporcional al contenedor */
+  height: 500px; /* Altura ajustada */
+  background: #ffe4c4;
+  border: 8px solid #000000;
+  overflow: hidden; /* Ocultar cualquier exceso */
+
+  /* Rotación inicial */
+  transform: rotate(-1deg);
+  transition: transform 0.5s ease-in-out;
+}
+
+/* Añadimos una pseudo-interacción */
+.avatar-display:hover {
+  transform: rotate(-2deg);
+}
+
+
+.avatar-code {
+  margin-top: 10px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Controls Section */
+.generator-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado entre controles */
+  align-items: center; /* Centramos los elementos */
+  justify-content: space-between; /* Distribuye los botones */
+  height: 660px; /* Igual a avatar-preview-container */
+
+  /* Levantamos el contenedor hacia arriba */
+  position: relative;
+  top: -20px; /* Ajusta este valor según cuánto quieras levantarlo */
+}
+
+.control-group {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  width: 100%;
+}
+
+.control-label {
+  font-size: 1.2rem; /* Tamaño de texto acorde */
+  font-weight: bold;
+  font-family: "Halau", sans-serif; /* Fuente Halau */
+  color: white;
+  margin-right: 5px; /* Ajustamos el espaciado */
+  text-transform: capitalize;
+  text-align: center; /* Centra el texto */
+}
+
+.control-buttons {
+  display: flex;
+  gap: 2px; /* Reducimos el espacio entre botones */
+}
+
+.control-button {
+  background: #0b131b9a; /* Fondo base oscuro */
+  color: white; /* Texto blanco */
+  border: 3px solid black; /* Borde negro */
+  border-radius: 10px; /* Bordes redondeados */
+  padding: 0; /* Eliminamos padding */
+  cursor: pointer;
+  font-size: 1.5rem; /* Texto más grande */
+  font-weight: bold; /* Bold para < y > */
+  width: 60px; /* Ancho fijo */
+  height: 40px; /* Altura fija */
+  transition: all 0.1s ease-in-out;
+}
+
+.control-button:hover {
+  background: #13B8A6; /* Hover */
+  transform: scale(1.1);
+}
+
+
+/* Action Buttons */
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espaciado entre botones */
+  align-items: center; /* Centrar botones */
+  width: 100%; /* Alineación total dentro del contenedor */
+}
+.action-buttons button {
+  font-size: 1.5rem;
+  font-family: "Halau", sans-serif; /* Aplicamos la fuente Halau */
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px; /* Espaciado entre el icono y el texto */
+  width: calc(60px * 5 + 20px);
+  height: 50px;
+  transition: all 0.3s ease-in-out;
+}
+
+.randomize-button {
+  background: #0B131B; /* Fondo oscuro */
+  color: white;
+}
+.randomize-button:hover {
+  background: #13B8A6; /* Hover */
+}
+/* Botones de acción más grandes y cuadrados */
+.randomize-button,
+.reset-button,
+.download-button {
+  font-size: 1.5rem; /* Texto más grande */
+  font-family: "Halau", sans-serif; /* Fuente Halau */
+  font-weight: bold;
+  padding: 10px 20px; /* Añadimos un poco de padding interno */
+  border: none;
+  border-radius: 15px; /* Bordes más redondeados */
+  cursor: pointer;
+  display: flex; /* Flexbox para icono y texto */
+  align-items: center; /* Centrar verticalmente */
+  justify-content: center; /* Centrar horizontalmente */
+  gap: 10px; /* Espaciado entre icono y texto */
+  width: calc(60px * 5 + 20px); /* Ajustamos al ancho general */
+  height: 50px; /* Ajustamos ligeramente la altura */
+  text-align: center;
+  transition: all 0.3s ease-in-out;
+}
+
+/* Estilo para Randomize y Reset */
+.randomize-button,
+.reset-button {
+  background: #0B131B; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+}
+
+.randomize-button:hover,
+.reset-button:hover {
+  background: #13B8A6; /* Hover para botones oscuros */
+  transform: scale(1.05); /* Ligero aumento en hover */
+}
+
+/* Estilo para Download */
+.download-button {
+  background: #38BDF8; /* Color azul */
+  color: white; /* Texto blanco */
+}
+
+.download-button:hover {
+  background: #57c3ef; /* Color azul claro para hover */
+  transform: scale(1.05);
+}
+.avatar-layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.icon {
+  font-size: 1.8rem; /* Tamaño del icono */
+  display: inline-block;
+}
+/* Icono dentro del botón */
+.action-buttons button .fa-icon {
+  font-size: 1.8rem;
+}
