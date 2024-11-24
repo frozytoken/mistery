@@ -132,7 +132,7 @@ const AvatarGenerator = () => {
       }}
     >
       <header className="generator-header">
-        <h1 className="generator-title">DVIL PFP</h1>
+        <h1 className="generator-title">CREATE YOUR OWN DVIL PFP</h1>
       </header>
 
       <main className="generator-main">

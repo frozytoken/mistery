@@ -22,11 +22,28 @@
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
+  
+  /* Animación de zoom in y zoom out */
+  animation: zoomEffect 10s infinite ease-in-out; /* Duración de 10s, repetición infinita */
+  
   /* Desenfoque aplicado solo al fondo */
   filter: blur(2px); /* Ajusta la intensidad del desenfoque */
   z-index: -1; /* Envía el pseudo-elemento detrás del contenido */
 }
+
+/* Definimos la animación para el zoom */
+@keyframes zoomEffect {
+  0% {
+    transform: scale(1.01); /* Estado inicial */
+  }
+  50% {
+    transform: scale(1.05); /* Zoom in */
+  }
+  100% {
+    transform: scale(1.01); /* Vuelve al estado inicial */
+  }
+}
+
 
 
 /* Header */
@@ -36,17 +53,36 @@
 }
 
 .generator-title {
-  font-size: 6rem;
+  font-size: 5rem;
   font-weight: bold;
-  color: #38bdf8; /* Azul acorde al tema */
+  font-family: "Halau", sans-serif; /* Asegúrate de que la fuente Halau esté cargada */
   text-transform: uppercase;
-  font-family: "Halau", sans-serif;
   letter-spacing: 2px;
-  text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+  text-align: center;
 
-  /* Ajuste para mover hacia arriba */
+  color: #ffffff; /* Azul principal acorde al tema */
+  text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.8), 0px 0px 10px #38bdf8;
+
+  margin: 0;
+  padding: 0;
+
   position: relative;
-  top: -50px; /* Mueve el título hacia arriba */
+  top: -20px; /* Mueve el título ligeramente hacia arriba */
+
+  /* Efecto de brillo sutil */
+  animation: subtleGlow 2.5s infinite ease-in-out;
+}
+
+@keyframes subtleGlow {
+  0% {
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.8), 0px 0px 10px #38bdf8;
+  }
+  50% {
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.8), 0px 0px 15px #38bdf8;
+  }
+  100% {
+    text-shadow: 0px 4px 6px rgba(0, 0, 0, 0.8), 0px 0px 10px #38bdf8;
+  }
 }
 
 
