@@ -179,9 +179,20 @@ const Navbar = () => {
           // Navbar para escritorio
           <div className="desktop-navbar-container">
             <div className="navbar-logo">
-  <h1 className="navbar-text">DVIL.</h1>
-  <img src={require('../assets/dvil.png')} alt="Dvil Logo" className="logo-image" />
+  <h1 
+    className="navbar-text" 
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+  >
+    DVIL.
+  </h1>
+  <img 
+    src={require('../assets/dvil.png')} 
+    alt="Dvil Logo" 
+    className="logo-image" 
+    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+  />
 </div>
+
             <div className="desktop-navbar-links">
               <a href="#pfp-customizer">CUSTOMIZER</a>
               <a
