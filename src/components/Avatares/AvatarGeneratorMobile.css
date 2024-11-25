@@ -1,0 +1,230 @@
+@media screen and (max-width: 768px) {
+    /* Estructura principal */
+    .avatar-generator.mobile {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh; /* Ocupa toda la pantalla */
+      padding: 20px 0;
+      box-sizing: border-box;
+      overflow-y: auto; /* Permitir desplazamiento si es necesario */
+      position: relative; /* Para manejar el stacking de los elementos */
+    }
+  
+    /* Fondo animado fijo */
+    .avatar-generator::before {
+      content: "";
+      position: fixed; /* El fondo será fijo */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image: var(--background-image); /* Usa la variable de imagen */
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+  
+      /* Animación de zoom */
+      animation: zoomEffect 10s infinite ease-in-out;
+  
+      z-index: -2; /* Aseguramos que quede detrás de todo */
+    }
+  
+    @keyframes zoomEffect {
+      0% {
+        transform: scale(1.01);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+      100% {
+        transform: scale(1.01);
+      }
+    }
+  
+    /* Título fijo */
+    .generator-header {
+        position: fixed; /* Fijamos el título */
+        top: 20px; /* Añadimos un margen superior */
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 10px 0; /* Solo espacio interno */
+        z-index: 1; /* Por encima del fondo, pero debajo del contenido principal */
+      }
+  
+      .generator-title {
+        font-size: 2.8rem; /* Ajustamos el tamaño */
+        color: #fff;
+        margin: 0;
+        line-height: 1.2;
+        text-align: center;
+        text-transform: uppercase;
+        z-index: 1;
+      }
+  
+    /* Contenedor principal */
+    .generator-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    gap: 30px; /* Espacio entre los elementos */
+    margin-top: 330px; /* Baja el contenedor un poco más para dejar espacio al título */
+    z-index: 2;
+  }
+  
+    /* Contenedor de la imagen */
+    .avatar-preview-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        max-width: 320px;
+        background: #d0d0d0;
+        padding: 15px;
+        border: 8px solid #000000;
+        box-shadow: -5px 5px 0px rgba(0, 0, 0, 0.5);
+        margin-top: -30px; /* Baja el contenedor del avatar */
+      }
+  
+    .avatar-display {
+      position: relative;
+      width: 100%;
+      height: 270px; /* Altura ajustada */
+      background: #ffe4c4;
+      border: 5px solid #000000;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  
+    .avatar-display img {
+      max-width: 100%;
+      height: auto;
+    }
+  
+    /* Input de texto */
+    .avatar-code-input {
+        width: 100%;
+        max-width: 300px;
+        font-size: 1.2rem; /* Ajustar el tamaño de texto si es necesario */
+        margin-top: 15px;
+        text-align: center;
+        padding: 10px; /* Aumentar el padding para evitar el corte */
+        box-sizing: border-box;
+        min-height: 40px; /* Garantizar una altura mínima */
+      }
+      
+  
+    /* Controles */
+    .generator-controls {
+      width: 100%;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0px;
+      margin-top: -40px; /* Baja los controles */
+    }
+  
+    .control-section {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4); /* Fondo con transparencia */
+      border-radius: 10px;
+    }
+  
+    .control-group {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+    }
+  
+    .control-label {
+      font-size: 1.7rem;
+      text-transform: capitalize;
+      text-align: center;
+      color: white;
+    }
+  
+    .control-button {
+      background: #0b131b;
+      color: white;
+      border: 2px solid black;
+      border-radius: 5px;
+      padding: 5px 10px;
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+  
+    .control-button:hover {
+      transform: scale(1.1);
+      background: #13b8a6;
+    }
+  
+    /* Botones de acción */
+    .action-buttons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      margin-top: 5px; /* Baja los botones */
+      margin-bottom: 50px; /* Añade espacio inferior */
+    }
+  
+    .action-buttons button {
+        width: 100%; /* Ajusta el ancho para que se vea centrado */
+        max-width: 400px; /* Limita el tamaño máximo */
+        height: 50px; /* Altura uniforme */
+        font-size: 1.2rem; /* Ajusta el tamaño del texto */
+        font-family: "Halau", sans-serif;
+        font-weight: bold;
+        text-align: center;
+        padding: 10px;
+        border: 2px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+        transition: transform 0.2s, background-color 0.2s;
+      }
+  
+    .randomize-button,
+    .reset-button,
+    .download-button {
+      background: #000000;
+      color: white;
+    }
+  
+    .randomize-button:hover,
+    .reset-button:hover,
+    .download-button:hover {
+      background: #13b8a6;
+      transform: scale(1.05);
+    }
+  
+    .download-buttons {
+        display: flex;
+        flex-direction: column; /* Asegura la disposición vertical */
+        align-items: center; /* Centra los botones de descarga horizontalmente */
+        gap: 5px; /* Espaciado entre los botones de descarga */
+        width: 100%;
+        margin-bottom: 50px; /* Espaciado adicional al final */
+      }
+  
+      .download-button {
+        background: #38bdf8;
+        color: white;
+        text-align: center;
+        width: 90%; /* Asegura el mismo ancho que los otros botones */
+        max-width: 400px;
+        height: 50px;
+      }
+  }
+  

@@ -1,7 +1,9 @@
-import React, { useState, memo, useRef } from "react";
+import React, { useState, useEffect, memo, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDice, faSync, faDownload } from "@fortawesome/free-solid-svg-icons";
+import classNames from "classnames"; // Manejo dinámico de clases
 import "./AvatarGeneratorDesktop.css";
+import "./AvatarGeneratorMobile.css"; // CSS específico para móvil
 import backImage from "../../assets/backpfp.png";
 import html2canvas from "html2canvas";
 
@@ -17,6 +19,7 @@ const categories = {
 };
 
 const AvatarGenerator = () => {
+  const [isMobile, setIsMobile] = useState(false); // Detecta si estamos en móvil
   const [selectedItems, setSelectedItems] = useState({
     background: 0,
     tshirt: null,
@@ -30,6 +33,18 @@ const AvatarGenerator = () => {
   const [customText, setCustomText] = useState("Type Here");
 
   const avatarRef = useRef();
+  const avatarDisplayRef = useRef();
+
+  // Detectar si estamos en móvil o escritorio
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Móvil si el ancho es <= 768px
+    };
+
+    handleResize(); // Verificamos al cargar
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize); // Limpiamos el evento
+  }, []);
 
   const getImagePath = (category, index) =>
     `${process.env.PUBLIC_URL}/assets/avatares/${category}/${categories[category][index]}`;
@@ -70,63 +85,25 @@ const AvatarGenerator = () => {
   };
 
   const handleDownload = (includeCustomText) => {
-    if (includeCustomText) {
-      // Descargar todo el contenedor incluyendo marco y texto
-      html2canvas(avatarRef.current, {
-        useCORS: true, // Permite cargar imágenes externas
-        scale: 5, // Incrementa la calidad de la imagen
-        backgroundColor: "#ffffff", // Aseguramos un fondo blanco
-        width: avatarRef.current.offsetWidth, // Asegura el tamaño exacto
-        height: avatarRef.current.offsetHeight, // Asegura el tamaño exacto
-      }).then((canvas) => {
-        const link = document.createElement("a");
-        link.download = "full-avatar.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      });
-    } else {
-      // Descargar solo la imagen interior del avatar
-      const canvas = document.createElement("canvas");
-      canvas.width = 1000; // Define la resolución deseada
-      canvas.height = 1000;
-      const ctx = canvas.getContext("2d");
-  
-      const drawLayer = (src) => {
-        return new Promise((resolve) => {
-          const img = new Image();
-          img.crossOrigin = "Anonymous"; // Permite cargar imágenes externas
-          img.src = src;
-          img.onload = () => {
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            resolve();
-          };
-        });
-      };
-  
-      const drawAvatar = async () => {
-        await drawLayer(getImagePath("background", selectedItems.background));
-        await drawLayer(`${process.env.PUBLIC_URL}/assets/avatares/body/bodyblue.png`);
-  
-        for (const [category, index] of Object.entries(selectedItems)) {
-          if (index !== null && category !== "background") {
-            await drawLayer(getImagePath(category, index));
-          }
-        }
-  
-        const link = document.createElement("a");
-        link.download = "inner-avatar.png";
-        link.href = canvas.toDataURL("image/png");
-        link.click();
-      };
-  
-      drawAvatar();
-    }
+    const ref = includeCustomText ? avatarRef.current : avatarDisplayRef.current;
+    html2canvas(ref, {
+      useCORS: true,
+      scale: 5,
+      backgroundColor: "#ffffff",
+    }).then((canvas) => {
+      const link = document.createElement("a");
+      link.download = includeCustomText ? "full-avatar.png" : "inner-avatar.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    });
   };
-  
 
   return (
     <div
-      className="avatar-generator"
+      className={classNames("avatar-generator", {
+        mobile: isMobile,
+        desktop: !isMobile,
+      })} // Aplicamos clases dinámicas según el dispositivo
       style={{
         "--background-image": `url(${backImage})`,
       }}
@@ -136,9 +113,8 @@ const AvatarGenerator = () => {
       </header>
 
       <main className="generator-main">
-        {/* Avatar Preview */}
         <div className="avatar-preview-container" ref={avatarRef}>
-          <div className="avatar-display">
+          <div className="avatar-display" ref={avatarDisplayRef}>
             <img
               src={getImagePath("background", selectedItems.background)}
               alt="background"
@@ -160,7 +136,6 @@ const AvatarGenerator = () => {
               ) : null
             )}
           </div>
-          {/* Input para el texto personalizado */}
           <input
             type="text"
             value={customText}
@@ -170,9 +145,7 @@ const AvatarGenerator = () => {
           />
         </div>
 
-        {/* Controls */}
         <div className="generator-controls">
-          {/* Sección con overlay */}
           <div className="control-section">
             {Object.keys(categories).map((category) => (
               <div key={category} className="control-group">
@@ -193,7 +166,6 @@ const AvatarGenerator = () => {
             ))}
           </div>
 
-          {/* Action Buttons */}
           <div className="action-buttons">
             <button className="randomize-button" onClick={handleRandomize}>
               <FontAwesomeIcon icon={faDice} /> Randomize
@@ -202,16 +174,10 @@ const AvatarGenerator = () => {
               <FontAwesomeIcon icon={faSync} /> Reset traits
             </button>
             <div className="download-buttons">
-              <button
-                className="download-button"
-                onClick={() => handleDownload(true)}
-              >
+              <button className="download-button" onClick={() => handleDownload(true)}>
                 <FontAwesomeIcon icon={faDownload} /> Full Avatar
               </button>
-              <button
-                className="download-button"
-                onClick={() => handleDownload(false)}
-              >
+              <button className="download-button" onClick={() => handleDownload(false)}>
                 <FontAwesomeIcon icon={faDownload} /> Inner Avatar
               </button>
             </div>
