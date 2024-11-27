@@ -1,0 +1,83 @@
+.meme-builder-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  height: 100vh;
+  background: #ffffff; /* Fondo blanco puro */
+  margin: 0;
+  font-family: "Roboto", sans-serif; /* Usa una fuente limpia */
+}
+
+.header {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  height: 50px; /* Ajusta según el tamaño del logo */
+  cursor: pointer;
+}
+
+.header-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.close-button {
+  background: none;
+  color: #ff4a4a;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.buy-button {
+  background: #ff4a4a;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.buy-button:hover {
+  background-color: #e63b3b; /* Cambio sutil al pasar el ratón */
+}
+
+.upload-area {
+  cursor: pointer;
+  border: 2px dashed #ff4a4a;
+  padding: 60px;
+  border-radius: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.upload-area:hover {
+  background-color: #ffe6e6; /* Color de fondo suave al pasar el ratón */
+}
+
+.title {
+  font-size: 48px;
+  color: #ff4a4a;
+  font-weight: bold;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #ff4a4a;
+  margin: 10px 0 0 0;
+}

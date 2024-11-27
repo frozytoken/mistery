@@ -42,7 +42,7 @@ const Avatares = () => {
         {/* Opción 2 */}
         <div
           className={`avatares-option-${isMobile ? "mobile" : "desktop"}`}
-          onClick={() => navigate("/add-dvil-to-current-pfp")} // Redirigir a la ruta
+          onClick={() => navigate("/MemeBuilder")} // Redirigir a la ruta
         >
           <img
             src={pfpImage}

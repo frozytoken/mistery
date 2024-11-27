@@ -1,0 +1,235 @@
+/* Editor CSS */
+
+.editor-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    font-family: "Halau", sans-serif;
+    background-color: #e6f7ff; /* Glacial blue background */
+    overflow: hidden; /* Avoid unnecessary scroll */
+  }
+  
+  .header {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #d4f0ff; /* Lighter glacial blue */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    height: 40px;
+  }
+  
+  .header-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .close-button,
+  .buy-butoon {
+    background-color: #69c7ff; /* Glacial button */
+    color: #ffffff;
+    border: 2px solid #000000; /* Black border */
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+  
+  .buy-butoon {
+    background-color: #69c7ff; /* Glacial button */
+    color: #ffffff;
+    border-radius: 4px;
+  }
+  
+  .buy-butoon:hover {
+    background-color: #bde6f7; /* Softer glacial hover */
+    color: #004f7a; /* Deep glacial blue text */
+}
+  
+  .editor-content {
+    display: flex;
+    flex: 1;
+    height: calc(100% - 60px); /* Adjust for header height */
+  }
+  
+  .sidebar {
+    width: 15%;
+    background-color: #d4f0ff; /* Matching header */
+    padding: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 10px;
+    overflow-y: auto;
+  }
+  .sidebar.left {
+    border-right: 1px solid #bde6f7; /* Glacial border */
+  }
+  
+  .sidebar.right {
+    border-left: 1px solid #bde6f7; /* Glacial border */
+  }
+  .sidebar-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #004f7a; /* Deep glacial blue */
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .sticker-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+  }
+  .sticker-list li {
+    width: 60px;
+    height: 60px;
+  }
+  .sticker-list img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: grab;
+    border-radius: 4px;
+    transition: transform 0.2s ease;
+  }
+  
+  .sticker-list img:hover {
+    transform: scale(1.1);
+  }
+  .sticker-list img:active {
+    cursor: grabbing;
+  }
+  .canvas-container {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #e9f9ff; /* Softer glacial blue */
+    overflow: hidden;
+    box-sizing: border-box;
+    border: 2px solid #bde6f7; /* Border for canvas */
+    border-radius: 10px;
+  }
+  .upload-new-image {
+    background-color: #69c7ff; /* Glacial button */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  .upload-new-image:hover {
+    background-color: #51b6e8; /* Slightly darker glacial blue */
+  }
+  .uploaded-image {
+    max-width: 95%;
+    max-height: 95%;
+    border: 2px solid #6fc5ff;
+    border-radius: 10px;
+    object-fit: contain;
+  }
+  
+  .error-message {
+    font-size: 18px;
+    color: #ff4a4a;
+    font-weight: bold;
+  }
+  .sticker {
+    position: absolute;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+    border: 1px dashed transparent;
+    border-radius: 4px;
+  }
+  .sticker.selected {
+    border-color: #69c7ff; /* Highlight selected stickers */
+  }
+  .download-button,
+.reset-button,
+.delete-button {
+    background-color: #69c7ff; /* Glacial button */
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px; /* Uniform button size */
+    font-size: 14px;
+    width: 150px; /* Fixed width for alignment */
+    cursor: pointer;
+    text-align: center;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: background-color 0.3s ease;
+}
+  .download-button:hover,
+.reset-button:hover,
+.delete-button:hover {
+    background-color: #51b6e8; /* Slightly darker glacial blue */
+  }
+  .base-image {
+    max-width: 90%;
+    max-height: 90%;
+    position: absolute;
+    top: 50;
+    left: 50;
+    pointer-events: none; /* Esto hace que no sea manipulable */
+    object-fit: cover;
+  }
+  .sticker {
+    position: absolute;
+    transition: transform 0.2s ease, width 0.2s ease, height 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .sticker img {
+    width: 100%;
+    height: 100%;
+  }
+  
+  .sticker.selected {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    border: 2px solid #f00;
+  }
+  
+  .sticker-preview {
+    width: 60px;
+    height: 60px;
+    cursor: grab;
+    transition: transform 0.2s ease;
+  }
+  
+  .sticker-preview:active {
+    transform: scale(1.1);
+    cursor: grabbing;
+  }
+  
+  .canvas-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background-color: #eee;
+    overflow: hidden;
+  }
+  
+  .base-image {
+    width: 100%;
+    height: auto;
+  }
+  

@@ -4,26 +4,51 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh; /* Ocupa toda la altura del viewport */
     background: linear-gradient(180deg, #121212, #19192d);
     color: #d4f1f9;
     text-align: center;
-    overflow-x: hidden; /* Evita overflow lateral */
-    overflow: hidden;
-    padding: 10px; /* Asegura que los elementos estén dentro de la vista */
+    overflow: hidden; /* Asegura que no haya desplazamiento lateral o vertical inesperado */
+    padding: 10px; /* Espaciado interno */
+    box-sizing: border-box; /* Incluye padding en el tamaño total */
+    margin: 0; /* Elimina márgenes no deseados */
+    width: 100vw; /* Ancho exacto del viewport */
 }
 
 /* Título principal */
 .avatares-title-mobile {
-    font-size: 3rem;
     font-family: 'Halau', sans-serif;
+    font-size: 3rem; /* Ajuste para móviles */
+    font-weight: bold;
+    color: #00c6ff;
     text-transform: uppercase;
-    margin-bottom: 50px;
-    color: #ffffff;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
-                 0 0 10px rgba(255, 255, 255, 0.4),
-                 0 0 10px rgba(255, 255, 255, 0.5);
-    text-align: center;
+    margin-bottom: 20px; /* Espaciado entre el título y las opciones */
+    background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
+    background-size: 300%; /* Aumenta el tamaño para un efecto más fluido */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    animation: text-glow-smooth 6s infinite linear; /* Animación continua */
+    text-align: center; /* Asegura que el texto esté centrado */
+    word-wrap: break-word; /* Permite el salto de línea */
+    white-space: normal; /* Ajusta el texto al contenedor */
+    overflow: visible; /* Elimina cualquier corte */
+    width: 100%; /* Asegura que no exceda el ancho del viewport */
+    max-width: 90%; /* Evita que el texto ocupe más del 90% del ancho */
+    box-sizing: border-box; /* Incluye padding en el cálculo */
+}
+
+/* Animación continua y suave */
+@keyframes text-glow-smooth {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 /* Opciones principales */
@@ -31,8 +56,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 40px; /* Espaciado entre opciones */
-    width: 100%;
+    gap: 20px; /* Espaciado entre opciones */
+    width: 100%; /* Asegura que ocupa todo el ancho */
+    box-sizing: border-box; /* Evita desbordamiento lateral */
 }
 
 /* Contenedor de las opciones */
@@ -41,126 +67,123 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 90%; /* Aumenta el tamaño del contenedor */
-    max-width: 350px;
-    height: 250px; /* Incrementa la altura del contenedor */
+    width: 90%; /* Se adapta al viewport */
+    max-width: 320px;
+    height: 220px; /* Ajusta la altura */
     cursor: pointer;
     border: 4px solid white;
     border-radius: 15px;
     background: rgba(0, 0, 0, 0.3);
     position: relative;
     transition: all 0.3s ease;
+    overflow: hidden; /* Evita contenido que pueda salirse */
+    box-sizing: border-box;
 }
 
 .avatares-option-mobile:hover {
     background: rgba(255, 255, 255, 1);
-    box-shadow: 0 0 30px rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
     transform: scale(1.05);
 }
 
 /* Imagen en las opciones */
 .avatares-image-mobile {
-    width: 83%;
-    height: auto;
-    object-fit: contain;
+    width: 60vw; /* La imagen ocupa el 60% del ancho del viewport */
+    max-width: 300px; /* Asegura que no crezca demasiado en pantallas grandes */
+    height: auto; /* Ajusta automáticamente la altura para mantener proporciones */
+    object-fit: contain; /* Mantiene la proporción de la imagen */
+    display: block;
+    margin: 0 auto; /* Centra la imagen en su contenedor */
 }
 
 /* Texto descriptivo debajo de cada imagen */
 .avatares-text-mobile {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
     color: #ffffff;
     text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+    margin-top: 10px; /* Espaciado superior */
+    overflow-wrap: break-word; /* Evita el desbordamiento de texto */
+    word-wrap: break-word;
+    word-break: break-word;
+    white-space: normal; /* Asegura que el texto se ajuste al ancho */
 }
 
-/* Separador "OR" con líneas verticales */
+/* Separador "OR" */
 .or-divider-mobile {
     font-size: 1.5rem;
     font-family: 'Halau', sans-serif;
     color: white;
     text-transform: uppercase;
     text-align: center;
+    margin: 20px 0; /* Espaciado superior e inferior */
     position: relative;
-    margin: 30px 0;
 }
 
-/* Líneas decorativas para el OR (verticales) */
+/* Líneas decorativas para el OR */
 .or-divider-mobile::before,
 .or-divider-mobile::after {
     content: "";
     position: absolute;
-    width: 2px; /* Ancho de las líneas */
-    height: 50px; /* Longitud de las líneas */
+    width: 2px;
+    height: 40px;
     background: linear-gradient(180deg, transparent, #00c6ff, transparent);
 }
 
 .or-divider-mobile::before {
-    top: -70px;
+    top: -50px;
     left: 50%;
     transform: translateX(-50%);
 }
 
 .or-divider-mobile::after {
-    bottom: -70px;
+    bottom: -50px;
     left: 50%;
     transform: translateX(-50%);
 }
+
+/* Ajustes adicionales para pantallas pequeñas */
 @media screen and (max-width: 375px) {
-    /* Contenedor principal */
     .avatares-container-mobile {
-        padding: 10px; /* Añade un pequeño padding */
-        height: 100vh; /* Mantiene la altura completa */
+        padding: 10px;
+        min-height: 100vh; /* Mantiene la altura completa del viewport */
+        width: 100%; /* Asegura que no exceda el viewport */
     }
 
-    /* Título principal */
     .avatares-title-mobile {
         font-size: 2.5rem; /* Reduce el tamaño del título */
-        margin-bottom: 30px; /* Reduce el espacio inferior */
+        margin-bottom: 20px; /* Espacio reducido */
     }
 
-    /* Opciones principales */
     .avatares-options-mobile {
-        gap: 20px; /* Reduce el espacio entre opciones */
+        gap: 15px; /* Reduce el espacio entre opciones */
     }
 
-    /* Contenedor de las opciones */
     .avatares-option-mobile {
-        width: 95%; /* Aumenta el ancho al 95% del viewport */
-        max-width: 300px; /* Ajusta el tamaño máximo */
-        height: 200px; /* Reduce ligeramente la altura */
+        width: 95%; /* Ocupa casi todo el ancho del viewport */
+        max-width: 280px; /* Ajusta el ancho máximo */
+        height: 200px; /* Reduce la altura */
     }
 
-    /* Imagen en las opciones */
     .avatares-image-mobile {
-        width: 78%; /* Ajusta el ancho de las imágenes */
-        height: auto; /* Mantiene la proporción */
+        width: 70vw; /* Aumenta el ancho relativo en pantallas muy pequeñas */
+        height: auto; /* Ajusta automáticamente la altura */
+        max-width: 250px; /* Ajusta el tamaño máximo */
     }
 
-    /* Texto descriptivo debajo de cada imagen */
     .avatares-text-mobile {
-        font-size: 1.1rem; /* Reduce el tamaño del texto */
-        margin-top: 10px; /* Ajusta el espaciado superior */
+        font-size: 1rem; /* Reduce el tamaño del texto */
+        margin-top: 5px; /* Reduce el espacio superior */
     }
 
-    /* Separador "OR" */
     .or-divider-mobile {
-        font-size: 1.2rem; /* Reduce el tamaño del texto */
-        margin: 20px 0; /* Ajusta el espacio superior e inferior */
+        font-size: 1.2rem;
+        margin: 15px 0;
     }
 
-    /* Líneas decorativas para el OR (verticales) */
     .or-divider-mobile::before,
     .or-divider-mobile::after {
-        width: 2px; /* Mantiene el ancho de las líneas */
-        height: 30px; /* Reduce la longitud */
-    }
-
-    .or-divider-mobile::before {
-        top: -30px; /* Ajusta la posición superior */
-    }
-
-    .or-divider-mobile::after {
-        bottom: -30px; /* Ajusta la posición inferior */
+        height: 30px; /* Ajusta la longitud de las líneas */
     }
 }

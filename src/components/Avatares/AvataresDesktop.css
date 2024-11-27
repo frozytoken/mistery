@@ -14,17 +14,32 @@
 
 /* Título principal con efecto dinámico */
 .avatares-title-desktop {
-  font-size: 7rem;
-  font-family: 'Halau', sans-serif;
-  text-transform: uppercase;
   top: -50px;
+  font-family: 'Halau', sans-serif;
+  font-size: 4.5rem;
+  font-weight: bold;
+  color: #00c6ff;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff, #00c6ff);
+  background-size: 300%; /* Aumenta el tamaño para un efecto más fluido */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   position: relative;
-  text-align: center;
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.7),
-    0 0 10px rgba(255, 255, 255, 0.4),
-    0 0 10px rgba(255, 255, 255, 0.5);
-  -webkit-text-stroke: 1px rgba(0, 198, 255, 0.5);
+  animation: text-glow-smooth 6s infinite linear; /* Animación continua */
+}
+
+/* Animación continua y suave */
+@keyframes text-glow-smooth {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
 
 /* Efecto de neón azul glaciar recorriendo los bordes */

@@ -6,7 +6,8 @@ import About from "./components/About";
 import BuySection from "./components/BuySection";
 import Avatares from "./components/Avatares/Avatares";
 import AvatarGenerator from "./components/Avatares/AvatarGenerator";
-import AddDvilToPfp from "./components/Avatares/AddDvilToPfp";
+import MemeBuilder from "./components/Avatares/MemeBuilder";
+import Editor from "./components/Avatares/Editor";
 
 function MainView() {
   return (
@@ -26,7 +27,8 @@ function App() {
       <Routes>
         <Route path="/" element={<MainView />} />
         <Route path="/make-your-own-dvil" element={<AvatarGenerator />} />
-        <Route path="/add-dvil-to-current-pfp" element={<AddDvilToPfp />} />
+        <Route path="/MemeBuilder" element={<MemeBuilder />} />
+        <Route path="/editor" element={<Editor />} />
       </Routes>
     </Router>
   );
