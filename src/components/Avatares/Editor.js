@@ -149,7 +149,6 @@ useEffect(() => {
       width: 100,
       height: 100,
       rotation: 0,
-      scaleX: 1, // Escala inicial
     };
     setStickers((prev) => [...prev, newSticker]);
   };
