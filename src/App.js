@@ -7,7 +7,7 @@ import BuySection from "./components/BuySection";
 import Avatares from "./components/Avatares/Avatares";
 import AvatarGenerator from "./components/Avatares/AvatarGenerator";
 import MemeBuilder from "./components/Avatares/MemeBuilder";
-import Editor from "./components/Avatares/Editor";
+import Editor1 from "./components/Avatares/Editor1";
 
 function MainView() {
   return (
@@ -28,7 +28,7 @@ function App() {
         <Route path="/" element={<MainView />} />
         <Route path="/make-your-own-dvil" element={<AvatarGenerator />} />
         <Route path="/MemeBuilder" element={<MemeBuilder />} />
-        <Route path="/editor" element={<Editor />} />
+        <Route path="/editor1" element={<Editor1 />} />
       </Routes>
     </Router>
   );

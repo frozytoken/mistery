@@ -1,3 +1,4 @@
+/* Estilo actualizado para el constructor de memes con colores gélidos y fuente Halau */
 .meme-builder-container {
   display: flex;
   flex-direction: column;
@@ -5,44 +6,50 @@
   align-items: center;
   text-align: center;
   height: 100vh;
-  background: #ffffff; /* Fondo blanco puro */
+  background: linear-gradient(135deg, #001f3f, #0074d9); /* Fondo gélido */
   margin: 0;
-  font-family: "Roboto", sans-serif; /* Usa una fuente limpia */
+  font-family: "Halau", sans-serif; /* Fuente personalizada */
 }
 
-.header {
-  position: absolute;
-  top: 10px;
+.header-meme {
+  position: fixed;
+  top: 0;
   left: 0;
   right: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 20px;
+  padding: 10px 20px;
+  background-color: rgba(0, 0, 0, 0.9);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
 }
 
 .logo {
-  height: 50px; /* Ajusta según el tamaño del logo */
+  height: 50px;
   cursor: pointer;
 }
 
-.header-actions {
+.header-actions-meme {
   display: flex;
-  gap: 10px;
+  gap: 20px;
+  align-items: center;
 }
 
-.close-button {
-  background: none;
-  color: #ff4a4a;
-  font-size: 20px;
-  font-weight: bold;
-  border: none;
+.nav-icon {
+  width: 30px;
+  height: 30px;
   cursor: pointer;
-  padding: 0;
+  transition: transform 0.3s ease;
 }
 
-.buy-button {
-  background: #ff4a4a;
+.nav-icon:hover {
+  transform: scale(1.1);
+}
+
+.buy-dvil-button-meme {
+  background: #00d9ff;
   color: #ffffff;
   border: none;
   border-radius: 5px;
@@ -50,34 +57,39 @@
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.buy-button:hover {
-  background-color: #e63b3b; /* Cambio sutil al pasar el ratón */
+.buy-dvil-button-meme:hover {
+  background-color: #0074d9;
+  transform: scale(1.05);
 }
 
 .upload-area {
   cursor: pointer;
-  border: 2px dashed #ff4a4a;
-  padding: 60px;
-  border-radius: 10px;
-  transition: background-color 0.3s ease;
+  border: 4px dashed #00d9ff; /* Borde más prominente */
+  padding: 300px; /* Área clickable más grande */
+  border-radius: 15px;
+  transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
 .upload-area:hover {
-  background-color: #ffe6e6; /* Color de fondo suave al pasar el ratón */
+  background-color: rgba(0, 217, 255, 0.1); /* Fondo suave al pasar el ratón */
+  transform: scale(1.05); /* Efecto de zoom */
 }
 
-.title {
-  font-size: 48px;
-  color: #ff4a4a;
+.title-meme {
+  font-size: 64px;
+  color: #00d9ff;
   font-weight: bold;
   margin: 0;
+  text-shadow:
+    0 0 3px #00d9ff,
+    0 0 5px #66ffff;
 }
 
 .subtitle {
-  font-size: 18px;
-  color: #ff4a4a;
+  font-size: 20px;
+  color: #66ffff;
   margin: 10px 0 0 0;
 }

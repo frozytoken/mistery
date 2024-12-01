@@ -1,21 +1,27 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Stage, Layer, Image as KonvaImage, Transformer } from 'react-konva';
+import { Stage, Layer, Image as KonvaImage, Text, Transformer } from 'react-konva';
 import useImage from 'use-image';
 import { useLocation, useNavigate } from 'react-router-dom';
 import './Editor.css';
+import halauFont from '../../assets/fonts/Halau.ttf';
+import logo from "../../assets/log1.png";
+import twitterIcon from "../../assets/twitter-icon.png";
+import telegramIcon from "../../assets/telegram-icon.png";
+import ReactDOM from 'react-dom';
 
 const StickerImage = ({ sticker, isSelected, onSelect, onChange }) => {
   const [image] = useImage(sticker.src);
   const shapeRef = useRef();
-  const trRef = useRef();
+  const trRef = useRef(); // Agregar el Transformer ref
 
   useEffect(() => {
-    if (isSelected) {
+    if (isSelected && shapeRef.current) {
       trRef.current.nodes([shapeRef.current]);
       trRef.current.getLayer().batchDraw();
+    } else if (trRef.current) {
+      trRef.current.nodes([]);
     }
   }, [isSelected]);
-
   return (
     <>
       <KonvaImage
@@ -25,7 +31,6 @@ const StickerImage = ({ sticker, isSelected, onSelect, onChange }) => {
         width={sticker.width}
         height={sticker.height}
         rotation={sticker.rotation}
-        scaleX={sticker.scaleX} // Asegúrate de usar el valor actualizado
         draggable
         ref={shapeRef}
         onClick={onSelect}
@@ -39,20 +44,14 @@ const StickerImage = ({ sticker, isSelected, onSelect, onChange }) => {
         }}
         onTransformEnd={() => {
           const node = shapeRef.current;
-        
-          // Extrae las dimensiones escaladas
           const scaleX = node.scaleX();
           const scaleY = node.scaleY();
-        
-          // Calcula el nuevo ancho y alto
           const newWidth = node.width() * scaleX;
           const newHeight = node.height() * scaleY;
-        
-          // Restablece el escalado a 1 para evitar aumentos posteriores
+
           node.scaleX(1);
           node.scaleY(1);
-        
-          // Actualiza el sticker con las nuevas dimensiones y otras propiedades
+
           onChange({
             ...sticker,
             x: node.x(),
@@ -62,7 +61,6 @@ const StickerImage = ({ sticker, isSelected, onSelect, onChange }) => {
             rotation: node.rotation(),
           });
         }}
-        
       />
       {isSelected && (
         <Transformer
@@ -76,22 +74,207 @@ const StickerImage = ({ sticker, isSelected, onSelect, onChange }) => {
     </>
   );
 };
+// Editable Text Component
+const EditableText = ({ text, isSelected, onSelect, onChange, setIsEditing }) => {
+  const textRef = useRef(null);
+  const transformerRef = useRef(null);
+  const textareaRef = useRef(null);
+  const [isEditingLocal, setIsEditingLocal] = useState(false);
+  const [textareaStyle, setTextareaStyle] = useState(null);
+
+  const handleDblClick = () => {
+    if (!textRef.current) return;
+
+    setIsEditingLocal(true);
+    setIsEditing(true);
+
+    const stage = textRef.current.getStage();
+    const position = textRef.current.getAbsolutePosition();
+    const scale = stage.scaleX();
+
+    setTextareaStyle({
+      position: 'absolute',
+      top: `${position.y}px`,
+      left: `${position.x}px`,
+      width: `${textRef.current.width() * scale}px`,
+      fontSize: `${text.fontSize * scale}px`,
+      fontFamily: text.fontFamily || 'Arial',
+      color: text.fill,
+      backgroundColor: 'rgba(255, 255, 255, 0.8)',
+      border: '1px solid black',
+      padding: '2px',
+      margin: '0',
+      resize: 'none',
+      overflow: 'hidden',
+      transform: `scale(${1 / scale})`,
+      transformOrigin: 'top left',
+      zIndex: 1000,
+    });
+  };
+
+  const handleSave = () => {
+    if (!textareaRef.current) return;
+
+    onChange({ ...text, content: textareaRef.current.value });
+    setIsEditingLocal(false);
+    setIsEditing(false);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSave();
+    }
+  };
+
+  return (
+    <>
+      <Text
+        ref={textRef}
+        text={text.content}
+        x={text.x}
+        y={text.y}
+        fontSize={text.fontSize}
+        fontFamily="Halau, sans-serif"
+        fill={text.fill}
+        draggable
+        onClick={onSelect}
+        onTap={onSelect}
+        onDragEnd={(e) =>
+          onChange({
+            ...text,
+            x: e.target.x(),
+            y: e.target.y(),
+          })
+        }
+        onDblClick={handleDblClick}
+      />
+      {isSelected && (
+        <Transformer
+          ref={transformerRef}
+          boundBoxFunc={(oldBox, newBox) => {
+            if (newBox.width < 5 || newBox.height < 5) return oldBox;
+            return newBox;
+          }}
+        />
+      )}
+      {isEditingLocal &&
+        ReactDOM.createPortal(
+          <textarea
+            ref={textareaRef}
+            defaultValue={text.content}
+            onBlur={handleSave}
+            onKeyDown={handleKeyDown}
+            style={textareaStyle}
+          />,
+          document.body
+        )}
+    </>
+  );
+};
+
+
+
 
 const Editor = () => {
   const location = useLocation();
   const navigate = useNavigate();
+  const trRef = useRef(null);
+
 
   const [initialImage, setInitialImage] = useState(location.state?.image || null);
   const [overlayImages, setOverlayImages] = useState([]);
   const [stickers, setStickers] = useState([]);
+  const [texts, setTexts] = useState([]);
   const [selectedStickerId, setSelectedStickerId] = useState(null);
-
+  const [selectedId, setSelectedId] = useState(null);
+  const [selectedType, setSelectedType] = useState(null);
   const stageRef = useRef();
-
-  // Declarar el hook useImage dentro del componente y después de initialImage
   const [baseImage] = useImage(initialImage || '');
+  const [isEditing, setIsEditing] = useState(false);
+
+  
+  const handleSelectSticker = (id) => {
+    setSelectedStickerId(id);
+    setSelectedType('sticker');
+  };
+  
+  const handleSelectText = (id) => {
+    setSelectedId(id);
+    setSelectedType('text');
+  };
   const canvasWidth = window.innerWidth * 0.7;
   const canvasHeight = window.innerHeight * 0.8;
+  // Adjust image size proportionally
+  
+  // Centrar la imagen cargada
+  const centeredImagePosition = () => {
+    if (!baseImage) return { width: 0, height: 0, x: 0, y: 0 };
+  
+    const aspectRatio = baseImage.width / baseImage.height;
+    let width = canvasWidth;
+    let height = canvasWidth / aspectRatio;
+  
+    if (height > canvasHeight) {
+      height = canvasHeight;
+      width = canvasHeight * aspectRatio;
+    }
+  
+    const x = (canvasWidth - width) / 2;
+    const y = (canvasHeight - height) / 2;
+  
+    return { width, height, x, y };
+  };
+
+  const handleDeselect = (e) => {
+    const clickedOnEmpty = e.target === e.target.getStage();
+    if (clickedOnEmpty && !isEditing) {
+      setSelectedId(null);
+      setSelectedStickerId(null);
+    }
+  };
+  
+  const updateText = (id, updatedText) => {
+    setTexts((prev) =>
+      prev.map((text) => (text.id === id ? { ...text, ...updatedText } : text))
+    );
+  };
+  
+
+  const handleAddText = () => {
+    const newText = {
+      id: `text-${Date.now()}`,
+      content: 'Editable Text',
+      x: canvasWidth / 2, // Centro del canvas
+      y: canvasHeight / 2, // Centro del canvas
+      fontSize: 20,
+      fill: '#ffffff',
+    };
+    setTexts((prev) => [...prev, newText]);
+  };
+  
+  useEffect(() => {
+    console.log('Texts updated:', texts); // Debug: Verifica el estado de texts
+  }, [texts]);
+  
+  
+  const handleLayerMove = (id, direction) => {
+    const list = selectedType === 'text' ? texts : stickers;
+    const setList = selectedType === 'text' ? setTexts : setStickers;
+  
+    const index = list.findIndex((item) => item.id === id);
+    if (index < 0) return;
+  
+    const updated = [...list];
+    const [moved] = updated.splice(index, 1);
+    const newIndex = direction === 'up' ? index + 1 : index - 1;
+  
+    updated.splice(newIndex, 0, moved);
+    setList(updated);
+  };
+  
+  
+
   let scaledWidth = canvasWidth;
 let scaledHeight = canvasWidth / (baseImage?.width / baseImage?.height || 1);
 
@@ -99,6 +282,7 @@ if (scaledHeight > canvasHeight) {
   scaledHeight = canvasHeight;
   scaledWidth = canvasHeight * (baseImage?.width / baseImage?.height || 1);
 }
+
 useEffect(() => {
   const handleKeyDown = (event) => {
     if (event.key === 'Delete' || event.key === 'Del') {
@@ -165,20 +349,24 @@ useEffect(() => {
     );
   };
 
-  const handleDeleteSelected = () => {
-    if (!selectedStickerId) return;
+  const handleDeleteSelectedItem = () => {
+    if (selectedStickerId) {
+      // Eliminar el sticker seleccionado
+      setStickers((prev) => prev.filter((sticker) => sticker.id !== selectedStickerId));
+      setSelectedStickerId(null);
+    } else if (selectedId) {
+      // Eliminar el texto seleccionado
+      setTexts((prev) => prev.filter((text) => text.id !== selectedId));
+      setSelectedId(null);
+    }
   
-    // Eliminar de stickers
-    setStickers((prev) => prev.filter((sticker) => sticker.id !== selectedStickerId));
-  
-    // Eliminar de imágenes cargadas
-    setOverlayImages((prev) => prev.filter((image) => image.id !== selectedStickerId));
-  
-    // Desseleccionar el elemento
-    setSelectedStickerId(null);
+    // Limpiar nodos del Transformer
+    if (trRef.current) {
+      trRef.current.nodes([]);
+    }
   };
   
-
+  
   const handleReset = () => {
     setInitialImage(null);
     setOverlayImages([]);
@@ -271,21 +459,35 @@ useEffect(() => {
       };
     }
   };
-  
-  
-  
+  useEffect(() => {
+    const font = new FontFace('Halau', `url(${halauFont})`);
+    font.load().then(() => {
+      document.fonts.add(font);
+    }).catch((error) => {
+      console.error('Error al cargar la fuente Halau:', error);
+    });
+  }, []);
+
   return (
     <div className="editor-container">
       <header className="header">
-        <img src="/path-to-your-logo.png" alt="DVIL Logo" className="logo" />
-        <div className="header-actions">
-          <button className="close-button">✖</button>
-          <button className="buy-button">BUY $DVIL</button>
-        </div>
-      </header>
+      <img src={logo} alt="Logo" className="logo" />
+        <div className="header-actions">       
+          <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+            <img src={twitterIcon} alt="Twitter" className="nav-icon" />
+              </a>
+              <a href="https://t.me" target="_blank" rel="noopener noreferrer">
+                <img src={telegramIcon} alt="Telegram" className="nav-icon" />
+              </a>
+            <button className="buy-dvil-button">BUY $DVIL</button>
+          </div>
+        </header>
+  
       <div className="editor-content">
+        {/* Sidebar izquierda */}
         <aside className="sidebar left">
-          <h2 className="sidebar-title">Stickers</h2>
+          <h2>STICKERS</h2>
+          <button onClick={handleAddText}>TEXT</button>
           <ul className="sticker-list">
             {stickerList.map((sticker) => (
               <li key={sticker.id}>
@@ -297,77 +499,101 @@ useEffect(() => {
               </li>
             ))}
           </ul>
-          <button
-            className="upload-new-image"
-            onClick={() => document.getElementById('uploadNewImageInput').click()}
-          >
-            Upload New Image
-          </button>
-          <input
-            id="uploadNewImageInput"
-            type="file"
-            accept="image/*"
-            style={{ display: 'none' }}
-            onChange={handleUploadNewImage}
-          />
         </aside>
+  
+        {/* Contenedor principal del canvas */}
         <div className="canvas-container">
-          <Stage
-            width={window.innerWidth * 0.7}
-            height={window.innerHeight * 0.8}
-            ref={stageRef}
-          >
+        <Stage
+  width={canvasWidth}
+  height={canvasHeight}
+  ref={stageRef}
+  onMouseDown={handleDeselect} // Agregar el evento aquí
+  onClick={handleDeselect}    // También puedes mantener `onClick` para asegurar compatibilidad
+>
+
             <Layer>
-  {/* Renderizar la imagen base */}
-  {initialImage && baseImage && (
+            {baseImage && (
+              
   <KonvaImage
-    image={baseImage}
-    x={(canvasWidth - scaledWidth) / 2}
-    y={(canvasHeight - scaledHeight) / 2}
-    width={scaledWidth}
-    height={scaledHeight}
-  />
+  image={baseImage}
+  {...centeredImagePosition()} // Usamos directamente la función
+/>
 )}
 
-  {/* Renderizar las imágenes cargadas */}
-  {overlayImages.map((image) => (
-    <StickerImage
-      key={image.id}
-      sticker={image}
-      isSelected={selectedStickerId === image.id}
-      onSelect={() => setSelectedStickerId(image.id)}
-      onChange={(newAttrs) => updateSticker(image.id, newAttrs)}
-    />
-  ))}
-              {/* Renderizar los stickers */}
-  {stickers.map((sticker) => (
-    <StickerImage
-      key={sticker.id}
-      sticker={sticker}
-      isSelected={selectedStickerId === sticker.id}
-      onSelect={() => setSelectedStickerId(sticker.id)}
-      onChange={(newAttrs) => updateSticker(sticker.id, newAttrs)}
-    />
-  ))}
-</Layer>
+{texts.map((text) => (
+  <EditableText
+  key={text.id}
+  text={text}
+  isSelected={selectedId === text.id}
+  onSelect={() => handleSelectText(text.id)}
+  onChange={(newAttrs) => updateText(newAttrs.id, newAttrs)}
+  setIsEditing={setIsEditing}
+/>
+
+
+))}
+
+              {overlayImages.map((image) => (
+                <StickerImage
+                  key={image.id}
+                  sticker={image}
+                  isSelected={selectedStickerId === image.id}
+                  onSelect={() => setSelectedStickerId(image.id)}
+                  onChange={(newAttrs) => updateSticker(image.id, newAttrs)}
+                />
+              ))}
+              {stickers.map((sticker) => (
+  <StickerImage
+    key={sticker.id}
+    sticker={sticker}
+    isSelected={selectedStickerId === sticker.id}
+    onSelect={() => handleSelectSticker(sticker.id)}
+    onChange={(newAttrs) => updateSticker(sticker.id, newAttrs)}
+  />
+))}
+            </Layer>
           </Stage>
         </div>
-        <aside className="sidebar right">
-          <button className="download-button" onClick={handleDownload}>
-            Download
-          </button>
-          <button className="reset-button" onClick={handleReset}>
-            Reset
-          </button>
-          {selectedStickerId && (
-            <button
-              className="delete-button"
-              onClick={() => handleDeleteSelected()}
-            >
-              Delete
-            </button>
-          )}
-        </aside>
+  
+                {/* Sidebar derecha */}
+                <aside className="sidebar right">
+  <div className="button-group">
+    <button className="download-button editor-button" onClick={handleDownload}>
+      Download
+    </button>
+    <button className="reset-button editor-button" onClick={handleReset}>
+      Reset
+    </button>
+    
+    <button className="delete-button editor-button" onClick={handleDeleteSelectedItem}>
+      Delete
+    </button>
+    <button
+      onClick={() => document.getElementById('uploadNewImageInput').click()}
+      className="upload-new-image editor-button"
+    >
+      Upload New Image
+    </button>
+    <input
+      id="uploadNewImageInput"
+      type="file"
+      accept="image/*"
+      style={{ display: 'none' }}
+      onChange={handleUploadNewImage}
+    />
+    {selectedStickerId && (
+      <>
+        <button className="move-button editor-button" onClick={() => handleLayerMove(selectedStickerId, 'up')}>
+          Move Up
+        </button>
+        <button className="move-button editor-button" onClick={() => handleLayerMove(selectedStickerId, 'down')}>
+          Move Down
+        </button>
+      </>
+    )}
+  </div>
+</aside>
+
       </div>
     </div>
   );

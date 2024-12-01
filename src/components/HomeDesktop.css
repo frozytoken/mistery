@@ -28,7 +28,7 @@
 }
 
 /* Título */
-.title {
+.title-home {
   position: absolute;
   top: 15%; /* Proporcionalmente mejor para cualquier pantalla */
   font-size: 10rem; /* Destacado pero no exagerado */
