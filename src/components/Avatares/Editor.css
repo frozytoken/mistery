@@ -2,29 +2,28 @@
 .editor-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  text-align: center;
   height: 100vh;
-  background: linear-gradient(135deg, #001f3f, #0074d9); /* Fondo gélido */
-  margin: 0;
-  font-family: "Halau", sans-serif; /* Fuente personalizada */
+  background: linear-gradient(135deg, #001f3f, #0074d9);
+  font-family: "Halau", sans-serif;
+  padding: 0;
 }
   
-  .header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-    background-color: rgb(0, 0, 0);
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-  }
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: rgb(0, 0, 0);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+}
   
   .logo {
     height: 40px;
@@ -49,13 +48,14 @@
   .buy-dvil-button {
     background: #00d9ff;
     color: #ffffff;
-    border: none;
+    border: 2px solid #000000; /* Borde negro añadido */
     border-radius: 5px;
     padding: 10px 20px;
-    font-size: 14px;
+    font-size: 16px; /* Letras más legibles */
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.3s ease;
+    transition: background-color 0.2s ease, transform 0.2s ease; /* Animación más rápida */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombreado uniforme */
   }
   
   .buy-dvil-button:hover {
@@ -74,48 +74,59 @@
   }
 
   
-.editor-content {
-  display: flex;
-  flex: 1;
-  height: calc(100% - 60px); /* Ajustar altura al tamaño del header */
-  margin-top: 60px; /* Empuja el contenido hacia abajo para evitar el navbar */
-}
+  .editor-content {
+    display: flex;
+    flex: 1;
+    height: calc(100% - 60px);
+    margin-top: 60px;
+  }
   
 .sidebar {
   width: 15%;
   background-color: #e3e7e9; /* Unified with header for harmony */
-  padding: 10px;
+  padding: 20px;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  gap: 15px;
+  gap: 20px;
   overflow-y: auto;
 }
 .sidebar h2 {
   font-family: 'Halau', sans-serif;
   color: #5FC5E9;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   font-size: 3rem;
 }
 
-.sidebar button {
+.sidebar .sticker-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  justify-content: center;
+}
+.sidebar button,
+.editor-button {
+  width: 180px; /* Tamaño unificado */
   background-color: #5FC5E9;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 10px 15px;
-  font-size: 14px;
+  color: #ffffff;
+  border: 2px solid #000000; /* Borde negro consistente */
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
   cursor: pointer;
-  margin-bottom: 10px;
-  border: 2px solid #000000;
-  transition: background-color 0.3s;
+  transition: all 0.2s ease; /* Animación más rápida */
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3); /* Sombreado uniforme */
 }
 
+.editor-button:hover,
 .sidebar button:hover {
   background-color: #57b5c2;
+  transform: scale(1.05);
 }
 
   .sidebar.left {
@@ -156,13 +167,12 @@
     width: 60px;
     height: 60px;
   }
-  .sticker-list img {
+  .sidebar .sticker-list img {
     width: 60px;
     height: 60px;
     object-fit: cover;
-    cursor: pointer;
     border-radius: 8px;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
     border: 2px solid transparent;
   }
   
@@ -216,18 +226,10 @@
   .download-button,
   .reset-button,
   .delete-button {
-    display: block;
-    width: 200px;
-    background-color: #2c7da0;
-    color: #ffffff;
-    border: 2px solid #000000;
-    border-radius: 4px;
-    padding: 10px 20px;
-    font-size: 14px;
-    cursor: pointer;
-    margin: 10px auto; /* Centered and closer together */
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+    width: 180px;
+    background-color: #5FC5E9;
+    font-size: 16px;
+    margin: 5px 0; /* Espaciado entre botones */
   }
   .download-button:hover,
   .reset-button:hover,
@@ -318,13 +320,15 @@
   .editor-button:focus {
     outline: 2px solid #ffcc00; /* Mejora de accesibilidad */
   }
-
-.button-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Alinea todos los botones al centro */
-  gap: 0px; /* Espacio uniforme entre botones */
-}
+  .editor-button input[type="file"] {
+    display: none; /* Ocultar input */
+  }
+  .button-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0px; /* Reducir espacio entre botones */
+  }
 .color-picker {
   margin-top: 15px;
   background-color: #ffffff;
@@ -365,4 +369,29 @@
 .color-picker input[type='color']:hover {
   transform: scale(1.1);
   transition: transform 0.2s ease-in-out;
+}
+.noise-button {
+  width: 180px;
+  font-size: 16px;
+  background-color: #5FC5E9;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  padding: 12px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.noise-button:hover {
+  background-color: #57aee1;
+}
+
+#noise-range {
+  margin-top: 10px;
+  width: 160px; /* Ajustar tamaño para mejor alineación */
+}
+.noise-button.active {
+  background-color: #69c7ff;
+  color: #fff;
+  border: 2px solid #57aee1;
 }
