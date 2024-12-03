@@ -164,23 +164,29 @@ const Editor1 = () => {
       return;
     }
   
-    initCanvas(); // Llama a la función que ahora es estable gracias a useCallback
+    initCanvas();
   
     fabric.Image.fromURL(location.state.image, (img) => {
+      const canvasWidth = canvasInstance.current.width;
+      const canvasHeight = canvasInstance.current.height;
+  
+      // Escala dinámica optimizada
       const scaleFactor = Math.min(
-        canvasInstance.current.width / img.width,
-        canvasInstance.current.height / img.height
-      );
+        canvasWidth / img.width, // Escala basada en el ancho
+        canvasHeight / img.height // Escala basada en la altura
+      ) * 1.03; // Escalar un poco más para cubrir espacio
+  
   
       img.set({
-        left: canvasInstance.current.width / 2 - (img.width * scaleFactor) / 2,
-        top: canvasInstance.current.height / 2 - (img.height * scaleFactor) / 2,
+        left: Math.max((canvasWidth - img.width * scaleFactor) / 2, 0), // Garantiza que no quede negativo
+        top: Math.max((canvasHeight - img.height * scaleFactor) / 2, 0), // Garantiza que no quede negativo
         scaleX: scaleFactor,
         scaleY: scaleFactor,
         selectable: false,
         hasBorders: false,
         hasControls: false,
-      });
+    });
+    
   
       canvasInstance.current.setBackgroundImage(
         img,
@@ -190,31 +196,32 @@ const Editor1 = () => {
         }
       );
   
-      // Guarda las dimensiones originales
-      setMainImage({
-        left: img.left,
-        top: img.top,
-        width: img.width * scaleFactor,
-        height: img.height * scaleFactor,
-        originalWidth: img.width,
-        originalHeight: img.height,
-      });
+      // Guarda las dimensiones originales para ajustes posteriores
+    setMainImage({
+      left: img.left,
+      top: img.top,
+      width: img.width * scaleFactor,
+      height: img.height * scaleFactor,
+      originalWidth: img.width,
+      originalHeight: img.height,
     });
+  });
   
-    return () => {
-      if (canvasInstance.current) {
-        canvasInstance.current.dispose();
-        canvasInstance.current = null;
-      }
-    };
-  }, [location.state, navigate, isMobile, initCanvas]); // Añade initCanvas aquí
+  return () => {
+    if (canvasInstance.current) {
+      canvasInstance.current.dispose();
+      canvasInstance.current = null;
+    }
+  };
+}, [location.state, navigate, initCanvas, isMobile]);
   
-
+  
+  
   const handleAddText = () => {
     const text = new fabric.IText('TYPE HERE', {
-      left: 450,
-      top: 300,
-      fontSize: 80,
+      left: canvasInstance.current.width / 2, // Centrado horizontal
+      top: canvasInstance.current.height / 2, // Centrado vertical
+      fontSize: isMobile ? 40 : 80, // Tamaño reducido en móviles
       fill: '#ffffff',
       fontFamily: 'Halau',
       borderColor: '#69c7ff',
@@ -229,10 +236,10 @@ const Editor1 = () => {
   const handleAddSticker = (src) => {
     fabric.Image.fromURL(src, (img) => {
       img.set({
-        left: 500,
-        top: 100,
-        scaleX: 0.1,
-        scaleY: 0.1,
+        left: canvasInstance.current.width / 2 - img.width * 0.05, // Centrado horizontal
+        top: canvasInstance.current.height / 2 - img.height * 0.05, // Centrado vertical
+        scaleX: isMobile ? 0.05 : 0.1, // Tamaño más pequeño en móviles
+        scaleY: isMobile ? 0.05 : 0.1,
         borderColor: '#69c7ff',
         cornerColor: '#69c7ff',
         cornerSize: 8,
@@ -243,46 +250,54 @@ const Editor1 = () => {
     });
   };
   
-
   const handleAddImage = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onload = (f) => {
         fabric.Image.fromURL(f.target.result, (img) => {
+          const canvasWidth = canvasInstance.current.width;
+          const canvasHeight = canvasInstance.current.height;
+  
+          // Incrementar el factor de escala inicial
+          const scaleFactor = Math.min(
+            canvasWidth / img.width,
+            canvasHeight / img.height
+        ) * 1.1; // Incrementa un poco para aprovechar mejor el espacio
+  
           img.set({
-            left: 400,
-            top: 200,
-            scaleX: 0.2,
-            scaleY: 0.2,
+            left: canvasWidth / 2 - (img.width * scaleFactor) / 2, // Centrado horizontal
+            top: canvasHeight / 2 - (img.height * scaleFactor) / 2, // Centrado vertical
+            scaleX: scaleFactor,
+            scaleY: scaleFactor,
             borderColor: '#69c7ff',
             cornerColor: '#69c7ff',
             cornerSize: 8,
             transparentCorners: false,
             selectable: true,
           });
-        
+  
           // Añadir la imagen al canvas
           canvasInstance.current.add(img);
-        
+  
           // Asegurarse de que la imagen esté debajo del ruido
           if (noiseLayer.current) {
             canvasInstance.current.sendToBack(img);
             canvasInstance.current.bringToFront(noiseLayer.current); // Mantener el ruido al frente
           }
-        
+  
           canvasInstance.current.renderAll();
-        
+  
           // Restablecer el input de archivo
           if (fileInputRef.current) {
             fileInputRef.current.value = '';
           }
         });
-        
       };
       reader.readAsDataURL(file);
     }
   };
+  
 
   const handleDeleteObject = () => {
     const activeObj = canvasInstance.current?.getActiveObject();
@@ -294,69 +309,54 @@ const Editor1 = () => {
   };
 
   const handleDownload = () => {
-    if (canvasInstance.current) {
-      // Deseleccionar cualquier objeto activo
-      canvasInstance.current.discardActiveObject();
-      canvasInstance.current.renderAll();
-    }
+    if (!mainImage || !canvasInstance.current) return;
   
-    if (mainImage && canvasInstance.current) {
-      const { originalWidth, originalHeight } = mainImage;
+    const { left, top, width, height, originalWidth, originalHeight } = mainImage;
   
-      // Crear un canvas temporal para generar el ruido
-      const noiseCanvas = document.createElement('canvas');
-      noiseCanvas.width = originalWidth;
-      noiseCanvas.height = originalHeight;
-      const noiseContext = noiseCanvas.getContext('2d');
+    // Crear un canvas temporal con las dimensiones originales de la imagen principal
+    const tempCanvas = document.createElement('canvas');
+    tempCanvas.width = originalWidth;
+    tempCanvas.height = originalHeight;
+    const tempContext = tempCanvas.getContext('2d');
   
-      // Generar ruido visible
-      const imageData = noiseContext.createImageData(originalWidth, originalHeight);
-      const { data } = imageData;
-      for (let i = 0; i < data.length; i += 4) {
-        const randomValue = Math.random() * 255; // Valor aleatorio de ruido
-        data[i] = randomValue; // R
-        data[i + 1] = randomValue; // G
-        data[i + 2] = randomValue; // B
-        data[i + 3] = 90; // Transparencia más fuerte para hacer visible el ruido
-      }
-      noiseContext.putImageData(imageData, 0, 0);
+    // Escalar el contenido del canvas al tamaño original de la imagen principal
+    const scaleFactor = originalWidth / width;
   
-      // Crear un canvas temporal para exportar
-      const tempCanvas = document.createElement('canvas');
-      tempCanvas.width = originalWidth;
-      tempCanvas.height = originalHeight;
-      const tempContext = tempCanvas.getContext('2d');
+    // Exportar el contenido del canvas actual como imagen
+    const canvasDataUrl = canvasInstance.current.toDataURL({
+      format: 'png',
+      multiplier: scaleFactor, // Escala al tamaño original de la imagen principal
+    });
   
-      // Configurar parámetros de suavizado para máxima calidad
-      tempContext.imageSmoothingEnabled = true;
-      tempContext.imageSmoothingQuality = 'high';
+    const img = new Image();
+    img.onload = () => {
+      // Calcular las coordenadas relativas de recorte dentro del canvas escalado
+      const cropX = left * scaleFactor;
+      const cropY = top * scaleFactor;
+      const cropWidth = width * scaleFactor;
+      const cropHeight = height * scaleFactor;
   
-      // Dibujar contenido del canvas principal en el canvas temporal
+      // Dibujar solo el área de la imagen principal en el canvas temporal
       tempContext.drawImage(
-        canvasInstance.current.lowerCanvasEl, // Canvas principal
-        mainImage.left, // Coordenada X del área visible
-        mainImage.top, // Coordenada Y del área visible
-        mainImage.width, // Ancho del área visible
-        mainImage.height, // Alto del área visible
-        0, // Coordenada X del canvas temporal
-        0, // Coordenada Y del canvas temporal
-        originalWidth, // Ancho original
-        originalHeight // Alto original
+        img, // Imagen completa del canvas
+        cropX, // Coordenada X inicial del recorte
+        cropY, // Coordenada Y inicial del recorte
+        cropWidth, // Ancho del área recortada
+        cropHeight, // Altura del área recortada
+        0, // Coordenada X inicial en el canvas temporal
+        0, // Coordenada Y inicial en el canvas temporal
+        originalWidth, // Ancho final en el canvas temporal
+        originalHeight // Altura final en el canvas temporal
       );
-  
-      // Superponer el ruido al canvas temporal
-      tempContext.globalAlpha = 0.5; // Ajustar la intensidad del ruido (más visible)
-      tempContext.drawImage(noiseCanvas, 0, 0);
   
       // Descargar la imagen generada
       const link = document.createElement('a');
-      link.download = 'meme_with_noise.png';
-      link.href = tempCanvas.toDataURL('image/png', 1.0); // Calidad máxima
+      link.download = 'meme_with_content.png';
+      link.href = tempCanvas.toDataURL('image/png', 1.0); // Alta calidad
       link.click();
-    }
+    };
+    img.src = canvasDataUrl;
   };
-  
-  
   
   
   const handleReset = () => {

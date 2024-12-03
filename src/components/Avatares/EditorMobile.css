@@ -6,15 +6,31 @@
     width: 100%;
     height: auto;
     overflow-y: auto; /* Scroll vertical */
-    background: linear-gradient(135deg, #001f3f, #0074d9);
+    background: #F0F0F0;
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-.mobile-logo {
-    height: 11.2vw; /* Reducido para más espacio */
+/* Animación para el logo */
+@keyframes fadeInZoom {
+    0% {
+        opacity: 0; /* Comienza completamente invisible */
+        transform: scale(0.8); /* Aparece con un leve zoom reducido */
+    }
+    100% {
+        opacity: 1; /* Se hace visible */
+        transform: scale(1); /* Toma su tamaño natural */
+    }
 }
+
+/* Logo con animación */
+.mobile-logo {
+    height: 11.2vw; /* Tamaño adecuado */
+    animation: fadeInZoom 1s ease-out; /* Aplica la animación con duración de 1s */
+    transform-origin: center; /* Asegura que el efecto de escala se centre */
+}
+
 
 /* Contenedor general del contenido */
 .mobile-editor-content {
@@ -26,26 +42,24 @@
     gap: 5px; /* Espacio mínimo entre secciones */
 }
 
-/* Contenedor del canvas */
-.mobile-canvas-container {
-    width: 100%;
-    height: 65vh; /* Protagonismo al canvas */
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: 2px solid #4384c0;
-    border-radius: 5px;
-    box-sizing: border-box;
-    margin-bottom: 0px; /* Separación del resto del contenido */
-    overflow: hidden; /* Asegura que nada se salga */
+
+.editor-mobile .mobile-editor-content {
+    padding: 0;
+    gap: 0;
 }
-canvas {
-    display: block;
-    max-width: 100%; /* Escala el canvas para que no se desborde */
-    max-height: 100%; /* Asegura que el canvas esté visible */
-    object-fit: contain; /* Mantiene las proporciones de la imagen */
-    margin: auto; /* Centra el canvas dentro del contenedor */
+.mobile-sidebar-left,
+.mobile-sidebar-right {
+    padding: 5px; /* Reducir el padding */
+    gap: 5px; /* Espacio reducido entre elementos */
+    width: 100%; /* Asegurar que ocupen el ancho completo */
+}
+
+.mobile-sidebar-left {
+    margin-bottom: 5px; /* Espacio reducido entre sidebar y canvas */
+}
+
+.mobile-sidebar-right {
+    margin-top: 5px; /* Espacio reducido entre canvas y botones */
 }
 /* Sección de stickers */
 .mobile-sidebar-left {

@@ -274,15 +274,17 @@
     cursor: grabbing;
   }
   
-  .canvas-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f0f0f0;
-    overflow: auto;
-    animation: fadeIn 1s ease-in-out;
-  }
+/* Canvas en Desktop */
+.editor-container:not(.editor-mobile) .canvas-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+  overflow: auto;
+  animation: fadeIn 1s ease-in-out;
+}
+
   @keyframes fadeIn {
     from {
       opacity: 0;
