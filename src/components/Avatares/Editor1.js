@@ -1,10 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useCallback } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { fabric } from 'fabric';
 import logo from '../../assets/log1.png';
 import twitterIcon from '../../assets/twitter-icon.png';
 import telegramIcon from '../../assets/telegram-icon.png';
 import './Editor.css';
+import './EditorMobile.css'; // Cargar el CSS móvil
 
 const Editor1 = () => {
   const location = useLocation();
@@ -12,6 +13,7 @@ const Editor1 = () => {
   const canvasRef = useRef(null);
   const canvasInstance = useRef(null);
   const fileInputRef = useRef(null);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768); // Detectar si es móvil
   const [mainImage, setMainImage] = useState(null); // Guardar información de la imagen principal
   const [noiseLevel, setNoiseLevel] = useState(50); // Nivel de ruido ajustable
   const [isNoiseActive, setIsNoiseActive] = useState(false); // Estado para el filtro ON/OFF
@@ -22,6 +24,17 @@ const Editor1 = () => {
     src: `${process.env.PUBLIC_URL}/assets/builder/pfp${i + 1}.png`,
   }));
 
+    // Detectar cambios de tamaño de ventana
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   
   const toggleNoise = () => {
     if (!canvasInstance.current || !mainImage) return;
@@ -87,35 +100,35 @@ const Editor1 = () => {
   
   
   
-  const initCanvas = () => {
+  const initCanvas = useCallback(() => {
     const canvas = new fabric.Canvas(canvasRef.current, {
       backgroundColor: '#f0f0f0',
-      width: window.innerWidth * 0.7,
-      height: window.innerHeight * 0.8,
+      width: isMobile ? window.innerWidth * 0.9 : window.innerWidth * 0.7,
+      height: isMobile ? window.innerHeight * 0.6 : window.innerHeight * 0.8,
       preserveObjectStacking: true,
       selection: true,
     });
-
+  
     // Guardar referencia del canvas
     canvasInstance.current = canvas;
-
+  
     // Redimensionar canvas al cambiar tamaño de la ventana
     const resizeCanvas = () => {
       if (canvasInstance.current) {
-        canvasInstance.current.setWidth(window.innerWidth * 0.7);
-        canvasInstance.current.setHeight(window.innerHeight * 0.8);
+        canvasInstance.current.setWidth(isMobile ? window.innerWidth * 0.9 : window.innerWidth * 0.7);
+        canvasInstance.current.setHeight(isMobile ? window.innerHeight * 0.6 : window.innerHeight * 0.8);
         canvasInstance.current.renderAll();
       }
     };
-
     window.addEventListener('resize', resizeCanvas);
-
+  
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       canvas.dispose();
       canvasInstance.current = null;
     };
-  };
+  }, [isMobile]); // Dependencia de 'isMobile'
+  
   
   const addElement = (element) => {
     canvasInstance.current.add(element);
@@ -150,15 +163,15 @@ const Editor1 = () => {
       navigate('/MemeBuilder');
       return;
     }
-
-    initCanvas();
-
+  
+    initCanvas(); // Llama a la función que ahora es estable gracias a useCallback
+  
     fabric.Image.fromURL(location.state.image, (img) => {
       const scaleFactor = Math.min(
         canvasInstance.current.width / img.width,
         canvasInstance.current.height / img.height
       );
-    
+  
       img.set({
         left: canvasInstance.current.width / 2 - (img.width * scaleFactor) / 2,
         top: canvasInstance.current.height / 2 - (img.height * scaleFactor) / 2,
@@ -168,31 +181,34 @@ const Editor1 = () => {
         hasBorders: false,
         hasControls: false,
       });
-    
-      canvasInstance.current.setBackgroundImage(img, canvasInstance.current.renderAll.bind(canvasInstance.current), {
-        crossOrigin: 'anonymous', // Evita problemas de CORS
-      });
-    
-      // Guardar dimensiones originales de la imagen
+  
+      canvasInstance.current.setBackgroundImage(
+        img,
+        canvasInstance.current.renderAll.bind(canvasInstance.current),
+        {
+          crossOrigin: 'anonymous', // Evita problemas de CORS
+        }
+      );
+  
+      // Guarda las dimensiones originales
       setMainImage({
         left: img.left,
         top: img.top,
         width: img.width * scaleFactor,
         height: img.height * scaleFactor,
-        originalWidth: img.width, // Dimensiones originales
-        originalHeight: img.height, // Dimensiones originales
+        originalWidth: img.width,
+        originalHeight: img.height,
       });
     });
-    
-    
-
+  
     return () => {
       if (canvasInstance.current) {
         canvasInstance.current.dispose();
         canvasInstance.current = null;
       }
     };
-  }, [location.state, navigate]);
+  }, [location.state, navigate, isMobile, initCanvas]); // Añade initCanvas aquí
+  
 
   const handleAddText = () => {
     const text = new fabric.IText('TYPE HERE', {
@@ -364,105 +380,181 @@ const Editor1 = () => {
   };
 
   return (
-    <div className="editor-container">
-      <header className="header">
-        <img src={logo} alt="Logo" className="logo" />
-        <div className="header-actions">
+    <div className={`editor-container ${isMobile ? 'editor-mobile' : ''}`}>
+      <header className={`header ${isMobile ? 'mobile-header' : ''}`}>
+        <img
+          src={logo}
+          alt="Logo"
+          className={`logo ${isMobile ? 'mobile-logo' : ''}`}
+        />
+        <div
+          className={`header-actions ${isMobile ? 'mobile-header-actions' : ''}`}
+        >
           <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-            <img src={twitterIcon} alt="Twitter" className="nav-icon" />
+            <img
+              src={twitterIcon}
+              alt="Twitter"
+              className={`nav-icon ${isMobile ? 'mobile-nav-icon' : ''}`}
+            />
           </a>
           <a href="https://t.me" target="_blank" rel="noopener noreferrer">
-            <img src={telegramIcon} alt="Telegram" className="nav-icon" />
+            <img
+              src={telegramIcon}
+              alt="Telegram"
+              className={`nav-icon ${isMobile ? 'mobile-nav-icon' : ''}`}
+            />
           </a>
-          <button className="buy-dvil-button">BUY $DVIL</button>
+          <button
+            className={`buy-dvil-button ${
+              isMobile ? 'mobile-buy-dvil-button' : ''
+            }`}
+          >
+            BUY $DVIL
+          </button>
         </div>
       </header>
-
-      <div className="editor-content">
-        <aside className="sidebar left">
-          <h2>STICKERS</h2>
-          <ul className="sticker-list">
+  
+      <div className={`editor-content ${isMobile ? 'mobile-editor-content' : ''}`}>
+        <aside
+          className={`sidebar left ${
+            isMobile ? 'mobile-sidebar mobile-sidebar-left' : ''
+          }`}
+        >
+          <h2 className={isMobile ? 'mobile-sticker-title' : ''}>STICKERS</h2>
+          <ul
+            className={`sticker-list ${
+              isMobile ? 'mobile-sticker-list' : ''
+            }`}
+          >
             {stickers.map((sticker) => (
               <li key={sticker.id}>
                 <img
                   src={sticker.src}
                   alt={`Sticker ${sticker.id}`}
                   onClick={() => handleAddSticker(sticker.src)}
-                  className="sticker-preview"
+                  className={`sticker-preview ${
+                    isMobile ? 'mobile-sticker-preview' : ''
+                  }`}
                 />
               </li>
             ))}
           </ul>
-          <button onClick={handleAddText}>Add Text</button>
-           {/* Botón estilizado para subir imágenes */}
-  <label htmlFor="add-image" className="editor-button">
-    Add Image
-    <input
-      ref={fileInputRef}
-      type="file"
-      accept="image/*"
-      id="add-image"
-      onChange={handleAddImage}
-      style={{ display: 'none' }} // Ocultar el input
-    />
-     </label>
+          <button
+            onClick={handleAddText}
+            className={`editor-button ${isMobile ? 'mobile-editor-button' : ''}`}
+          >
+            Add Text
+          </button>
+          <label
+            htmlFor="add-image"
+            className={`editor-button ${isMobile ? 'mobile-editor-button' : ''}`}
+          >
+            Add Image
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              id="add-image"
+              onChange={handleAddImage}
+              style={{ display: 'none' }}
+            />
+          </label>
         </aside>
-        
-
-        <div className="canvas-container">
+  
+        <div
+          className={`canvas-container ${
+            isMobile ? 'mobile-canvas-container' : ''
+          }`}
+        >
           <canvas ref={canvasRef} />
         </div>
-
-        <aside className="sidebar right">
-          <div className="button-group">
-            <button className="download-button editor-button" onClick={handleDownload}>
+  
+        <aside
+          className={`sidebar right ${
+            isMobile ? 'mobile-sidebar mobile-sidebar-right' : ''
+          }`}
+        >
+          <div
+            className={`button-group ${
+              isMobile ? 'mobile-button-group' : ''
+            }`}
+          >
+            <button
+              className={`download-button editor-button ${
+                isMobile ? 'mobile-editor-button' : ''
+              }`}
+              onClick={handleDownload}
+            >
               Download
             </button>
-            <button className="reset-button editor-button" onClick={handleReset}>
+            <button
+              className={`reset-button editor-button ${
+                isMobile ? 'mobile-editor-button' : ''
+              }`}
+              onClick={handleReset}
+            >
               Reset
             </button>
-            <button className="editor-button" onClick={bringForward}>
+            <button
+              className={`editor-button ${
+                isMobile ? 'mobile-editor-button' : ''
+              }`}
+              onClick={bringForward}
+            >
               Move Up
             </button>
-            <button className="editor-button" onClick={sendBackward}>
+            <button
+              className={`editor-button ${
+                isMobile ? 'mobile-editor-button' : ''
+              }`}
+              onClick={sendBackward}
+            >
               Move Down
             </button>
             <button
-              className="editor-button delete-button"
+              className={`editor-button delete-button ${
+                isMobile ? 'mobile-editor-button' : ''
+              }`}
               onClick={handleDeleteObject}
             >
               Delete
             </button>
             <button
-  className={`editor-button noise-button ${isNoiseActive ? 'active' : ''}`}
-  onClick={toggleNoise}
-  disabled={!mainImage} // Deshabilitar si no hay imagen
->
-  {isNoiseActive ? 'Remove Noise' : 'Apply Noise'}
-</button>
-
-
-<label htmlFor="noise-range">Noise Level</label>
-<input
-  id="noise-range"
-  type="range"
-  min="0"
-  max="100"
-  value={noiseLevel}
-  onChange={(e) => {
-    setNoiseLevel(Number(e.target.value));
-    if (isNoiseActive) {
-      toggleNoise(); // Actualizar el filtro dinámicamente
-      toggleNoise();
-    }
-  }}
-  style={{ width: '100%' }}
-/>
+              className={`editor-button noise-button ${
+                isMobile ? 'mobile-editor-button' : ''
+              } ${isNoiseActive ? 'active' : ''}`}
+              onClick={toggleNoise}
+              disabled={!mainImage}
+            >
+              {isNoiseActive ? 'Remove Noise' : 'Apply Noise'}
+            </button>
+            <label
+              htmlFor="noise-range"
+              className={isMobile ? 'mobile-label' : ''}
+            >
+              Noise Level
+            </label>
+            <input
+              id="noise-range"
+              type="range"
+              min="0"
+              max="100"
+              value={noiseLevel}
+              onChange={(e) => {
+                setNoiseLevel(Number(e.target.value));
+                if (isNoiseActive) {
+                  toggleNoise();
+                  toggleNoise();
+                }
+              }}
+              className={isMobile ? 'mobile-noise-slider' : ''}
+            />
           </div>
         </aside>
       </div>
     </div>
   );
+  
 };
 
 export default Editor1;

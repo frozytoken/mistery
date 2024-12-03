@@ -1,0 +1,134 @@
+/* Estilos exclusivos para dispositivos móviles */
+.editor-mobile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: auto;
+    overflow-y: auto; /* Scroll vertical */
+    background: linear-gradient(135deg, #001f3f, #0074d9);
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.mobile-logo {
+    height: 11.2vw; /* Reducido para más espacio */
+}
+
+/* Contenedor general del contenido */
+.mobile-editor-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px 5px; /* Reducido */
+    gap: 5px; /* Espacio mínimo entre secciones */
+}
+
+/* Contenedor del canvas */
+.mobile-canvas-container {
+    width: 100%;
+    height: 65vh; /* Protagonismo al canvas */
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #4384c0;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-bottom: 0px; /* Separación del resto del contenido */
+    overflow: hidden; /* Asegura que nada se salga */
+}
+canvas {
+    display: block;
+    max-width: 100%; /* Escala el canvas para que no se desborde */
+    max-height: 100%; /* Asegura que el canvas esté visible */
+    object-fit: contain; /* Mantiene las proporciones de la imagen */
+    margin: auto; /* Centra el canvas dentro del contenedor */
+}
+/* Sección de stickers */
+.mobile-sidebar-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 10px; /* Compactado */
+    background-color: #e3e7e9;
+    border: 2px solid #5FC5E9;
+    border-radius: 5px;
+    box-sizing: border-box;
+    gap: 10px; /* Espaciado uniforme entre elementos */
+}
+
+.mobile-sticker-title {
+    font-family: 'Halau', sans-serif;
+    color: #5FC5E9;
+    font-size: 1.2rem; /* Más compacto */
+    margin: 0; /* Elimina márgenes innecesarios */
+    text-align: center; /* Centrado del texto */
+}
+
+.mobile-sticker-list {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Más stickers por fila */
+    gap: 5px; /* Espaciado uniforme */
+    width: 100%;
+    padding: 0;
+    margin: 0; /* Sin márgenes adicionales */
+}
+
+.mobile-sticker-preview {
+    width: 100%;
+    height: 50px; /* Más compacto */
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: transform 0.2s ease;
+}
+
+.mobile-sticker-preview:hover {
+    transform: scale(1.1);
+    border-color: #69c7ff;
+}
+
+.mobile-editor-button {
+    width: 50%; /* Uniforme en tamaño */
+    background-color: #5FC5E9;
+    color: #ffffff;
+    border: 2px solid #000;
+    border-radius: 4px;
+    padding: 10px 0; /* Uniforme */
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin: 5px 0; /* Espaciado uniforme entre botones */
+}
+
+.mobile-editor-button:hover {
+    background-color: #57b5c2;
+    transform: scale(1.05);
+}
+
+/* Botones secundarios */
+.mobile-button-group {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Dos botones por fila */
+    width: 90%;
+}
+
+.mobile-sidebar-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+    background-color: #e3e7e9;
+    border: 2px solid #5FC5E9;
+    border-radius: 5px;
+    box-sizing: border-box;
+    margin-top: 5px;
+}

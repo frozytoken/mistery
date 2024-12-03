@@ -1,0 +1,69 @@
+/* Contenedor principal */
+.mobile-meme-builder-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    height: 100vh; /* Altura total del viewport */
+    background: linear-gradient(135deg, #001f3f, #0074d9); /* Fondo gélido */
+    margin: 0;
+    font-family: "Halau", sans-serif; /* Fuente */
+    box-sizing: border-box;
+    overflow: hidden; /* Evita scroll innecesario */
+}
+
+.mobile-buy-dvil-button-meme:hover {
+    background-color: #0074d9;
+}
+
+/* Área de carga */
+.mobile-upload-area {
+    cursor: pointer;
+    border: 3px dashed #00d9ff;
+    width: 90%; /* Asegura que el contenedor se ajuste al viewport */
+    max-width: 400px; /* Máximo tamaño en dispositivos grandes */
+    height: 50%; /* Altura relativa a la pantalla */
+    border-radius: 10px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0; /* Sin márgenes externos */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra verticalmente el contenido */
+    align-items: center; /* Centra horizontalmente el contenido */
+    position: relative; /* Asegura que el contenido interno esté centrado */
+    overflow: hidden; /* Evita desbordamientos */
+}
+
+/* Ajusta el bordeado para que sea visible completamente */
+.mobile-upload-area::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 3px dashed #00d9ff;
+    border-radius: 10px;
+    pointer-events: none; /* Evita interferencias con el contenido */
+}
+
+/* Título */
+.mobile-title-meme {
+    font-size: 2rem; /* Aumentado para mejor visibilidad */
+    color: #00d9ff;
+    font-weight: bold;
+    margin: 0;
+    text-shadow: 0 0 3px #00d9ff, 0 0 5px #66ffff;
+    text-align: center;
+    line-height: 1.2; /* Ajusta el espaciado entre líneas */
+}
+
+/* Subtítulo */
+.mobile-subtitle {
+    font-size: 1.4rem; /* Aumentado para mejor visibilidad */
+    color: #66ffff;
+    margin: 10px 0 0 0;
+    line-height: 1.4; /* Ajusta el espaciado entre líneas */
+    text-align: center;
+}
