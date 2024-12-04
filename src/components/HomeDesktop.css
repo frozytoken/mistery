@@ -264,19 +264,66 @@
 /* Cuadro para el contador de PUMPS TOTALES */
 .total-pumps-counter {
   position: absolute;
-  bottom: 9%; /* Ubicado justo debajo del meme */
+  display: flex;
+  justify-content: space-between; /* Espacio entre los elementos */
+  align-items: center; /* Centra verticalmente los elementos */
+  bottom: 9%; /* Ubicación debajo del meme */
   left: 50%;
   transform: translateX(-50%);
   background: rgba(0, 0, 0, 0.85); /* Fondo oscuro */
-  color: #00ffcc; /* Texto con un tono brillante */
-  font-size: 1.5rem; /* Tamaño del texto */
+  color: #00ffcc; /* Texto brillante */
+  font-size: 1.4rem; /* Tamaño de texto ligeramente ajustado */
   font-weight: bold;
-  padding: 10px 20px; /* Espaciado interno */
+  padding: 15px 20px; /* Espaciado interno ajustado */
   border-radius: 12px; /* Bordes redondeados */
   box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.5); /* Sombra suave */
   text-align: center;
   z-index: 5; /* Por encima del meme */
-  transition: transform 0.2s ease-in-out, background 0.3s ease-in-out;
+}
+
+.total-pumps-counter span {
+  display: block;
+  margin: 0; /* Sin márgenes adicionales */
+}
+
+.total-pumps-counter .separator {
+  width: 90%; /* Ancho de la línea */
+  height: 1px; /* Grosor de la línea */
+  background: #00ffcc; /* Color de la línea */
+  margin: 10px auto; /* Espaciado uniforme */
+  opacity: 0.8; /* Transparencia suave */
+}
+
+.total-pumps-counter .succes-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Espaciado entre texto e icono */
+}
+
+.total-pumps-counter .succes-icon {
+  width: 15px; /* Tamaño del icono */
+  height: 15px;
+  background-color: #00ffcc; /* Color del icono */
+  border-radius: 50%; /* Forma circular */
+  box-shadow: 0px 0px 8px rgba(0, 255, 204, 0.7); /* Brillo suave */
+  transition: all 0.2s ease-in-out; /* Efecto suave por defecto */
+}
+
+.total-pumps-counter .succes-icon.active {
+  animation: succesGlow 1s ease-in-out 2; /* Animación al sumar un succes */
+}
+
+/* Animación de parpadeo */
+@keyframes succesGlow {
+  0%, 100% {
+    box-shadow: 0px 0px 8px rgba(0, 255, 204, 0.7);
+    background-color: #00ffcc;
+  }
+  50% {
+    box-shadow: 0px 0px 20px rgba(0, 255, 204, 1);
+    background-color: #00ffee;
+  }
 }
 
 /* Hover para un pequeño efecto visual */
@@ -284,7 +331,97 @@
   transform: translateX(-50%) scale(1.05); /* Efecto de agrandamiento */
   background: rgba(0, 0, 0, 0.95); /* Fondo ligeramente más oscuro */
 }
+/* Contenedor de imágenes decorativas */
+.decorative-images {
+  position: absolute; /* Cambiado a absolute para garantizar que el top funcione */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 15; /* Por encima de fondobanner pero por debajo del título */
+  pointer-events: none; /* Para no bloquear clics */
+}
 
+/* Imagen flash */
+.flash {
+  position: absolute;
+  top: -5%; /* Mantener la posición */
+  left: calc(50% - 15%); /* Ajustado horizontalmente */
+  width: 30%; /* Tamaño del flash */
+  z-index: 16; /* Debajo de moon */
+  opacity: 1; /* Totalmente visible */
+
+  /* Máscara para aplicar solo donde hay dibujo */
+  -webkit-mask-image: url("../assets/flash.png");
+  -webkit-mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url("../assets/flash.png");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+
+  /* Efecto de resplandor */
+  animation: glowFlash 4s ease-in-out infinite; /* Ciclo más rápido */
+  filter: brightness(1); /* Sin brillo general en el fondo */
+}
+
+/* Animación de resplandor */
+@keyframes glowFlash {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.7)) 
+            drop-shadow(0 0 60px rgba(255, 255, 255, 0.6));
+  }
+}
+
+
+
+/* Imagen moon */
+.moon {
+  position: absolute;
+  top: 15%; /* Baja la posición */
+  left: 50%; /* Centrada horizontalmente */
+  transform: translate(-50%, 10%); /* Ajusta la altura adicional */
+  width: 7%; /* Tamaño más pequeño */
+  z-index: 17; /* Encima de flash */
+  opacity: 1;
+  animation: rotateMoon 120s linear infinite, glowMoon 4s ease-in-out infinite; /* Efectos combinados */
+}
+
+/* Animación de balanceo de la luna */
+@keyframes rotateMoon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Animación de brillo suave */
+@keyframes glowMoon {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+}
+/* Clase para activar la vibración */
+.moon.vibrate {
+  animation: vibrate 0.3s linear 4; /* Vibración durante 0.3s, repitiendo 4 veces */
+}
+
+/* Definir la animación de vibración */
+@keyframes vibrate {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  50% { transform: translateX(5px); }
+  75% { transform: translateX(-5px); }
+  100% { transform: translateX(5px); }
+}
 /* /* Ajustes para pantallas ultrawide (relación de aspecto 21:9 o más) */
 @media (min-aspect-ratio: 21/9) {
   /* Contenedor general */

@@ -14,6 +14,8 @@ const Leaderboard = () => {
   const lastClickTimeRef = useRef({});
   const ppsTimeoutsRef = useRef({});
 
+  const toggleExpandRef = useRef(false); // Prevenir alternancia rápida
+
   // Función para formatear números con comas
   const formatNumber = (number) => {
     if (isNaN(number) || number === null || number === undefined) return "0";
@@ -49,7 +51,6 @@ const Leaderboard = () => {
     const countryClicksRef = ref(database, "countryClicks");
     const globalClickCountRef = ref(database, "clickCount");
 
-    // Escuchar cambios en los datos de clics por país
     onValue(countryClicksRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
@@ -93,14 +94,21 @@ const Leaderboard = () => {
       }
     });
 
-    // Escuchar cambios en el total de clics globales
     onValue(globalClickCountRef, (snapshot) => {
       setTotalGlobalClicks(snapshot.val() || 0);
     });
   }, [userCountry]);
 
   // Alternar entre expandir y colapsar
-  const toggleExpand = () => setExpanded(!expanded);
+  const toggleExpand = () => {
+    if (!toggleExpandRef.current) {
+      toggleExpandRef.current = true;
+      setExpanded((prev) => !prev);
+      setTimeout(() => {
+        toggleExpandRef.current = false;
+      }, 300); // Evitar múltiples cambios en un corto período
+    }
+  };
 
   // Obtener el rango (posición) de un país
   const getRankDisplay = (index) => {
@@ -111,8 +119,11 @@ const Leaderboard = () => {
   };
 
   return (
-    <div className={`leaderboard ${expanded ? "expanded" : "collapsed"}`}>
-      <div className="leaderboard-header" onClick={toggleExpand}>
+    <div
+      className={`leaderboard ${expanded ? "expanded" : "collapsed"}`}
+      onClick={toggleExpand}
+    >
+      <div className="leaderboard-header">
         {expanded ? (
           <h3 className="leaderboard-title">
             <span className="trophy">🏆</span> Leaderboard
@@ -181,9 +192,7 @@ const Leaderboard = () => {
                 />
                 <span className="country-name">{country.id}</span>
                 {ppsData[country.id] > 0 && (
-                  <span className="country-pps">
-                    ({ppsData[country.id]} PPS)
-                  </span>
+                  <span className="country-pps">({ppsData[country.id]} PPS)</span>
                 )}
                 <span className="country-clicks">
                   {formatNumber(country.totalClicks)}

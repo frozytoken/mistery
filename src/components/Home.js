@@ -4,6 +4,10 @@ import "./HomeMobile.css";
 import Leaderboard from "./Leaderboard";
 import memeIdle from "../assets/meme_idle.png";
 import memePump from "../assets/meme_pump.png";
+import flash from "../assets/flash.png"; // Importa flash.png
+import moon from "../assets/moon.png"; // Importa moon.png
+import clickSound from "../assets/audio/click-sound.wav";
+import successSound from "../assets/audio/success-sound.wav";
 import database from "../firebase/firebaseConfig";
 import { ref, runTransaction, onValue, set } from "firebase/database";
 
@@ -19,8 +23,61 @@ const Home = () => {
   const [globalIsPumping, setGlobalIsPumping] = useState(false);
   const [isAtRest, setIsAtRest] = useState(true);
   const [isMobile, setIsMobile] = useState(false);
+  const [totalSuccesses, setTotalSuccesses] = useState(0); // Nuevo estado para éxitos
+  const [hasReachedThreshold, setHasReachedThreshold] = useState(false); // Para controlar el umbral
+  const [isSuccessActive, setIsSuccessActive] = useState(false);
+  const [clickAudio, setClickAudio] = useState(null);
+  const [successAudio, setSuccessAudio] = useState(null);
+  const [clickCooldown, setClickCooldown] = useState(false);
+  const [successCooldown, setSuccessCooldown] = useState(false);
+
 
   const contractAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+  
+// Inicializar los audios en useEffect
+useEffect(() => {
+  const clickSoundInstance = new Audio(clickSound);
+  const successSoundInstance = new Audio(successSound);
+
+  clickSoundInstance.volume = 0.1; // Reducir volumen al 20%
+  clickSoundInstance.preload = "auto";
+
+  successSoundInstance.volume = 1.0; // Success sin cambios (100% de volumen)
+  successSoundInstance.preload = "auto";
+
+  setClickAudio(clickSoundInstance);
+  setSuccessAudio(successSoundInstance);
+}, []);
+    // Función para reproducir el sonido del clic con cooldown
+const playClickSound = () => {
+  if (!clickCooldown && clickAudio) {
+    setClickCooldown(true);
+    clickAudio.currentTime = 0;
+    clickAudio.play().catch((error) => {
+      console.error("Error al reproducir clickSound:", error);
+    });
+
+    setTimeout(() => {
+      setClickCooldown(false);
+    }, 100); // Cooldown de 100ms
+  }
+};
+
+// Función para reproducir el sonido del éxito con cooldown
+const playSuccessSound = () => {
+  if (!successCooldown && successAudio) {
+    setSuccessCooldown(true);
+    successAudio.currentTime = 0;
+    successAudio.play().catch((error) => {
+      console.error("Error al reproducir successSound:", error);
+    });
+
+    setTimeout(() => {
+      setSuccessCooldown(false);
+    }, 500); // Cooldown de 500ms
+  }
+};
+    
 
   // Función para copiar el contrato al portapapeles
   const copyToClipboard = () => {
@@ -37,6 +94,25 @@ const Home = () => {
     if (isNaN(number) || number === null || number === undefined) return "0";
     return Number(number).toLocaleString("en-US");
   };
+  useEffect(() => {
+    const clickSoundInstance = new Audio(clickSound);
+    const successSoundInstance = new Audio(successSound);
+
+    clickSoundInstance.preload = "auto";
+    successSoundInstance.preload = "auto";
+
+    setClickAudio(clickSoundInstance);
+    setSuccessAudio(successSoundInstance);
+  }, []);
+  
+  useEffect(() => {
+    const successCountRef = ref(database, "successCount");
+  
+    // Sincroniza el contador de éxitos con Firebase
+    onValue(successCountRef, (snapshot) => {
+      setTotalSuccesses(snapshot.val() || 0);
+    });
+  }, []);
 
   // Obtener el país del usuario
   useEffect(() => {
@@ -79,23 +155,53 @@ const Home = () => {
       database,
       `countryClicks/${userCountry || "UNKNOWN"}/totalClicks`
     );
-
+  
+    // Incrementar el contador global de clics
     runTransaction(globalClicksRef, (currentValue) => (currentValue || 0) + 1);
+  
+    // Incrementar el contador de clics por país
     runTransaction(countryClicksRef, (currentValue) => (currentValue || 0) + 1);
-
-    // Incremento de la vela con dificultad creciente
+  
+    // Incremento de la altura de la vela con dificultad ajustada
     runTransaction(candleHeightRef, (currentHeight) => {
       const baseHeight = currentHeight || window.innerHeight * 0.05;
-      const increment = Math.max(1 / Math.pow(baseHeight / (window.innerHeight * 0.1), 1.5), 0.4);
-      return Math.min(baseHeight + increment, window.innerHeight * 3);
+      const viewportHeight = window.innerHeight;
+  
+      // Detectar si se ha alcanzado el 55% de la altura máxima
+      if (baseHeight / viewportHeight >= 0.55) {
+        if (!hasReachedThreshold) {
+          // Incrementa el contador de éxitos cuando no ha alcanzado el umbral antes
+          setHasReachedThreshold(true);
+          incrementSuccesses(); // Llama a la función aquí
+        }
+        return viewportHeight; // Subida rápida hasta arriba
+      }
+  
+      // Restablece el estado si cae por debajo del umbral
+      if (baseHeight / viewportHeight < 0.55) {
+        setHasReachedThreshold(false);
+      }
+  
+      // Incremento normal ajustado para dificultad creciente
+      const activeUsersFactor = Math.min(totalGlobalClicks / 500, 1.5);
+      const increment = Math.max(
+        (1 / Math.pow(baseHeight / (viewportHeight * 0.3), 1.5)) * activeUsersFactor,
+        0.3 // Incremento mínimo ajustado
+      );
+  
+      // Limitar la altura al tamaño del viewport
+      return Math.min(baseHeight + increment, viewportHeight);
     });
   };
+  
+  
 
   const handlePress = () => {
     setIsPumping(true);
     setIsAtRest(false);
     set(ref(database, "isPumping"), true);
-
+  
+    playClickSound(); // Reproduce el sonido del clic
     incrementClicks();
 
     if (!bubbleCooldown) {
@@ -133,8 +239,8 @@ const Home = () => {
         "One more click… then another… then another…",
       ];
       const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-      setBubbles((prev) => [...prev, { id: Date.now(), text: phrase }]);
-      setBubbleCooldown(true);
+    setBubbles((prev) => [...prev, { id: Date.now(), text: phrase }]);
+    setBubbleCooldown(true);
 
       setTimeout(() => {
         setBubbleCooldown(false);
@@ -142,6 +248,27 @@ const Home = () => {
     }
   };
 
+  const incrementSuccesses = () => {
+    const globalSuccessRef = ref(database, "successCount");
+  
+    runTransaction(globalSuccessRef, (currentValue) => (currentValue || 0) + 1).then(() => {
+      setIsSuccessActive(true); // Activa la animación del icono
+      playSuccessSound(); // Reproduce el sonido del éxito
+      
+      // Activar la vibración de la luna
+      const moonElement = document.querySelector('.moon');
+      if (moonElement) {
+        moonElement.classList.add('vibrate');
+        
+        // Eliminar la vibración después de que termine la animación
+        setTimeout(() => {
+          moonElement.classList.remove('vibrate');
+        }, 1200); // Tiempo suficiente para que la animación termine
+      }
+    });
+  };
+  
+  
   const handleRelease = () => {
     setIsPumping(false);
     set(ref(database, "isPumping"), false);
@@ -192,7 +319,13 @@ const Home = () => {
     <div className={`home-container ${isMobile ? "home-container-mobile" : "home-container-desktop"}`}>
       {/* Filtro de ruido */}
       <div className="noise-filter"></div>
-  
+
+      {/* Imágenes decorativas */}
+      <div className="decorative-images">
+        <img src={flash} alt="Flash" className="flash" />
+        <img src={moon} alt="Moon" className="moon" />
+      </div>
+
       <h1 className="title-home">dvil</h1>
   
       {/* Contenedor del contrato */}
@@ -229,8 +362,17 @@ const Home = () => {
   
       {/* Cuadro de PUMPS TOTALES */}
       <div className="total-pumps-counter">
-        <span>{formatNumber(totalGlobalClicks)} PUMPS</span>
-      </div>
+  <span>{formatNumber(totalGlobalClicks)} PUMPS -</span>
+
+  <div className="succes-container">
+    <span>-   {formatNumber(totalSuccesses)} SUCCES</span> {/* Nuevo contador */}
+    <div
+      className={`succes-icon ${isSuccessActive ? "active" : ""}`}
+      onAnimationEnd={() => setIsSuccessActive(false)} /* Resetea la animación */
+    ></div> {/* Icono circular */}
+  </div>
+</div>
+
   
       <div className="content-wrapper">
         <div
