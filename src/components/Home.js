@@ -36,6 +36,7 @@ const Home = () => {
   const minHeight = window.innerHeight * 0.05; // Altura mínima basada en el viewport
 const maxHeight = window.innerHeight; // Altura máxima basada en el viewport
 
+
 // Inicializar los audios en useEffect
 useEffect(() => {
   const clickSoundInstance = new Audio(clickSound);
