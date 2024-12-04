@@ -33,7 +33,9 @@ const Home = () => {
 
 
   const contractAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-  
+  const minHeight = window.innerHeight * 0.05; // Altura mínima basada en el viewport
+const maxHeight = window.innerHeight; // Altura máxima basada en el viewport
+
 // Inicializar los audios en useEffect
 useEffect(() => {
   const clickSoundInstance = new Audio(clickSound);
@@ -149,13 +151,13 @@ const playSuccessSound = () => {
   }, []);
 
   const incrementClicks = () => {
-    const globalClicksRef = ref(database, "clickCount");
-    const candleHeightRef = ref(database, "candleHeight");
-    const countryClicksRef = ref(
-      database,
-      `countryClicks/${userCountry || "UNKNOWN"}/totalClicks`
-    );
-  
+  const globalClicksRef = ref(database, "clickCount");
+  const candleHeightRef = ref(database, "candleHeight");
+  const countryClicksRef = ref(
+    database,
+    `countryClicks/${userCountry || "UNKNOWN"}/totalClicks`
+  );
+
     // Incrementar el contador global de clics
     runTransaction(globalClicksRef, (currentValue) => (currentValue || 0) + 1);
   
@@ -164,8 +166,8 @@ const playSuccessSound = () => {
   
     // Incremento de la altura de la vela con dificultad ajustada
     runTransaction(candleHeightRef, (currentHeight) => {
-      const baseHeight = currentHeight || window.innerHeight * 0.05;
-      const viewportHeight = window.innerHeight;
+    const baseHeight = currentHeight || minHeight;
+    const viewportHeight = maxHeight;
   
       // Detectar si se ha alcanzado el 55% de la altura máxima
       if (baseHeight / viewportHeight >= 0.55) {
@@ -184,16 +186,17 @@ const playSuccessSound = () => {
   
       // Incremento normal ajustado para dificultad creciente
       const activeUsersFactor = Math.min(totalGlobalClicks / 500, 1.5);
-      const increment = Math.max(
-        (1 / Math.pow(baseHeight / (viewportHeight * 0.3), 1.5)) * activeUsersFactor,
-        0.3 // Incremento mínimo ajustado
-      );
-  
-      // Limitar la altura al tamaño del viewport
-      return Math.min(baseHeight + increment, viewportHeight);
-    });
-  };
-  
+const increment = Math.max(
+  (1 / Math.pow(baseHeight / (viewportHeight * 0.3), 1.5)) * activeUsersFactor,
+  0.3
+);
+const newHeight = Math.min(baseHeight + increment, viewportHeight);
+
+    return Math.round(newHeight * 100) / 100; // Redondeo para evitar conflictos
+  }).catch((error) => {
+    console.error("Error en la transacción de candleHeight:", error);
+  });
+};
   
 
   const handlePress = () => {
