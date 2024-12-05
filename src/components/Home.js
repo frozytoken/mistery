@@ -1,86 +1,23 @@
 import React, { useState, useEffect } from "react";
 import "./HomeDesktop.css";
 import "./HomeMobile.css";
+import MiniGame from "./MiniGame"; // Importamos el componente del minijuego
 import Leaderboard from "./Leaderboard";
-import memeIdle from "../assets/meme_idle.png";
-import memePump from "../assets/meme_pump.png";
-import flash from "../assets/flash.png"; // Importa flash.png
-import moon from "../assets/moon.png"; // Importa moon.png
-import clickSound from "../assets/audio/click-sound.wav";
-import successSound from "../assets/audio/success-sound.wav";
+import flash from "../assets/flash.png";
+import moon from "../assets/moon.png";
 import database from "../firebase/firebaseConfig";
-import { ref, runTransaction, onValue, set } from "firebase/database";
-
+import { ref, onValue, runTransaction } from "firebase/database";
 
 const Home = () => {
-  const [isPumping, setIsPumping] = useState(false);
-  const [candleHeight, setCandleHeight] = useState(window.innerHeight * 0.05);
   const [bubbles, setBubbles] = useState([]);
   const [userCountry, setUserCountry] = useState("UNKNOWN");
   const [bubbleCooldown, setBubbleCooldown] = useState(false);
   const [copyMessageVisible, setCopyMessageVisible] = useState(false);
   const [totalGlobalClicks, setTotalGlobalClicks] = useState(0);
-  const [globalIsPumping, setGlobalIsPumping] = useState(false);
-  const [isAtRest, setIsAtRest] = useState(true);
+  const [totalSuccesses, setTotalSuccesses] = useState(0); // Define el estado aquí
   const [isMobile, setIsMobile] = useState(false);
-  const [totalSuccesses, setTotalSuccesses] = useState(0); // Nuevo estado para éxitos
-  const [hasReachedThreshold, setHasReachedThreshold] = useState(false); // Para controlar el umbral
-  const [isSuccessActive, setIsSuccessActive] = useState(false);
-  const [clickAudio, setClickAudio] = useState(null);
-  const [successAudio, setSuccessAudio] = useState(null);
-  const [clickCooldown, setClickCooldown] = useState(false);
-  const [successCooldown, setSuccessCooldown] = useState(false);
-
 
   const contractAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-  const minHeight = window.innerHeight * 0.05; // Altura mínima basada en el viewport
-const maxHeight = window.innerHeight; // Altura máxima basada en el viewport
-
-
-// Inicializar los audios en useEffect
-useEffect(() => {
-  const clickSoundInstance = new Audio(clickSound);
-  const successSoundInstance = new Audio(successSound);
-
-  clickSoundInstance.volume = 0.1; // Reducir volumen al 20%
-  clickSoundInstance.preload = "auto";
-
-  successSoundInstance.volume = 1.0; // Success sin cambios (100% de volumen)
-  successSoundInstance.preload = "auto";
-
-  setClickAudio(clickSoundInstance);
-  setSuccessAudio(successSoundInstance);
-}, []);
-    // Función para reproducir el sonido del clic con cooldown
-const playClickSound = () => {
-  if (!clickCooldown && clickAudio) {
-    setClickCooldown(true);
-    clickAudio.currentTime = 0;
-    clickAudio.play().catch((error) => {
-      console.error("Error al reproducir clickSound:", error);
-    });
-
-    setTimeout(() => {
-      setClickCooldown(false);
-    }, 100); // Cooldown de 100ms
-  }
-};
-
-// Función para reproducir el sonido del éxito con cooldown
-const playSuccessSound = () => {
-  if (!successCooldown && successAudio) {
-    setSuccessCooldown(true);
-    successAudio.currentTime = 0;
-    successAudio.play().catch((error) => {
-      console.error("Error al reproducir successSound:", error);
-    });
-
-    setTimeout(() => {
-      setSuccessCooldown(false);
-    }, 500); // Cooldown de 500ms
-  }
-};
-    
 
   // Función para copiar el contrato al portapapeles
   const copyToClipboard = () => {
@@ -97,20 +34,10 @@ const playSuccessSound = () => {
     if (isNaN(number) || number === null || number === undefined) return "0";
     return Number(number).toLocaleString("en-US");
   };
-  useEffect(() => {
-    const clickSoundInstance = new Audio(clickSound);
-    const successSoundInstance = new Audio(successSound);
 
-    clickSoundInstance.preload = "auto";
-    successSoundInstance.preload = "auto";
-
-    setClickAudio(clickSoundInstance);
-    setSuccessAudio(successSoundInstance);
-  }, []);
-  
   useEffect(() => {
     const successCountRef = ref(database, "successCount");
-  
+
     // Sincroniza el contador de éxitos con Firebase
     onValue(successCountRef, (snapshot) => {
       setTotalSuccesses(snapshot.val() || 0);
@@ -132,80 +59,42 @@ const playSuccessSound = () => {
     fetchCountry();
   }, []);
 
-  // Sincronizar estados globales con Firebase
   useEffect(() => {
     const globalClickCountRef = ref(database, "clickCount");
-    const globalIsPumpingRef = ref(database, "isPumping");
-    const candleHeightRef = ref(database, "candleHeight");
 
     onValue(globalClickCountRef, (snapshot) => {
       setTotalGlobalClicks(snapshot.val() || 0);
     });
-
-    onValue(globalIsPumpingRef, (snapshot) => {
-      setGlobalIsPumping(snapshot.val() || false);
-    });
-
-    onValue(candleHeightRef, (snapshot) => {
-      setCandleHeight(snapshot.val() || window.innerHeight * 0.05);
-    });
   }, []);
 
   const incrementClicks = () => {
-  const globalClicksRef = ref(database, "clickCount");
-  const candleHeightRef = ref(database, "candleHeight");
-  const countryClicksRef = ref(
-    database,
-    `countryClicks/${userCountry || "UNKNOWN"}/totalClicks`
-  );
+    const globalClicksRef = ref(database, "clickCount");
+
+    runTransaction(globalClicksRef, (currentValue) => (currentValue || 0) + 1).catch((error) =>
+      console.error("Error incrementando los clics globales:", error)
+    );
+
+    const countryClicksRef = ref(
+      database,
+      `countryClicks/${userCountry || "UNKNOWN"}/totalClicks`
+    );
 
     // Incrementar el contador global de clics
     runTransaction(globalClicksRef, (currentValue) => (currentValue || 0) + 1);
-  
+
     // Incrementar el contador de clics por país
     runTransaction(countryClicksRef, (currentValue) => (currentValue || 0) + 1);
-  
-    // Incremento de la altura de la vela con dificultad ajustada
-    runTransaction(candleHeightRef, (currentHeight) => {
-    const baseHeight = currentHeight || minHeight;
-    const viewportHeight = maxHeight;
-  
-      // Detectar si se ha alcanzado el 55% de la altura máxima
-      if (baseHeight / viewportHeight >= 0.55) {
-        if (!hasReachedThreshold) {
-          // Incrementa el contador de éxitos cuando no ha alcanzado el umbral antes
-          setHasReachedThreshold(true);
-          incrementSuccesses(); // Llama a la función aquí
-        }
-        return viewportHeight; // Subida rápida hasta arriba
-      }
-  
-      // Restablece el estado si cae por debajo del umbral
-      if (baseHeight / viewportHeight < 0.55) {
-        setHasReachedThreshold(false);
-      }
-  
-      // Incremento normal ajustado para dificultad creciente
-      const activeUsersFactor = Math.min(totalGlobalClicks / 500, 1.5);
-const increment = Math.max(
-  (1 / Math.pow(baseHeight / (viewportHeight * 0.3), 1.5)) * activeUsersFactor,
-  0.3
-);
-const newHeight = Math.min(baseHeight + increment, viewportHeight);
+  };
 
-    return Math.round(newHeight * 100) / 100; // Redondeo para evitar conflictos
-  }).catch((error) => {
-    console.error("Error en la transacción de candleHeight:", error);
-  });
-};
-  
+  // Incrementar éxitos globales en Firebase
+  const incrementSuccesses = () => {
+    const successCountRef = ref(database, "successCount");
+    runTransaction(successCountRef, (currentValue) => (currentValue || 0) + 1).catch((error) =>
+      console.error("Error incrementando éxitos globales:", error)
+    );
+  };
 
   const handlePress = () => {
-    setIsPumping(true);
-    setIsAtRest(false);
-    set(ref(database, "isPumping"), true);
-  
-    playClickSound(); // Reproduce el sonido del clic
     incrementClicks();
 
     if (!bubbleCooldown) {
@@ -243,8 +132,8 @@ const newHeight = Math.min(baseHeight + increment, viewportHeight);
         "One more click… then another… then another…",
       ];
       const phrase = phrases[Math.floor(Math.random() * phrases.length)];
-    setBubbles((prev) => [...prev, { id: Date.now(), text: phrase }]);
-    setBubbleCooldown(true);
+      setBubbles((prev) => [...prev, { id: Date.now(), text: phrase }]);
+      setBubbleCooldown(true);
 
       setTimeout(() => {
         setBubbleCooldown(false);
@@ -252,56 +141,10 @@ const newHeight = Math.min(baseHeight + increment, viewportHeight);
     }
   };
 
-  const incrementSuccesses = () => {
-    const globalSuccessRef = ref(database, "successCount");
-  
-    runTransaction(globalSuccessRef, (currentValue) => (currentValue || 0) + 1).then(() => {
-      setIsSuccessActive(true); // Activa la animación del icono
-      playSuccessSound(); // Reproduce el sonido del éxito
-      
-      // Activar la vibración de la luna
-      const moonElement = document.querySelector('.moon');
-      if (moonElement) {
-        moonElement.classList.add('vibrate');
-        
-        // Eliminar la vibración después de que termine la animación
-        setTimeout(() => {
-          moonElement.classList.remove('vibrate');
-        }, 1200); // Tiempo suficiente para que la animación termine
-      }
-    });
-  };
-  
-  
-  const handleRelease = () => {
-    setIsPumping(false);
-    set(ref(database, "isPumping"), false);
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!isPumping && candleHeight > window.innerHeight * 0.05) {
-        const newHeight = Math.max(candleHeight - 10, window.innerHeight * 0.05);
-        setCandleHeight(newHeight);
-
-        const candleHeightRef = ref(database, "candleHeight");
-        runTransaction(candleHeightRef, () => newHeight);
-      }
-
-      if (!isPumping && candleHeight <= window.innerHeight * 0.05) {
-        setIsAtRest(true);
-      }
-    }, 50);
-
-    return () => clearInterval(interval);
-  }, [isPumping, candleHeight]);
-
   // Eliminar burbujas después de 3 segundos
   useEffect(() => {
     const interval = setInterval(() => {
-      setBubbles((prev) =>
-        prev.filter((bubble) => Date.now() - bubble.id < 3000)
-      );
+      setBubbles((prev) => prev.filter((bubble) => Date.now() - bubble.id < 3000));
     }, 100);
 
     return () => clearInterval(interval);
@@ -312,10 +155,10 @@ const newHeight = Math.min(baseHeight + increment, viewportHeight);
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 768); // Define móvil como ≤ 768px
     };
-  
+
     handleResize(); // Ejecuta en la carga inicial
     window.addEventListener("resize", handleResize);
-  
+
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -331,7 +174,7 @@ const newHeight = Math.min(baseHeight + increment, viewportHeight);
       </div>
 
       <h1 className="title-home">dvil</h1>
-  
+
       {/* Contenedor del contrato */}
       <div className="contract-wrapper">
         <div
@@ -344,64 +187,28 @@ const newHeight = Math.min(baseHeight + increment, viewportHeight);
         >
           <span className="contract-address">{contractAddress}</span>
         </div>
-        {copyMessageVisible && (
-          <div className="copy-feedback">Contract address copied!</div>
-        )}
+        {copyMessageVisible && <div className="copy-feedback">Contract address copied!</div>}
       </div>
-  
-      {/* Contenedor del meme */}
-      <div
-        className="meme-container"
-        onMouseDown={handlePress}
-        onMouseUp={handleRelease}
-        onTouchStart={handlePress}
-        onTouchEnd={handleRelease}
-      >
-        <img
-          src={globalIsPumping ? memePump : memeIdle}
-          alt="Meme"
-          className="meme"
-        />
-      </div>
-  
+
+      {/* MiniGame */}
+      <MiniGame handlePress={handlePress} incrementSuccesses={incrementSuccesses} />
+
       {/* Cuadro de PUMPS TOTALES */}
       <div className="total-pumps-counter">
-  <span>{formatNumber(totalGlobalClicks)} PUMPS -</span>
-
-  <div className="succes-container">
-    <span>-   {formatNumber(totalSuccesses)} SUCCES</span> {/* Nuevo contador */}
-    <div
-      className={`succes-icon ${isSuccessActive ? "active" : ""}`}
-      onAnimationEnd={() => setIsSuccessActive(false)} /* Resetea la animación */
-    ></div> {/* Icono circular */}
-  </div>
-</div>
-
-  
-      <div className="content-wrapper">
-        <div
-          className={`candle ${isPumping ? "pumping" : ""} ${
-            isAtRest ? "resting" : ""
-          }`}
-          style={{
-            height: `${candleHeight}px`,
-            zIndex: 1,
-          }}
-        >
-          <div className="wick"></div>
-        </div>
-        <Leaderboard />
+        <span>{formatNumber(totalGlobalClicks)} PUMPS - {formatNumber(totalSuccesses)} SUCCES</span>
       </div>
-          
+
+      {/* Leaderboard */}
+      <Leaderboard />
+
+      {/* Burbujas de frases */}
       {bubbles.map((bubble) => (
         <div key={bubble.id} className="bubble">
           {bubble.text}
         </div>
-        
       ))}
     </div>
   );
-  
 };
 
 export default Home;

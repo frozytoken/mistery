@@ -1,0 +1,177 @@
+.minigame-container {
+
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end; /* Alineación similar a la del meme previo */
+    z-index: 5; /* Debajo de elementos decorativos */
+  }
+  
+  /* Contenedor del personaje */
+  .character-container {
+    cursor: pointer;
+    position: absolute;
+    bottom: 20%; /* Ubicado sobre la vela */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 8; /* Por encima de la vela */
+  }
+  
+
+  /* Imagen del personaje */
+  .character-image {
+    width: 150px;
+    max-width: 25vw; /* Escalado relativo */
+    height: auto;
+    pointer-events: none;
+  }
+  
+  /* Vela japonesa */
+  .candle {
+    position: absolute;
+    bottom: 27.5%; /* Alineado con la posición del diseño previo */
+    left: calc(50% + 3.3vw); /* Centrado y ajustado horizontalmente */
+    width: 4vw; /* Tamaño relativo */
+    max-width: 15px; /* Ancho máximo */
+    height: 5vh; /* Altura inicial visible del 5% del viewport */
+    background: linear-gradient(to top, #28a745, #71f88c); /* Gradiente verde */
+    border-radius: 3px 3px 0 0; /* Bordes redondeados en la parte superior */
+    box-shadow: 
+      0px 0px 20px rgba(40, 167, 69, 0.8), 
+      0px 0px 10px rgba(0, 167, 69, 0.5) inset; /* Efecto de brillo verde */
+    transition: height 0.1s ease-in-out, box-shadow 0.3s ease-in-out; /* Transiciones suaves */
+    z-index: 7; /* Por debajo del personaje */
+  }
+  
+  .candle .wick {
+    position: absolute;
+    top: -5px; /* Sobresale ligeramente por encima */
+    width: 50%; /* Ancho relativo al contenedor */
+    height: 10px; /* Altura de la mecha */
+    background-color: black; /* Color de la mecha */
+    border-radius: 50%; /* Forma redondeada */
+    margin: 0 auto; /* Centrada horizontalmente */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); /* Sombra de la mecha */
+  }
+  
+  /* Estado en reposo (flotante) */
+  .candle.resting {
+    opacity: 0.5; /* Reducir opacidad */
+    animation: float 3s ease-in-out infinite; /* Efecto de flotación */
+  }
+  
+  /* Estado en reposo */
+  .resting {
+    opacity: 0.5;
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0); /* Posición inicial */
+    }
+    50% {
+      transform: translateY(-10px); /* Subida */
+    }
+  }
+  
+  /* Desactivar animación cuando está bombeando */
+  .candle.pumping {
+    animation: none; /* Sin animación */
+  }
+  
+  /* Modal para solicitar username */
+  .username-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Superposición máxima */
+  }
+  
+  .modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 80%;
+    max-width: 400px; /* Límite en pantallas grandes */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+    color: #333;
+  }
+  
+  .modal-content input {
+    padding: 10px;
+    width: 90%;
+    margin-bottom: 15px;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .modal-content button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s ease-in-out;
+  }
+  
+  .modal-content button:hover {
+    background-color: #0056b3;
+  }
+  .streak-bar {
+    position: absolute;
+    bottom: 7%; /* Debajo del personaje */
+    width: 80%;
+    height: 15px;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 9;
+  }
+  
+  .streak-timer {
+    height: 100%;
+    background-color: #28a745;
+    transition: width 0.1s linear;
+  }
+  
+  .streak-multiplier {
+    position: absolute;
+    top: 65%;
+  left: 42%;
+  font-size: 4rem;
+  font-weight: bold;
+  color: #fff;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8);
+    animation: pulse 1s infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.3);
+    }
+  }
+  

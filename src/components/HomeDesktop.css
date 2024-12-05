@@ -1,16 +1,17 @@
-
+/* Filtro de ruido */
 .noise-filter {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  pointer-events: none; /* No bloquear clics o interacciones */
-  background-image: url("../assets/noise.png"); /* Reemplaza con la ruta de tu imagen de ruido */
+  pointer-events: none;
+  background-image: url("../assets/noise.png");
   background-size: cover;
-  opacity: 0.1; /* Ajusta la opacidad según lo necesario */
-  z-index: 10; /* Asegúrate de que esté encima del contenido */
+  opacity: 0.1;
+  z-index: 10;
 }
+
 /* Contenedor general */
 .home-container {
   position: relative;
@@ -30,18 +31,18 @@
 /* Título */
 .title-home {
   position: absolute;
-  top: 15%; /* Proporcionalmente mejor para cualquier pantalla */
-  font-size: 10rem; /* Destacado pero no exagerado */
-  font-weight: 700; /* Bold, pero no extra bold */
+  top: 15%;
+  font-size: 10rem;
+  font-weight: 700;
   color: white;
   font-family: "Halau", sans-serif;
-  letter-spacing: 5px; /* Espaciado amplio para un toque premium */
+  letter-spacing: 5px;
   text-transform: uppercase;
   text-align: center;
   background: linear-gradient(90deg, #ffffff, #00c6ff, #ffffff);
   -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; /* Gradiente limpio */
-  animation: textGlow 2s infinite ease-in-out; /* Efecto suave */
+  -webkit-text-fill-color: transparent;
+  animation: textGlow 2s infinite ease-in-out;
   z-index: 20000;
 }
 
@@ -61,175 +62,136 @@
   }
 }
 
-
-/* Contenedor del meme */
-.meme-container {
-  position: absolute;
-  bottom: 17%;
-  width: 25vw; /* Tamaño relativo a la ventana */
-  max-width: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  pointer-events: all;
-  user-select: none;
-  z-index: 8;
-}
-
-/* Imagen del meme */
-.meme {
-  width: 100%;
-  height: auto;
-  pointer-events: none;
-}
-
-/* Vela japonesa */
-.candle {
-  position: absolute;
-  bottom: 27.5%;
-  left: calc(50% + 3.3vw); /* Ajustar según el tamaño de la pantalla */
-  width: 4vw; /* Tamaño relativo */
-  max-width: 15px;
-  height: 5vh; /* Altura inicial visible del 5% del viewport */
-  background: linear-gradient(to top, #28a745, #71f88c);
-  box-shadow: 0px 0px 20px rgba(40, 167, 69, 0.8), 0px 0px 10px rgba(0, 167, 69, 0.5) inset;
-  border-radius: 3px 3px 0 0;
-  transition: height 0.1s ease-in-out, box-shadow 0.3s ease-in-out;
-  z-index: 2; /* Por encima del navbar */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: visible;
-}
-
-/* Animación flotante solo cuando está en reposo */
-.candle.resting {
-  animation: float 3s ease-in-out infinite; /* Animación de subir y bajar */
-}
-
-/* Desactivar animación cuando está clickeando */
-.candle.pumping {
-  animation: none; /* Desactiva la animación */
-}
-
-/* Mecha de la vela */
-.wick {
-  position: absolute;
-  top: -5px;
-  width: 50%;
-  height: 10px;
-  background-color: black;
-  border-radius: 50%;
-  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5);
-}
-
-.bubble {
-  position: absolute;
-  bottom: 38%; /* Ajustado para colocarlo más arriba */
-  left: 39%; /* Centrado horizontalmente */
-  transform: translateX(-50%);
-  background: #fff; /* Fondo blanco estilo cómic */
-  color: #000; /* Texto en negro */
-  font-family: "Comic Sans MS", sans-serif;
-  font-size: 1.2rem; /* Tamaño de fuente */
-  font-weight: bold; /* Resaltar el texto */
-  padding: 15px 20px; /* Espaciado interno */
-  border: 2px solid #000; /* Borde negro sólido */
-  border-radius: 25px; /* Forma redondeada */
-  box-shadow: 5px 5px 0px #333; /* Sombra estilo cómic */
-  z-index: 9;
-  width: 300px; /* Ancho fijo para los bocadillos */
-  height: auto; /* Altura automática para ajustarse al texto */
-  text-align: center; /* Centrar el texto */
-  overflow-wrap: break-word; /* Romper palabras largas */
-  line-height: 1.5; /* Espaciado entre líneas */
-}
-
-.bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -20px; /* Ajuste para que el rabillo se incruste */
-  right: 10px; /* Pegado hacia el borde derecho */
-  width: 0;
-  height: 0;
-  border-left: 15px solid transparent;
-  border-right: 15px solid transparent;
-  border-top: 20px solid #fff; /* Fondo del rabillo */
-  z-index: 9;
-}
-
-.bubble::before {
-  content: "";
-  position: absolute;
-  bottom: -20px; /* Más abajo para el borde negro */
-  right: 10px; /* Mismo posicionamiento que el rabillo */
-  width: 0;
-  height: 0;
-  border-left: 16px solid transparent;
-  border-right: 16px solid transparent;
-  border-top: 22px solid #000; /* Borde negro del rabillo */
-  z-index: 8;
-}
 /* Contenedor del Contrato */
 .contract-container {
-  display: flex; /* Para alinear en línea */
-  align-items: center; /* Centrado vertical */
-  gap: 20px; /* Espaciado entre el contrato y el botón */
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
+
 .contract-wrapper {
   position: absolute;
-  top: 43%; /* Centrado vertical */
+  top: 43%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: auto; /* Ajusta automáticamente según el contenido */
-  padding: 5px 20px; /* Espaciado interno */
-  background: rgba(0, 0, 0, 0.85); /* Fondo oscuro semitransparente */
-  border: 2px solid #00c6ff; /* Borde azul brillante */
-  border-radius: 12px; /* Bordes redondeados */
-  box-shadow: 0px 4px 15px rgba(0, 198, 255, 0.4); /* Sombra azul */
-  display: flex; /* Alinea los elementos en línea */
-  align-items: center; /* Centra verticalmente los elementos */
-  gap: 10px; /* Espaciado entre los elementos */
+  width: auto;
+  padding: 5px 20px;
+  background: rgba(0, 0, 0, 0.85);
+  border: 2px solid #00c6ff;
+  border-radius: 12px;
+  box-shadow: 0px 4px 15px rgba(0, 198, 255, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
   z-index: 100;
 }
 
-/* Dirección del Contrato */
 .contract-address {
   font-size: 1.5rem;
-  font-family: monospace; /* Fuente estilo código */
-  color: #00ffcc; /* Color del texto */
+  font-family: monospace;
+  color: #00ffcc;
   cursor: pointer;
-  white-space: nowrap; /* Evita que el texto se corte en varias líneas */
-  flex: 1; /* Para ocupar el espacio disponible */
+  white-space: nowrap;
+  flex: 1;
 }
 
 .contract-address:hover {
   text-shadow: 0px 0px 8px rgba(0, 255, 238, 0.8);
 }
 
-/* Botón de Compra */
-.buy-button {
-  background: linear-gradient(90deg, #00c6ff, #007bff);
-  color: white;
-  font-size: 14px;
-  padding: 8px 16px;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
+/* Cuadro para el contador de PUMPS TOTALES */
+.total-pumps-counter {
+  position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  bottom: 9%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.85);
+  color: #00ffcc;
+  font-size: 1.4rem;
+  font-weight: bold;
+  padding: 15px 20px;
+  border-radius: 12px;
+  box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.5);
+  text-align: center;
+  z-index: 5;
 }
 
-.buy-button:hover {
-  background: linear-gradient(90deg, #0056b3, #00ffaa);
-  transform: scale(1.05);
-  box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.6);
+.total-pumps-counter span {
+  display: block;
+  margin: 0;
 }
 
-/* Enlace del Botón */
-.buy-link {
-  text-decoration: none; /* Elimina subrayado */
+/* Contenedor de imágenes decorativas */
+.decorative-images {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: auto;
+  z-index: 15;
+  pointer-events: none;
 }
+
+.flash {
+  position: absolute;
+  top: -5%;
+  left: calc(50% - 15%);
+  width: 30%;
+  z-index: 16;
+  opacity: 1;
+  -webkit-mask-image: url("../assets/flash.png");
+  -webkit-mask-size: cover;
+  -webkit-mask-repeat: no-repeat;
+  mask-image: url("../assets/flash.png");
+  mask-size: cover;
+  mask-repeat: no-repeat;
+  animation: glowFlash 4s ease-in-out infinite;
+  filter: brightness(1);
+}
+
+@keyframes glowFlash {
+  0%, 100% {
+    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)) 
+            drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));
+  }
+  50% {
+    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.7)) 
+            drop-shadow(0 0 60px rgba(255, 255, 255, 0.6));
+  }
+}
+
+.moon {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translate(-50%, 10%);
+  width: 7%;
+  z-index: 17;
+  opacity: 1;
+  animation: rotateMoon 120s linear infinite, glowMoon 4s ease-in-out infinite;
+}
+
+@keyframes rotateMoon {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes glowMoon {
+  0%, 100% {
+    filter: brightness(1);
+  }
+  50% {
+    filter: brightness(1.5);
+  }
+}
+
 /* Mensaje visual para indicar que se copió */
 .copy-feedback {
   position: absolute;
@@ -261,229 +223,30 @@
     opacity: 0;
   }
 }
-/* Cuadro para el contador de PUMPS TOTALES */
-.total-pumps-counter {
-  position: absolute;
-  display: flex;
-  justify-content: space-between; /* Espacio entre los elementos */
-  align-items: center; /* Centra verticalmente los elementos */
-  bottom: 9%; /* Ubicación debajo del meme */
-  left: 50%;
-  transform: translateX(-50%);
-  background: rgba(0, 0, 0, 0.85); /* Fondo oscuro */
-  color: #00ffcc; /* Texto brillante */
-  font-size: 1.4rem; /* Tamaño de texto ligeramente ajustado */
-  font-weight: bold;
-  padding: 15px 20px; /* Espaciado interno ajustado */
-  border-radius: 12px; /* Bordes redondeados */
-  box-shadow: 0px 4px 10px rgba(0, 255, 170, 0.5); /* Sombra suave */
-  text-align: center;
-  z-index: 5; /* Por encima del meme */
-}
 
-.total-pumps-counter span {
-  display: block;
-  margin: 0; /* Sin márgenes adicionales */
-}
-
-.total-pumps-counter .separator {
-  width: 90%; /* Ancho de la línea */
-  height: 1px; /* Grosor de la línea */
-  background: #00ffcc; /* Color de la línea */
-  margin: 10px auto; /* Espaciado uniforme */
-  opacity: 0.8; /* Transparencia suave */
-}
-
-.total-pumps-counter .succes-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px; /* Espaciado entre texto e icono */
-}
-
-.total-pumps-counter .succes-icon {
-  width: 15px; /* Tamaño del icono */
-  height: 15px;
-  background-color: #00ffcc; /* Color del icono */
-  border-radius: 50%; /* Forma circular */
-  box-shadow: 0px 0px 8px rgba(0, 255, 204, 0.7); /* Brillo suave */
-  transition: all 0.2s ease-in-out; /* Efecto suave por defecto */
-}
-
-.total-pumps-counter .succes-icon.active {
-  animation: succesGlow 1s ease-in-out 2; /* Animación al sumar un succes */
-}
-
-/* Animación de parpadeo */
-@keyframes succesGlow {
-  0%, 100% {
-    box-shadow: 0px 0px 8px rgba(0, 255, 204, 0.7);
-    background-color: #00ffcc;
-  }
-  50% {
-    box-shadow: 0px 0px 20px rgba(0, 255, 204, 1);
-    background-color: #00ffee;
-  }
-}
-
-/* Hover para un pequeño efecto visual */
-.total-pumps-counter:hover {
-  transform: translateX(-50%) scale(1.05); /* Efecto de agrandamiento */
-  background: rgba(0, 0, 0, 0.95); /* Fondo ligeramente más oscuro */
-}
-/* Contenedor de imágenes decorativas */
-.decorative-images {
-  position: absolute; /* Cambiado a absolute para garantizar que el top funcione */
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: auto;
-  z-index: 15; /* Por encima de fondobanner pero por debajo del título */
-  pointer-events: none; /* Para no bloquear clics */
-}
-
-/* Imagen flash */
-.flash {
-  position: absolute;
-  top: -5%; /* Mantener la posición */
-  left: calc(50% - 15%); /* Ajustado horizontalmente */
-  width: 30%; /* Tamaño del flash */
-  z-index: 16; /* Debajo de moon */
-  opacity: 1; /* Totalmente visible */
-
-  /* Máscara para aplicar solo donde hay dibujo */
-  -webkit-mask-image: url("../assets/flash.png");
-  -webkit-mask-size: cover;
-  -webkit-mask-repeat: no-repeat;
-  mask-image: url("../assets/flash.png");
-  mask-size: cover;
-  mask-repeat: no-repeat;
-
-  /* Efecto de resplandor */
-  animation: glowFlash 4s ease-in-out infinite; /* Ciclo más rápido */
-  filter: brightness(1); /* Sin brillo general en el fondo */
-}
-
-/* Animación de resplandor */
-@keyframes glowFlash {
-  0%, 100% {
-    filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.5)) 
-            drop-shadow(0 0 30px rgba(255, 255, 255, 0.4));
-  }
-  50% {
-    filter: drop-shadow(0 0 30px rgba(255, 255, 255, 0.7)) 
-            drop-shadow(0 0 60px rgba(255, 255, 255, 0.6));
-  }
-}
-
-
-
-/* Imagen moon */
-.moon {
-  position: absolute;
-  top: 15%; /* Baja la posición */
-  left: 50%; /* Centrada horizontalmente */
-  transform: translate(-50%, 10%); /* Ajusta la altura adicional */
-  width: 7%; /* Tamaño más pequeño */
-  z-index: 17; /* Encima de flash */
-  opacity: 1;
-  animation: rotateMoon 120s linear infinite, glowMoon 4s ease-in-out infinite; /* Efectos combinados */
-}
-
-/* Animación de balanceo de la luna */
-@keyframes rotateMoon {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/* Animación de brillo suave */
-@keyframes glowMoon {
-  0%, 100% {
-    filter: brightness(1);
-  }
-  50% {
-    filter: brightness(1.5);
-  }
-}
-/* Clase para activar la vibración */
-.moon.vibrate {
-  animation: vibrate 0.3s linear 4; /* Vibración durante 0.3s, repitiendo 4 veces */
-}
-
-/* Definir la animación de vibración */
-@keyframes vibrate {
-  0% { transform: translateX(0); }
-  25% { transform: translateX(-5px); }
-  50% { transform: translateX(5px); }
-  75% { transform: translateX(-5px); }
-  100% { transform: translateX(5px); }
-}
-/* /* Ajustes para pantallas ultrawide (relación de aspecto 21:9 o más) */
+/* Ajustes para pantallas ultrawide */
 @media (min-aspect-ratio: 21/9) {
-  /* Contenedor general */
   .home-container {
-    background-size: cover; /* Asegura que el fondo sea completamente visible */
-    background-repeat: no-repeat; /* Evita que el fondo se repita */
-    background-position: center; /* Centra el fondo en el contenedor */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
   }
-
-  /* Título */
-  .title {
-    top: 20%; /* Baja ligeramente para adaptarse al espacio extra */
-    font-size: 8rem; /* Ajusta el tamaño para que no sea demasiado dominante */
-    letter-spacing: 4px; /* Espaciado más cerrado para pantallas anchas */
+  .title-home {
+    top: 20%;
+    font-size: 8rem;
+    letter-spacing: 4px;
   }
-
-  /* Contenedor del meme */
-  .meme-container {
-    bottom: 10%; /* Baja el meme para aprovechar el espacio extra */
-    width: 18vw; /* Reduce el ancho relativo */
-    max-width: 140px; /* Mantén un límite superior */
-  }
-
-  /* Vela japonesa */
-  .candle {
-    left: calc(50% + 2.35vw); /* Ajusta su posición horizontal hacia la derecha */
-    bottom: 19.8%; /* Sube ligeramente para mantener proporción */
-    width: 3.5vw; /* Tamaño más pequeño */
-    max-width: 12px;
-    height: 4vh; /* Altura inicial menor */
-  }
-
-  /* Mecha de la vela */
-  .wick {
-    width: 40%; /* Reduce proporcionalmente */
-    height: 8px;
-  }
-
-  /* Burbujas */
-  .bubble {
-    bottom: 35%; /* Posiciona más arriba */
-    left: 45%; /* Ajusta el centrado */
-    font-size: 1rem; /* Reduce tamaño de fuente */
-    width: 280px; /* Reduce ancho */
-  }
-
-  /* Contenedor del contrato */
   .contract-wrapper {
-    top: 43%; /* Baja para acomodar el diseño */
-    width: auto; /* Mantén el ajuste dinámico */
-    padding: 6px 18px; /* Espaciado más compacto */
+    top: 43%;
+    width: auto;
+    padding: 6px 18px;
   }
-
-  /* Dirección del contrato */
   .contract-address {
-    font-size: 1.3rem; /* Reduce el tamaño de fuente */
+    font-size: 1.3rem;
   }
-
-  /* Cuadro del contador de pumps */
   .total-pumps-counter {
-    bottom: 48%; /* Baja el contador */
-    font-size: 1.3rem; /* Ajusta el tamaño del texto */
-    padding: 8px 14px; /* Espaciado compacto */
+    bottom: 48%;
+    font-size: 1.3rem;
+    padding: 8px 14px;
   }
 }
