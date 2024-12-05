@@ -9,6 +9,10 @@ const Leaderboard = () => {
   const [userCountry, setUserCountry] = useState(""); // Código del país del usuario
   const [totalGlobalClicks, setTotalGlobalClicks] = useState(0); // Total de clics globales
   const [ppsData, setPpsData] = useState({}); // PPS por país
+  const [userData, setUserData] = useState([]); // Datos de los usuarios
+  const [selectedUser, setSelectedUser] = useState(null); // Usuario seleccionado para ver detalles
+  const [showDetails, setShowDetails] = useState(false); // Mostrar o no el modal de detalles
+
 
   const lastClicksRef = useRef({});
   const lastClickTimeRef = useRef({});
@@ -28,6 +32,26 @@ const Leaderboard = () => {
       return "https://via.placeholder.com/24x16.png?text=No+Flag";
     }
     return `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+  };
+
+  useEffect(() => {
+    const usersRef = ref(database, "users");
+  
+    onValue(usersRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const usersArray = Object.keys(data).map((userId) => ({
+          id: userId,
+          ...data[userId],
+        }));
+        setUserData(usersArray.sort((a, b) => b.highestLevel - a.highestLevel)); // Ordenar por máximo nivel alcanzado
+      }
+    });
+  }, []);
+
+  const handleUserClick = (user) => {
+    setSelectedUser(user); // Establecer el usuario seleccionado
+    setShowDetails(true); // Mostrar el modal
   };
 
   // Obtener el país del usuario desde la API de geolocalización
@@ -202,6 +226,30 @@ const Leaderboard = () => {
           </ul>
         </div>
       )}
+      {userData.map((user) => (
+    <li
+      key={user.id}
+      className="leaderboard-item"
+      onClick={() => handleUserClick(user)} // Llama a la función al hacer clic en un usuario
+    >
+      <span className="user-name">{user.username || "Unknown"}</span>
+      <span className="user-max-x">Max X: {user.highestLevel || 0}</span>
+    </li>
+))}
+
+{showDetails && selectedUser && (
+  <div className="user-details-modal">
+    <div className="modal-content">
+      <h2>{selectedUser.username || "Unknown"}</h2>
+      <p>Total Clicks: {selectedUser.totalClicks || 0}</p>
+      <p>Max X: {selectedUser.highestLevel || 0}</p>
+      <p>Attempts: {selectedUser.attempts || 0}</p>
+      <p>Playtime: {selectedUser.playTime || 0} seconds</p>
+      <button onClick={() => setShowDetails(false)}>Close</button>
+    </div>
+  </div>
+)}
+
     </div>
   );
 };

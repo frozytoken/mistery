@@ -166,31 +166,61 @@
 .moon {
   position: absolute;
   top: 15%;
-  left: 50%;
-  transform: translate(-50%, 10%);
+  left: 53%;
+  transform: translate(-50%, 10%) rotate(0deg);
   width: 7%;
   z-index: 17;
   opacity: 1;
-  animation: rotateMoon 120s linear infinite, glowMoon 4s ease-in-out infinite;
+  animation: rotateMoon 120s linear infinite; /* Solo rotación por defecto */
+  filter: brightness(1); /* Brillo normal */
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.moon-animating {
+  animation: impactMoon 0.5s cubic-bezier(0.25, 1.25, 0.75, 1) forwards,
+    glowMoon 1.5s ease-in-out;
+  filter: brightness(1.8); /* Incrementa el brillo */
 }
 
 @keyframes rotateMoon {
   0% {
-    transform: rotate(0deg);
+    transform: translate(-50%, 10%) rotate(0deg);
   }
   100% {
-    transform: rotate(360deg);
+    transform: translate(-50%, 10%) rotate(360deg);
+  }
+}
+
+@keyframes impactMoon {
+  0% {
+    transform: translate(-50%, 10%) rotate(0deg);
+  }
+  20% {
+    transform: translate(-50%, 10%) rotate(-2deg);
+  }
+  40% {
+    transform: translate(-50%, 10%) rotate(2deg);
+  }
+  60% {
+    transform: translate(-50%, 10%) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-50%, 10%) rotate(1deg);
+  }
+  100% {
+    transform: translate(-50%, 10%) rotate(0deg);
   }
 }
 
 @keyframes glowMoon {
   0%, 100% {
-    filter: brightness(1);
+    filter: brightness(0.8);
   }
   50% {
-    filter: brightness(1.5);
+    filter: brightness(1.8);
   }
 }
+
 
 /* Mensaje visual para indicar que se copió */
 .copy-feedback {

@@ -6,7 +6,7 @@ import Leaderboard from "./Leaderboard";
 import flash from "../assets/flash.png";
 import moon from "../assets/moon.png";
 import database from "../firebase/firebaseConfig";
-import { ref, onValue, runTransaction } from "firebase/database";
+import { ref, onValue, runTransaction, set } from "firebase/database";
 
 const Home = () => {
   const [bubbles, setBubbles] = useState([]);
@@ -16,8 +16,53 @@ const Home = () => {
   const [totalGlobalClicks, setTotalGlobalClicks] = useState(0);
   const [totalSuccesses, setTotalSuccesses] = useState(0); // Define el estado aquí
   const [isMobile, setIsMobile] = useState(false);
+  const [isMoonAnimating, setIsMoonAnimating] = useState(false);
+  const [userIP, setUserIP] = useState(null); // IP del usuario
+  const [username, setUsername] = useState(""); // Username del usuario
+  const [showUsernameModal, setShowUsernameModal] = useState(false); // Mostrar modal para ingresar username
 
   const contractAddress = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+  const sanitizeIP = (ip) => ip.replace(/\./g, "_");
+
+  // Obtener la IP del usuario
+useEffect(() => {
+  const fetchIP = async () => {
+    try {
+      const response = await fetch("https://api64.ipify.org?format=json");
+      const data = await response.json();
+      setUserIP(data.ip);
+    } catch (error) {
+      console.error("Error obteniendo la IP del usuario:", error.message);
+    }
+  };
+  fetchIP();
+}, []);
+
+// Verificar si ya existe un username para esta IP
+useEffect(() => {
+  if (userIP) {
+    const sanitizedIP = sanitizeIP(userIP); // Sanitizar la IP
+    const userRef = ref(database, `userIPs/${sanitizedIP}`);
+    onValue(userRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data?.username) {
+        setUsername(data.username);
+      } else {
+        setShowUsernameModal(true);
+      }
+    });
+  }
+}, [userIP]);
+
+// Guardar el username en Firebase
+const handleSaveUsername = () => {
+  if (!username) return;
+  const sanitizedIP = sanitizeIP(userIP); // Sanitizar la IP
+  const userRef = ref(database, `userIPs/${sanitizedIP}`);
+  set(userRef, { username });
+  setShowUsernameModal(false);
+};
+
 
   // Función para copiar el contrato al portapapeles
   const copyToClipboard = () => {
@@ -166,11 +211,30 @@ const Home = () => {
     <div className={`home-container ${isMobile ? "home-container-mobile" : "home-container-desktop"}`}>
       {/* Filtro de ruido */}
       <div className="noise-filter"></div>
-
+      {showUsernameModal && (
+        <div className="username-modal">
+          <div className="modal-content">
+            <h2>Enter Your Username</h2>
+            <input
+              type="text"
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+              placeholder="Username"
+            />
+            <button onClick={handleSaveUsername} disabled={!username.trim()}>
+              Save
+            </button>
+          </div>
+        </div>
+      )}
       {/* Imágenes decorativas */}
       <div className="decorative-images">
         <img src={flash} alt="Flash" className="flash" />
-        <img src={moon} alt="Moon" className="moon" />
+        <img
+  src={moon}
+  alt="Moon"
+  className={`moon ${isMoonAnimating ? "moon-animating" : ""}`}
+/>
       </div>
 
       <h1 className="title-home">dvil</h1>
@@ -191,7 +255,16 @@ const Home = () => {
       </div>
 
       {/* MiniGame */}
-      <MiniGame handlePress={handlePress} incrementSuccesses={incrementSuccesses} />
+      <MiniGame 
+    username={username}
+    handlePress={handlePress}
+    incrementClicks={incrementClicks}
+    incrementSuccesses={() => {
+      incrementSuccesses(); // Incrementar éxitos globales
+      setIsMoonAnimating(true); // Activa la animación de la luna
+      setTimeout(() => setIsMoonAnimating(false), 1500); // Desactiva la animación después de 1.5s
+  }}
+/>
 
       {/* Cuadro de PUMPS TOTALES */}
       <div className="total-pumps-counter">

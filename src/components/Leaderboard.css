@@ -155,8 +155,9 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 12px 20px;
+    padding: 16px 20px;
     border-bottom: 1px solid #4a90e2;
+    gap: 10px;
 }
 
 .leaderboard-item:nth-child(odd) {
@@ -199,6 +200,80 @@
     margin-left: 8px;
     font-size: 0.9rem;
   }
+  .leaderboard-item.current-user {
+    background-color: #4caf50; /* Verde claro */
+    color: #ffffff;
+    font-weight: bold;
+}
+.user-details-modal {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #1f2430;
+    border: 2px solid #4a90e2;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+    padding: 20px;
+    width: 90%;
+    max-width: 400px;
+    border-radius: 10px;
+    z-index: 1000;
+}
+
+.modal-content {
+    text-align: center;
+}
+
+.modal-content h2 {
+    color: #e0f7ff;
+    font-family: 'BoldDisplay', sans-serif;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: #ffffff;
+    margin: 5px 0;
+    font-size: 1rem;
+}
+
+.modal-content button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #4a90e2;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.modal-content button:hover {
+    background: #357ab8;
+}
+.leaderboard-content {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.leaderboard.expanded .leaderboard-content {
+    opacity: 1;
+}
+.leaderboard-item span {
+    flex: 1;
+    text-align: center;
+}
+
+.leaderboard-item .country-name {
+    flex: 2; /* Haz que el nombre del país ocupe más espacio */
+}
+.leaderboard-content::-webkit-scrollbar-thumb {
+    background: linear-gradient(145deg, #4a90e2, #357ab8);
+}
+.leaderboard-item:hover {
+    transform: scale(1.05) translateY(-2px);
+    transition: transform 0.2s ease-in-out, background-color 0.2s ease-in-out;
+}
+
 /* Ajustes responsive */
 @media (max-width: 575.98px) {
     .leaderboard {
