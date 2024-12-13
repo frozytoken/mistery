@@ -272,7 +272,12 @@ const handleSaveUsername = () => {
       </div>
 
       {/* Leaderboard */}
-      <Leaderboard />
+      <Leaderboard 
+  username={username} 
+  userCountry={userCountry} 
+  totalGlobalClicks={totalGlobalClicks} 
+  totalSuccesses={totalSuccesses} 
+/>
 
       {/* Burbujas de frases */}
       {bubbles.map((bubble) => (
