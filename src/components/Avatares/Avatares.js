@@ -13,6 +13,7 @@ const Avatares = () => {
   const isMobile = isMobileDevice();
 
   return (
+    <div id="customizer">
     <div className={`avatares-container-${isMobile ? "mobile" : "desktop"}`}>
       <h1
         className={`avatares-title-${isMobile ? "mobile" : "desktop"}`}
@@ -32,7 +33,7 @@ const Avatares = () => {
             className={`avatares-image-${isMobile ? "mobile" : "desktop"}`}
           />
           <p className={`avatares-text-${isMobile ? "mobile" : "desktop"}`}>
-            Make Your Own DVIL
+            Make Your Own IMP
           </p>
         </div>
         {/* Divisor "OR" */}
@@ -50,9 +51,10 @@ const Avatares = () => {
             className={`avatares-image-${isMobile ? "mobile" : "desktop"}`}
           />
           <p className={`avatares-text-${isMobile ? "mobile" : "desktop"}`}>
-            Add DVIL to Your Current PFP
+            Add IMP to Your Current PFP
           </p>
         </div>
+      </div>
       </div>
     </div>
   );

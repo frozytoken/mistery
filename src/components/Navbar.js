@@ -60,6 +60,25 @@ const Navbar = () => {
       document.removeEventListener("mousedown", closeMenuOnOutsideClick);
   }, [menuOpen]);
 
+  // Función para hacer scroll hacia una sección
+  const scrollToSection = (sectionId) => {
+    document.getElementById(sectionId).scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  };
+  const handleScroll = (e) => {
+    e.preventDefault();
+    const targetId = e.target.getAttribute("href").slice(1); // Extrae el id del href
+    const targetSection = document.getElementById(targetId);
+  
+    if (targetSection) {
+      targetSection.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.error(`No se encontró la sección con id ${targetId}`);
+    }
+  };
+  
   return (
     <>
       {/* Fondo translúcido cuando el menú está abierto */}
@@ -108,11 +127,14 @@ const Navbar = () => {
                     <img src={XLogo} alt="X" />
                   </a>
                   <a href="https://telegram.org" target="_blank" rel="noopener noreferrer">
-  <img src={require('../assets/telegram.png')} alt="Telegram" />
-</a>
-                  <a href="#buy" className="navbar-buy-mobile">
-                    BUY
+                    <img src={require('../assets/telegram.png')} alt="Telegram" />
                   </a>
+                  <button
+                    onClick={() => window.open("https://jup.ag/swap/SOL-GHAgf97Y4xsfRX61WoEx3b9mg6iDMQD6AsgnzEKopump", "_blank")}
+                    className="navbar-buy-mobile"
+                  >
+                    BUY
+                  </button>
                 </div>
               </div>
             )}
@@ -123,28 +145,15 @@ const Navbar = () => {
               ref={menuRef}
             >
               <div className="navbar-menu-logo">
-  <h1 className="navbar-text">DVIL.</h1>
-  <img src={require('../assets/dvil.png')} alt="Dvil Logo" className="logo-image" />
-</div>
+                <h1 className="navbar-text">IMP.</h1>
+                <img src={require('../assets/dvil.png')} alt="Dvil Logo" className="logo-image" />
+              </div>
               <div className="navbar-menu-divider navbar-menu-divider-top"></div>
               <div className="navbar-menu-links">
-                <a href="#pfp-customizer" onClick={toggleMenu}>
-                  CUSTOMIZER
-                </a>
-                <a
-                  href="https://memedepot.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={toggleMenu}
-                >
-                  MEMEDEPOT
-                </a>
-                <a href="#about" onClick={toggleMenu}>
-                  HOW TO BUY
-                </a>
-                <a href="#store" onClick={toggleMenu}>
-                  FRIENDS BOOK
-                </a>
+                <a href="#customizer" onClick={() => { scrollToSection("customizer"); toggleMenu(); }}>CUSTOMIZER</a>
+                <a href="#how-to-buy" onClick={() => { scrollToSection("how-to-buy"); toggleMenu(); }}>HOW TO BUY</a>
+                <a href="#about" onClick={() => { scrollToSection("about"); toggleMenu(); }}>ABOUT</a>
+                <a href="#community" onClick={() => { scrollToSection("community"); toggleMenu(); }}>COMMUNITY</a>
               </div>
               <div className="navbar-menu-divider navbar-menu-divider-bottom"></div>
               <div className="navbar-menu-socials">
@@ -170,8 +179,8 @@ const Navbar = () => {
                   <img src={XLogo} alt="X" />
                 </a>
                 <a href="https://telegram.org" target="_blank" rel="noopener noreferrer">
-  <img src={require('../assets/telegram.png')} alt="Telegram" />
-</a>
+                  <img src={require('../assets/telegram.png')} alt="Telegram" />
+                </a>
               </div>
             </div>
           </>
@@ -179,31 +188,25 @@ const Navbar = () => {
           // Navbar para escritorio
           <div className="desktop-navbar-container">
             <div className="navbar-logo">
-  <h1 
-    className="navbar-text" 
-    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-  >
-    DVIL.
-  </h1>
-  <img 
-    src={require('../assets/dvil.png')} 
-    alt="Dvil Logo" 
-    className="logo-image" 
-    onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-  />
-</div>
+              <h1
+                className="navbar-text"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >
+                IMP.
+              </h1>
+              <img
+                src={require('../assets/dvil.png')}
+                alt="Dvil Logo"
+                className="logo-image"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              />
+            </div>
 
             <div className="desktop-navbar-links">
-              <a href="#pfp-customizer">CUSTOMIZER</a>
-              <a
-                href="https://memedepot.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                MEMEDEPOT
-              </a>
-              <a href="#about">HOW TO BUY</a>
-              <a href="#store">FRIENDS BOOK</a>
+            <a href="#customizer" onClick={handleScroll}>CUSTOMIZER</a>
+              <a href="#how-to-buy" onClick={handleScroll}>HOW TO BUY</a>
+              <a href="#about" onClick={handleScroll}>ABOUT</a>
+              <a href="#community" onClick={handleScroll}>COMMUNITY</a>
             </div>
             <div className="desktop-navbar-icons">
               <a
@@ -228,11 +231,14 @@ const Navbar = () => {
                 <img src={XLogo} alt="X" />
               </a>
               <a href="https://telegram.org" target="_blank" rel="noopener noreferrer">
-  <img src={require('../assets/telegram.png')} alt="Telegram" />
-</a>
-              <a href="#buy" className="desktop-navbar-buy">
-                BUY
+                <img src={require('../assets/telegram.png')} alt="Telegram" />
               </a>
+              <button
+                onClick={() => window.open("https://jup.ag/swap/SOL-GHAgf97Y4xsfRX61WoEx3b9mg6iDMQD6AsgnzEKopump", "_blank")}
+                className="desktop-navbar-buy"
+              >
+                BUY
+              </button>
             </div>
           </div>
         )}

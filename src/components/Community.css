@@ -1,0 +1,230 @@
+/* Sección principal Community */
+.community-section {
+    background: linear-gradient(180deg, #19192D, #1a1a2e);
+    color: #e0f7fa;
+    text-align: center;
+    padding: 50px 20px;
+    position: relative;
+    width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Título de la sección */
+  .community-title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+  }
+  
+  .community-title {
+    font-family: "Halau", sans-serif;
+    font-size: 4rem;
+    font-weight: bold;
+    color: #87ceeb;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: textGlow 2s infinite ease-in-out;
+    margin-bottom: 20px;
+  }
+  
+  /* Animación de brillo */
+  @keyframes textGlow {
+    0%, 100% {
+      text-shadow: 0 0 6px rgba(0, 198, 255, 0.4), 0 0 12px rgba(255, 255, 255, 0.3);
+    }
+    50% {
+      text-shadow: 0 0 14px rgba(0, 198, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.5);
+    }
+  }
+  
+  /* Contenedor de contenido */
+  .community-content-container {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 0 30px;
+    width: 100%;
+  }
+  
+  /* Item de la comunidad */
+  .community-item {
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 20px 30px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+    transition: transform 0.3s ease;
+    width: 100%;
+  }
+  
+  .community-item:hover {
+    transform: translateY(-5px);
+  }
+  
+  .community-item-title {
+    font-family: "Halau", sans-serif;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #87ceeb;
+    margin-bottom: 10px;
+  }
+  
+  .community-item-text {
+    font-family: "Halau", sans-serif;
+    font-size: 1.4rem;
+    color: #b2ebf2;
+    line-height: 1.7;
+    text-align: justify;
+  }
+  
+  /* FAQ */
+  .faq-section {
+    margin-top: 40px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 8px;
+    padding: 30px 35px;
+  }
+  
+  .faq-title {
+    font-family: "Halau", sans-serif;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #87ceeb;
+    margin-bottom: 20px;
+  }
+  
+  .faq-item {
+    background: #222;
+    border-radius: 8px;
+    padding: 18px;
+    margin: 15px 0;
+    transition: background 0.3s ease;
+  }
+  
+  .faq-item:hover {
+    background: #333;
+  }
+  
+  .faq-question {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4rem;
+    color: #e0f7fa;
+  }
+  
+  .faq-icon {
+    font-size: 1.8rem;
+    color: #87ceeb;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+  }
+  
+  .faq-icon.rotated {
+    transform: rotate(45deg);
+  }
+  
+  .faq-answer {
+    font-size: 1.3rem;
+    color: #b2ebf2;
+    margin-top: 10px;
+    text-align: justify;
+    padding-left: 20px;
+  }
+  
+  /* Responsive: Ajustes para dispositivos móviles */
+  
+  @media (max-width: 768px) {
+    .community-section {
+      padding: 40px 10px; /* Reducir el padding en móviles */
+    }
+  
+    .community-title {
+      font-size: 2.5rem; /* Ajustar tamaño del título */
+      margin-bottom: 15px;
+    }
+  
+    .community-content-container {
+      max-width: 90%; /* Reducir el ancho */
+      padding: 0 20px; /* Reducir padding */
+    }
+  
+    .community-item {
+      padding: 15px 20px; /* Reducir padding de los items */
+      margin: 15px 0;
+    }
+  
+    .community-item-title {
+      font-size: 1.8rem; /* Reducir tamaño del título de cada item */
+    }
+  
+    .community-item-text {
+      font-size: 1.2rem; /* Ajustar el tamaño del texto */
+    }
+  
+    .faq-section {
+      padding: 20px 25px; /* Reducir el padding de FAQ */
+    }
+  
+    .faq-title {
+      font-size: 2rem; /* Reducir tamaño de título FAQ */
+      margin-bottom: 15px;
+    }
+  
+    .faq-item {
+      padding: 15px;
+      margin: 10px 0;
+    }
+  
+    .faq-question {
+      font-size: 1.3rem; /* Ajustar el tamaño de la pregunta */
+    }
+  
+    .faq-answer {
+      font-size: 1.1rem; /* Ajustar tamaño de respuesta */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .community-section {
+      padding: 30px 10px;
+    }
+  
+    .community-title {
+      font-size: 2rem;
+    }
+  
+    .community-item {
+      padding: 12px 15px;
+    }
+  
+    .community-item-title {
+      font-size: 1.6rem;
+    }
+  
+    .community-item-text {
+      font-size: 1.1rem;
+    }
+  
+    .faq-title {
+      font-size: 1.8rem;
+    }
+  
+    .faq-question {
+      font-size: 1.2rem;
+    }
+  
+    .faq-answer {
+      font-size: 1rem;
+    }
+  }
+  

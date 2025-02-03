@@ -17,6 +17,7 @@ const About = () => {
   }, []);
 
   return (
+    <div id="about">
     <div className={isMobile ? "about-section-mobile" : "about-section-desktop"}>
       {/* Líneas decorativas superiores */}
       <div
@@ -30,7 +31,7 @@ const About = () => {
         <h2
           className={isMobile ? "about-title-mobile" : "about-title-desktop"}
         >
-          DVIL THE PUMPERMAN
+          IMPERIO THE PUMPERMAN
         </h2>
         <hr
           className={isMobile ? "line-right-mobile" : "line-right-desktop"}
@@ -50,12 +51,11 @@ const About = () => {
               : "about-description-desktop"
           }
         >
-          Deep within the chaotic heart of the market, DVIL the Pumperman has
-          descended to unleash a storm of unpredictable gains and electrifying
-          excitement. Born from the whispers of traders, DVIL doesn’t play
-          nice—he pumps the market to oblivion. With devilish charm and a hunger
-          for chaos, DVIL thrives on your ambition and audacity. Will you rise
-          to glory or be left in the dust? DVIL never waits.
+          At the epicenter of the crypto chaos, IMPERIO has arrived to break all the rules. Forget everything you know about marketing, because we're here to make real noise. We’re not an agency; we’re the iron fist that hits the market. Driven by a mischievous little devil and an insatiable thirst for revolution, IMPERIO isn’t here to play the game—it’s here to change it all.
+
+Your project won’t just be another face in the crowd. We’ll make it loud, we’ll take it where it really matters, because we know the secret is in the people, in the communities we create with soul, not empty promises. At IMPERIO, we don’t wait, we act. We create impact, we build loyalty, and we take your project to the top.
+
+If you’ve got the audacity to take the next step, to stand out among the giants, IMPERIO is the place where everything becomes possible. It’s not just marketing, it’s bringing your idea to life, making it feel real, ensuring there’s no turning back. Here, success isn’t an option—it’s a must.
         </p>
       </div>
 
@@ -68,6 +68,7 @@ const About = () => {
         }
       >
       </div>
+    </div>
     </div>
   );
 };

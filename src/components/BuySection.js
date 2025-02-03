@@ -33,7 +33,7 @@ const BuySection = () => {
             endpoint: "https://mainnet.helius-rpc.com/?api-key=9392e341-62a0-4643-ba6c-db26427e53b0",
             formProps: {
               initialInputMint: "So11111111111111111111111111111111111111112",
-              initialOutputMint: "C4jMVM797K2FqzbwxJn4TdPyuVhso7kCUu7UXRfjpump",
+              initialOutputMint: "GHAgf97Y4xsfRX61WoEx3b9mg6iDMQD6AsgnzEKopump",
               fixedInputMint: false,
               fixedOutputMint: false,
               initialAmount: 1000000000,
@@ -61,12 +61,13 @@ const BuySection = () => {
   }, []);
 
   return (
+    <div id="how-to-buy">
     <div className={isMobile ? "buy-section-mobile" : "buy-section-desktop"}>
       {isMobile ? (
         // Versión móvil
         <div className="buy-section-content-mobile">
           <div className="buy-text-mobile">
-            <h2 className="buy-title-mobile">Get Your $DVIL</h2>
+            <h2 className="buy-title-mobile">Get Your $IMP</h2>
             <p className="buy-description-mobile">
               Unleash the power of the underworld and trade tokens like a true
               devil, fast and flawlessly with Jupiter Terminal.
@@ -84,7 +85,7 @@ const BuySection = () => {
 
           <div className="platforms-container-mobile">
             <h3 className="platforms-title-mobile">
-              $DVIL can be found on these platforms
+              $IMP can be found on these platforms
             </h3>
             <div className="platforms-buttons-mobile">
               {[
@@ -114,7 +115,7 @@ const BuySection = () => {
         // Versión desktop
         <div className="buy-section-content-desktop">
           <div className="buy-text-desktop">
-            <h2 className="buy-title-desktop">Get Your $DVIL</h2>
+            <h2 className="buy-title-desktop">Get Your $IMP</h2>
             <p className="buy-description-desktop">
               Unleash the power of the underworld and trade tokens like a true
               devil, fast and flawlessly with Jupiter Terminal.
@@ -135,7 +136,7 @@ const BuySection = () => {
 
           <div className="platforms-container">
             <h3 className="platforms-title">
-              $DVIL can be found on these platforms
+              $IMP can be found on these platforms
             </h3>
             <div className="platforms-buttons">
               {[
@@ -162,6 +163,7 @@ const BuySection = () => {
           </div>
         </div>
       )}
+    </div>
     </div>
   );
 };

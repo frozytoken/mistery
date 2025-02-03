@@ -1,6 +1,6 @@
 import React, { useState, useEffect, memo, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDice, faSync, faDownload } from "@fortawesome/free-solid-svg-icons";
+import { faDice, faSync, faDownload, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import classNames from "classnames"; // Manejo dinámico de clases
 import "./AvatarGeneratorDesktop.css";
 import "./AvatarGeneratorMobile.css"; // CSS específico para móvil
@@ -81,7 +81,7 @@ const AvatarGenerator = () => {
       accesories: null,
       glasses: null,
     });
-    setCustomText("$DVIL. #ThePumperMan");
+    setCustomText("$IMP. #ThePumperMan");
   };
 
   const handleDownload = (includeCustomText) => {
@@ -98,6 +98,10 @@ const AvatarGenerator = () => {
     });
   };
 
+  const handleGoBack = () => {
+    window.history.back();
+  };
+
   return (
     <div
       className={classNames("avatar-generator", {
@@ -109,7 +113,10 @@ const AvatarGenerator = () => {
       }}
     >
       <header className="generator-header">
-        <h1 className="generator-title">CREATE YOUR OWN DVIL PFP</h1>
+        <button className="back-button" onClick={handleGoBack}>
+          <FontAwesomeIcon icon={faArrowLeft} /> Back
+        </button>
+        <h1 className="generator-title">CREATE YOUR OWN IMP PFP</h1>
       </header>
 
       <main className="generator-main">
@@ -179,7 +186,7 @@ const AvatarGenerator = () => {
               </button>
               <button className="download-button" onClick={() => handleDownload(false)}>
                 <FontAwesomeIcon icon={faDownload} /> Inner Avatar
-              </button>
+                </button>
             </div>
           </div>
         </div>

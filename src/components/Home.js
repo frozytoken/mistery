@@ -237,7 +237,7 @@ const handleSaveUsername = () => {
 />
       </div>
 
-      <h1 className="title-home">dvil</h1>
+      <h1 className="title-home">IMPERIO</h1>
 
       {/* Contenedor del contrato */}
       <div className="contract-wrapper">

@@ -4,7 +4,7 @@
     color: #d4f1f9;
     text-align: center;
     position: relative;
-    height: 70vh; /* Ocupa toda la altura del viewport */
+    height: 100vh; /* Ocupa toda la altura del viewport */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -19,7 +19,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 10px 0; /* Reduce el espacio */
+    margin-bottom: -20%; /* Reduce el espacio */
   }
   
   .line-left-mobile,

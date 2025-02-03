@@ -1,50 +1,68 @@
+/* Sección principal (desktop) */
 .about-section-desktop {
   background: linear-gradient(180deg, #0d0d0d, #1a1a2e);
   color: #d4f1f9;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
   position: relative;
-  height: 80vh; /* Altura completa del viewport */
+  height: 100vh; /* Altura completa de la pantalla */
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* Caja contenedora con borde y fondo */
+.about-container-desktop {
+  max-width: 900px;
+  width: 100%;
+  min-height: 80%; /* Asegura que la caja ocupe al menos un 80% de la altura */
+  padding: 40px 50px;
+  border-radius: 15px;
+  background-color: rgba(0, 0, 0, 0.6); /* Fondo oscuro y sutil */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+  border: 3px solid transparent;
+  background-image: linear-gradient(45deg, #00c6ff, #ffffff);
+  background-clip: padding-box;
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  padding: 20px 40px;
-  overflow: hidden;
 }
 
-/* Línea decorativa superior */
+/* Línea decorativa superior (desktop) */
 .about-divider-desktop {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 30px 0; /* Mayor espaciado */
+  margin-bottom: 25px;
 }
 
-.line-left-desktop,
-.line-right-desktop {
+.line-left-desktop, .line-right-desktop {
   border: none;
-  border-top: 3px solid #87ceeb; /* Línea sólida */
-  width: 30%; /* Ocupa un tercio del ancho total */
-  position: relative;
+  border-top: 3px solid #87ceeb;
+  width: 30%;
   background: none;
 }
 
-.line-left-desktop::before,
-.line-right-desktop::before {
+.line-left-desktop::before, .line-right-desktop::before {
   content: "";
   position: absolute;
   top: -5px;
   left: 50%;
   transform: translateX(-50%);
-  width: 12px; /* Tamaño ligeramente mayor */
+  width: 12px;
   height: 12px;
   border-radius: 50%;
   background: linear-gradient(45deg, #00c6ff, #ffffff);
-  box-shadow: 0 0 10px rgba(0, 198, 255, 0.6); /* Brillo más suave */
+  box-shadow: 0 0 10px rgba(0, 198, 255, 0.6);
 }
 
-/* Título del About */
+/* Título (desktop) */
 .about-title-desktop {
   font-family: "Halau", sans-serif;
   font-size: 4.5rem; /* Título más grande */
@@ -52,18 +70,17 @@
   color: #87ceeb;
   text-transform: uppercase;
   letter-spacing: 3px;
-  margin: 20px 0; /* Espaciado adicional */
+  margin-bottom: 25px;
   background: linear-gradient(90deg, #00c6ff, #ffffff, #00c6ff);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: textGlow 2s infinite ease-in-out;
-  text-shadow: 0 0 20px rgba(0, 198, 255, 0.4); /* Brillo adicional */
+  text-shadow: 0 0 20px rgba(0, 198, 255, 0.4);
 }
 
-/* Animación del título */
+/* Animación de brillo para el título */
 @keyframes textGlow {
-  0%,
-  100% {
+  0%, 100% {
     text-shadow: 0 0 6px rgba(0, 198, 255, 0.4), 0 0 12px rgba(255, 255, 255, 0.3);
   }
   50% {
@@ -71,30 +88,31 @@
   }
 }
 
-/* Contenido del About */
+/* Contenido (desktop) */
 .about-content-desktop {
-  max-width: 700px; /* Reduce el ancho para dispositivos más pequeños */
-  margin: 40px auto; /* Espaciado superior más grande */
-  z-index: 2;
-}
-
-.about-description-desktop {
   font-family: "Halau", sans-serif;
-  font-size: 1.4rem; /* Texto más compacto */
+  font-size: 1.5rem; /* Texto más grande y legible */
   line-height: 1.8;
   color: #e0f7fa;
   text-align: justify;
-  margin: 10px 0;
-  padding: 0 20px; /* Espaciado lateral */
+  margin-bottom: 30px;
+  padding: 0 20px; /* Padding lateral para evitar que el texto toque los bordes */
 }
 
-/* Forma inferior */
+/* Descripción (desktop) */
+.about-description-desktop {
+  margin-bottom: 30px;
+  padding: 0;
+  line-height: 1.8;
+}
+
+/* Forma inferior (desktop) */
 .about-shape-bottom-desktop {
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 15%; /* Altura ajustada */
+  height: 15%;
   z-index: 1;
 }
 

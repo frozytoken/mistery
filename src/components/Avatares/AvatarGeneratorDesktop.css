@@ -132,7 +132,7 @@
 
 /* Marca de agua */
 .avatar-display::after {
-  content: "$DVIL"; /* Texto de la marca de agua */
+  content: "$IMP"; /* Texto de la marca de agua */
   position: absolute;
   bottom: 10px;
   right: 10px;
@@ -335,4 +335,43 @@
 /* Icono dentro del botón */
 .action-buttons button .fa-icon {
   font-size: 1.8rem;
+}
+/* Botón de retroceso */
+.back-button {
+  position: absolute; /* Posición absoluta para que no desplace otros elementos */
+  top: 50px; /* Ajusta la posición superior según tu diseño */
+  left: 10px; /* Ajusta la posición izquierda según tu diseño */
+  z-index: 10; /* Asegúrate de que esté encima de otros elementos */
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #000000; /* Fondo oscuro */
+  color: white; /* Texto blanco */
+  font-size: 1.2rem; /* Tamaño del texto */
+  font-family: "Halau", sans-serif; /* Usa la misma fuente que en tu diseño */
+  font-weight: bold;
+  padding: 8px 16px; /* Ajusta el tamaño del botón */
+  border: 3px solid black; /* Borde negro para consistencia */
+  border-radius: 10px; /* Bordes redondeados */
+  text-transform: uppercase;
+  cursor: pointer;
+  box-shadow: 0 5px 0px #0000007a; /* Sombra estilo cartoon */
+  transition: all 0.3s ease-in-out; /* Suavidad en los cambios */
+}
+
+.back-button:hover {
+  background: #13B8A6; /* Cambio de color al pasar el ratón */
+  transform: scale(1.05) rotate(-1deg); /* Efecto sutil de hover */
+}
+
+.back-button:active {
+  transform: scale(0.95); /* Efecto de clic */
+}
+
+/* Icono dentro del botón */
+.back-button .icon {
+  font-size: 1.5rem; /* Tamaño del icono */
+  margin-right: 8px; /* Espaciado entre el icono y el texto */
 }

@@ -1,220 +1,302 @@
 .minigame-container {
 
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end; /* Alineación similar a la del meme previo */
-    z-index: 5; /* Debajo de elementos decorativos */
-  }
-  
-  /* Contenedor del personaje */
-  .character-container {
-    cursor: pointer;
-    position: absolute;
-    bottom: 20%; /* Ubicado sobre la vela */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 8; /* Por encima de la vela */
-  }
-  
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end; /* Alineación similar a la del meme previo */
+  z-index: 5; /* Debajo de elementos decorativos */
+}
 
-  /* Imagen del personaje */
-  .character-image {
-    width: 150px;
-    max-width: 25vw; /* Escalado relativo */
-    height: auto;
-    pointer-events: none;
+/* Contenedor del personaje */
+.character-container {
+  cursor: pointer;
+  position: absolute;
+  bottom: 20%; /* Ubicado sobre la vela */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 8; /* Por encima de la vela */
+}
+
+
+/* Imagen del personaje */
+.character-image {
+  width: 150px;
+  max-width: 25vw; /* Escalado relativo */
+  height: auto;
+  pointer-events: none;
+}
+
+/* Vela japonesa */
+.candle {
+  position: absolute;
+  bottom: 27.5%; /* Alineado con la posición del diseño previo */
+  left: calc(50% + 3.3vw); /* Centrado y ajustado horizontalmente */
+  width: 4vw; /* Tamaño relativo */
+  max-width: 15px; /* Ancho máximo */
+  height: 5vh; /* Altura inicial visible del 5% del viewport */
+  background: linear-gradient(to top, #28a745, #71f88c); /* Gradiente verde */
+  border-radius: 3px 3px 0 0; /* Bordes redondeados en la parte superior */
+  box-shadow: 
+    0px 0px 20px rgba(40, 167, 69, 0.8), 
+    0px 0px 10px rgba(0, 167, 69, 0.5) inset; /* Efecto de brillo verde */
+  transition: height 0.1s ease-in-out, box-shadow 0.3s ease-in-out; /* Transiciones suaves */
+  z-index: 7; /* Por debajo del personaje */
+}
+
+.candle .wick {
+  position: absolute;
+  top: -5px; /* Sobresale ligeramente por encima */
+  width: 50%; /* Ancho relativo al contenedor */
+  height: 10px; /* Altura de la mecha */
+  background-color: black; /* Color de la mecha */
+  border-radius: 50%; /* Forma redondeada */
+  margin: 0 auto; /* Centrada horizontalmente */
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); /* Sombra de la mecha */
+}
+
+/* Estado en reposo (flotante) */
+.candle.resting {
+  opacity: 0.5; /* Reducir opacidad */
+  animation: float 3s ease-in-out infinite; /* Efecto de flotación */
+}
+
+/* Estado en reposo */
+.resting {
+  opacity: 0.5;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0); /* Posición inicial */
   }
-  
-  /* Vela japonesa */
-  .candle {
-    position: absolute;
-    bottom: 27.5%; /* Alineado con la posición del diseño previo */
-    left: calc(50% + 3.3vw); /* Centrado y ajustado horizontalmente */
-    width: 4vw; /* Tamaño relativo */
-    max-width: 15px; /* Ancho máximo */
-    height: 5vh; /* Altura inicial visible del 5% del viewport */
-    background: linear-gradient(to top, #28a745, #71f88c); /* Gradiente verde */
-    border-radius: 3px 3px 0 0; /* Bordes redondeados en la parte superior */
-    box-shadow: 
-      0px 0px 20px rgba(40, 167, 69, 0.8), 
-      0px 0px 10px rgba(0, 167, 69, 0.5) inset; /* Efecto de brillo verde */
-    transition: height 0.1s ease-in-out, box-shadow 0.3s ease-in-out; /* Transiciones suaves */
-    z-index: 7; /* Por debajo del personaje */
+  50% {
+    transform: translateY(-10px); /* Subida */
   }
-  
-  .candle .wick {
-    position: absolute;
-    top: -5px; /* Sobresale ligeramente por encima */
-    width: 50%; /* Ancho relativo al contenedor */
-    height: 10px; /* Altura de la mecha */
-    background-color: black; /* Color de la mecha */
-    border-radius: 50%; /* Forma redondeada */
-    margin: 0 auto; /* Centrada horizontalmente */
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.5); /* Sombra de la mecha */
+}
+
+/* Desactivar animación cuando está bombeando */
+.candle.pumping {
+  animation: none; /* Sin animación */
+}
+
+/* Modal para solicitar username */
+.username-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Superposición máxima */
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  width: 80%;
+  max-width: 400px; /* Límite en pantallas grandes */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: #333;
+}
+
+.modal-content input {
+  padding: 10px;
+  width: 90%;
+  margin-bottom: 15px;
+  border: 2px solid #007bff;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.modal-content button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.modal-content button:hover {
+  background-color: #0056b3;
+}
+.streak-bar {
+  position: absolute;
+  bottom: 7%; /* Debajo del personaje */
+  width: 80%;
+  height: 15px;
+  background: rgba(255, 255, 255, 0.2); /* Fondo translúcido */
+border-radius: 10px;
+overflow: hidden;
+z-index: 9;
+}
+
+.streak-timer {
+  height: 100%;
+  background: green;
+  transition: width 0.1s linear, background 0.5s linear;
+}
+
+.streak-multiplier {
+  position: absolute;
+  top: 15%;
+  left: 62%;
+  transform: translate(-50%, -50%);
+  font-family: 'Halau', sans-serif; /* Usa la fuente Halau */
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.5);
+  animation: pulse 1.2s infinite ease-in-out;
+  z-index: 10000;
+}
+.streak-timer.warning {
+  animation: glow-warning 0.5s infinite alternate; /* Brillo al final */
+}
+
+@keyframes glow-warning {
+  from {
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
   }
-  
-  /* Estado en reposo (flotante) */
-  .candle.resting {
-    opacity: 0.5; /* Reducir opacidad */
-    animation: float 3s ease-in-out infinite; /* Efecto de flotación */
+  to {
+    box-shadow: 0 0 15px rgba(255, 0, 0, 1);
   }
-  
-  /* Estado en reposo */
-  .resting {
-    opacity: 0.5;
-    animation: float 3s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    text-shadow: 0 0 15px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.5);
   }
-  
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0); /* Posición inicial */
-    }
-    50% {
-      transform: translateY(-10px); /* Subida */
-    }
+  50% {
+    transform: translate(-50%, -50%) scale(1.2);
+    text-shadow: 0 0 25px rgba(255, 255, 0, 0.8), 0 0 40px rgba(255, 255, 0, 0.6);
   }
-  
-  /* Desactivar animación cuando está bombeando */
-  .candle.pumping {
-    animation: none; /* Sin animación */
+}
+
+.streak-multiplier.level-high {
+  font-size: 6rem; /* Tamaño grande para niveles altos */
+  color: #ff4500; /* Cambia a un color motivante (rojo-naranja) */
+  text-shadow: 0 0 20px rgba(255, 69, 0, 1), 0 0 40px rgba(255, 140, 0, 0.8);
+  animation: neon-pulse 1s infinite ease-in-out;
+}
+
+@keyframes neon-pulse {
+  0%, 100% {
+    transform: translate(-50%, -50%) scale(1);
+    text-shadow: 0 0 20px rgba(255, 69, 0, 1), 0 0 40px rgba(255, 140, 0, 0.8);
   }
-  
-  /* Modal para solicitar username */
-  .username-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
+  50% {
+    transform: translate(-50%, -50%) scale(1.3);
+    text-shadow: 0 0 30px rgba(255, 255, 0, 1), 0 0 50px rgba(255, 69, 0, 1);
+  }
+}
+
+.streak-timer.start {
+  animation: timerStart 0.5s ease-in-out;
+}
+
+@keyframes timerStart {
+  from {
+    width: 0%;
+  }
+  to {
     width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000; /* Superposición máxima */
   }
+}
+
+/* Pantallas ultrawide (21:9 o más, a partir de 2560px de ancho) */
+@media screen and (min-width: 2560px) {
   
-  .modal-content {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    text-align: center;
-    width: 80%;
-    max-width: 400px; /* Límite en pantallas grandes */
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  .minigame-container {
+    max-width: 90%;
+    margin: 0 auto;
   }
-  
-  .modal-content h2 {
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: #333;
+
+  /* Ajuste de personaje */
+  .character-container {
+    bottom: 10%; /* Evita que el personaje quede muy abajo */
   }
-  
-  .modal-content input {
-    padding: 10px;
-    width: 90%;
-    margin-bottom: 15px;
-    border: 2px solid #007bff;
-    border-radius: 5px;
-    font-size: 1rem;
+
+  .character-image {
+    width: 180px; /* Aumenta ligeramente el tamaño */
+    max-width: 20vw;
   }
-  
-  .modal-content button {
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1rem;
-    transition: background-color 0.2s ease-in-out;
+
+  /* Ajuste de la vela */
+  .candle {
+    left: calc(50% + 3.1vw); /* Ajusta para que no quede muy centrada */
+    width: 3vw; /* Reduce el ancho para evitar que se vea desproporcionada */
+    max-width: 12px;
+    bottom: 21%;
   }
-  
-  .modal-content button:hover {
-    background-color: #0056b3;
+
+  /* Barra de racha (streak-bar) */
+  .streak-bar {
+    width: 60%; /* Reduce el ancho en pantallas grandes */
+  }
+
+  .streak-multiplier {
+    font-size: 3rem; /* Ajusta el tamaño */
+    left: 65%; /* Se mueve un poco para mantener el balance visual */
+  }
+}
+
+/* Smartphones Grandes (Máximo 768px de ancho) */
+@media screen and (max-width: 768px) {
+  .character-container {
+    bottom: 25%;
+    right: 31%;
+  }
+  .character-image {
+    width: 110px;
+  }
+  .candle {
+    bottom: 20%;
+    width: 3vw;
+    max-width: 10px;
   }
   .streak-bar {
-    position: absolute;
-    bottom: 7%; /* Debajo del personaje */
-    width: 80%;
-    height: 15px;
-    background: rgba(255, 255, 255, 0.2); /* Fondo translúcido */
-  border-radius: 10px;
-  overflow: hidden;
-  z-index: 9;
+    width: 95%;
+    height: 10px;
   }
-  
-  .streak-timer {
-    height: 100%;
-    background: green;
-    transition: width 0.1s linear, background 0.5s linear;
-  }
-  
   .streak-multiplier {
-    position: absolute;
-    top: 28%;
-    left: 62%;
-    transform: translate(-50%, -50%);
-    font-family: 'Halau', sans-serif; /* Usa la fuente Halau */
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 0 0 10px rgba(0, 255, 0, 0.8), 0 0 20px rgba(0, 255, 0, 0.5);
-    animation: pulse 1.2s infinite ease-in-out;
-    z-index: 10000;
+    font-size: 2.5rem;
+    top: 15%;
   }
-  .streak-timer.warning {
-    animation: glow-warning 0.5s infinite alternate; /* Brillo al final */
+}
+/* Smartphones Pequeños (Máximo 480px de ancho) */
+@media screen and (max-width: 480px) {
+  .character-container {
+    bottom: 25%;
   }
-  
-  @keyframes glow-warning {
-    from {
-      box-shadow: 0 0 5px rgba(255, 0, 0, 0.7);
-    }
-    to {
-      box-shadow: 0 0 15px rgba(255, 0, 0, 1);
-    }
+  .character-image {
+    width: 80px;
   }
-  @keyframes pulse {
-    0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-      text-shadow: 0 0 15px rgba(0, 255, 0, 0.8), 0 0 30px rgba(0, 255, 0, 0.5);
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(1.2);
-      text-shadow: 0 0 25px rgba(255, 255, 0, 0.8), 0 0 40px rgba(255, 255, 0, 0.6);
-    }
+  .candle {
+    bottom: 18%;
+    width: 2.8vw;
   }
-  
-  .streak-multiplier.level-high {
-    font-size: 6rem; /* Tamaño grande para niveles altos */
-    color: #ff4500; /* Cambia a un color motivante (rojo-naranja) */
-    text-shadow: 0 0 20px rgba(255, 69, 0, 1), 0 0 40px rgba(255, 140, 0, 0.8);
-    animation: neon-pulse 1s infinite ease-in-out;
+  .streak-bar {
+    width: 95%;
+    height: 8px;
   }
-  
-  @keyframes neon-pulse {
-    0%, 100% {
-      transform: translate(-50%, -50%) scale(1);
-      text-shadow: 0 0 20px rgba(255, 69, 0, 1), 0 0 40px rgba(255, 140, 0, 0.8);
-    }
-    50% {
-      transform: translate(-50%, -50%) scale(1.3);
-      text-shadow: 0 0 30px rgba(255, 255, 0, 1), 0 0 50px rgba(255, 69, 0, 1);
-    }
+  .streak-multiplier {
+    font-size: 2rem;
+    top: 20%;
   }
-  
-  .streak-timer.start {
-    animation: timerStart 0.5s ease-in-out;
-  }
-  
-  @keyframes timerStart {
-    from {
-      width: 0%;
-    }
-    to {
-      width: 100%;
-    }
-  }
+}

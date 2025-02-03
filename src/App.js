@@ -8,7 +8,7 @@ import Avatares from "./components/Avatares/Avatares";
 import AvatarGenerator from "./components/Avatares/AvatarGenerator";
 import MemeBuilder from "./components/Avatares/MemeBuilder";
 import Editor1 from "./components/Avatares/Editor1";
-
+import Community from "./components/Community";
 // Componentes anidados para la vista principal
 function MainView() {
   return (
@@ -18,6 +18,7 @@ function MainView() {
       <About />
       <BuySection />
       <Avatares />
+      <Community />
     </div>
   );
 }

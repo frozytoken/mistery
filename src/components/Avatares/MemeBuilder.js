@@ -26,6 +26,10 @@ const MemeBuilder = () => {
       navigate("/editor1", { state: { image: URL.createObjectURL(file) } });
     }
   };
+// Función para redirigir a la página principal al hacer clic en el logo
+const handleLogoClick = () => {
+  navigate("/");
+};
 
   return (
     <div
@@ -36,15 +40,14 @@ const MemeBuilder = () => {
       <header
         className={`header-meme ${isMobile ? "mobile-header-meme" : ""}`}
       >
-        <img
+         <img
           src={logo}
           alt="Logo"
           className={`logo ${isMobile ? "mobile-logo" : ""}`}
+          onClick={handleLogoClick} // Redirige a la página principal al hacer clic
         />
         <div
-          className={`header-actions-meme ${
-            isMobile ? "mobile-header-actions-meme" : ""
-          }`}
+          className={`header-actions-meme ${isMobile ? "mobile-header-actions-meme" : ""}`}
         >
           <a
             href="https://twitter.com"
@@ -65,12 +68,11 @@ const MemeBuilder = () => {
             />
           </a>
           <button
-            className={`buy-dvil-button-meme ${
-              isMobile ? "mobile-buy-dvil-button-meme" : ""
-            }`}
-          >
-            BUY $DVIL
-          </button>
+  className={`buy-dvil-button-meme ${isMobile ? "mobile-buy-dvil-button-meme" : ""}`}
+  onClick={() => window.open("https://jup.ag/swap/SOL-GHAgf97Y4xsfRX61WoEx3b9mg6iDMQD6AsgnzEKopump", "_blank")}
+>
+  BUY $IMP
+</button>
         </div>
       </header>
 
@@ -81,7 +83,7 @@ const MemeBuilder = () => {
         <h1
           className={`title-meme ${isMobile ? "mobile-title-meme" : ""}`}
         >
-          DVIL MEME BUILDER
+          IMP MEME BUILDER
         </h1>
         <p
           className={`subtitle ${isMobile ? "mobile-subtitle" : ""}`}

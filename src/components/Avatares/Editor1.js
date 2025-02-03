@@ -409,7 +409,7 @@ const Editor1 = () => {
               isMobile ? 'mobile-buy-dvil-button' : ''
             }`}
           >
-            BUY $DVIL
+            BUY $IMP
           </button>
         </div>
       </header>
